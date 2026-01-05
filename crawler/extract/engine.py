@@ -403,9 +403,10 @@ class ExtractEngine:
                 print(f"[ExtractField]    所有元素都未提取到值")
                 return None, None
             
-            # 返回第一个值（单条提取）或所有值（列表提取）
-            result = values[0] if len(values) == 1 else values
-            print(f"[ExtractField]    最终结果: {str(result)[:100] if result else None}")
+            # 对于列表提取，每个item应该只返回第一个匹配的值
+            # 这样可以确保每个item只有一个url、一个image等
+            result = values[0]
+            print(f"[ExtractField]    最终结果: {str(result)[:100] if result else None} (从{len(values)}个匹配值中选择第一个)")
             return result, None
         
         except Exception as e:
