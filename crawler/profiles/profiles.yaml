@@ -1,0 +1,55 @@
+# Profile配置文件
+# 每个profile定义如何匹配URL和如何抽取字段
+
+profiles:
+  # 示例Profile：通用网页
+  - name: "default"
+    match:
+      priority: 0  # 最低优先级，作为兜底
+    fetch:
+      wait_until: "load"
+      timeout_ms: 30000
+    fields:
+      title:
+        - type: "xpath"
+          config:
+            xpath: "//title/text()"
+        - type: "xpath"
+          config:
+            xpath: "//h1/text()"
+      description:
+        - type: "xpath"
+          config:
+            xpath: "//meta[@name='description']/@content"
+        - type: "xpath"
+          config:
+            xpath: "//meta[@property='og:description']/@content"
+
+  # 示例Profile：支持JSON-LD的页面
+  - name: "jsonld_page"
+    match:
+      url_regex: ".*example\\.com.*"
+      priority: 10
+    fetch:
+      wait_until: "networkidle"
+      timeout_ms: 30000
+    fields:
+      name:
+        - type: "jsonld"
+          config:
+            path: "name"
+        - type: "xpath"
+          config:
+            xpath: "//h1/text()"
+      price:
+        - type: "jsonld"
+          config:
+            path: "offers.price"
+        - type: "xpath"
+          config:
+            xpath: "//span[@class='price']/text()"
+        - type: "regex"
+          config:
+            pattern: "\\$?([0-9,]+(?:\\.\\d{2})?)"
+            group: 1
+

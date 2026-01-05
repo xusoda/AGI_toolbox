@@ -1,0 +1,15 @@
+[project]
+name = "crawler"
+version = "0.1.0"
+description = "网页抓取和内容解析工具"
+requires-python = ">=3.10"
+dependencies = [
+    "playwright>=1.40.0",
+    "lxml>=5.0.0",
+    "pyyaml>=6.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+

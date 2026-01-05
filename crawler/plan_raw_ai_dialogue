@@ -1,0 +1,1574 @@
+Question:你是一个计算机编码，工程方向的专家。目前我希望能做一个网页“抓取器”，能结构化获取一些网站上的信息，要让这个系统可以持续迭代/改进。比如我目前希望抓取一个电商网站的信息，后来又希望抓取一些内容网站的信息。同时，要能够快速/方便/批量的进行调用。以及能快速迭代，我并不懂CSS，JS这些前端的内容，但是要让我能指定抓取的内容/字段。请你设计一个程序框架，大概是怎样的，要哪些模块。
+A:下面给你一套“可持续迭代的结构化网页抓取系统”的工程化框架，目标是：**支持多站点、多类型页面（电商/内容站等）**，**字段可配置**，**批量/高并发调用**，并且在站点改版后能**快速定位问题并迭代修复**。默认以 Python 技术栈举例（生态成熟、落地快）。
+
+---
+
+## 1) 总体架构与数据流
+
+**数据流（从任务到结果）**：
+
+1. **任务入口（API/CLI）**：提交 URL 列表 + 选择站点/模板 + 输出格式要求
+2. **调度与队列**：分片、并发、限速、重试、去重、优先级
+3. **抓取执行器（Fetcher）**：HTTP 抓取 或 Headless Browser（Playwright）渲染抓取
+4. **页面归一化（Normalizer）**：编码、DOM 解析、抽取结构化线索（JSON-LD、OpenGraph、meta 等）
+5. **字段提取引擎（Extractor）**：按 schema 输出字段；失败则回退到备选策略
+6. **校验与质量门禁（Validator/QA）**：字段完整率、类型校验、异常检测、diff 对比
+7. **存储（Storage）**：原始 HTML/截图/响应头、解析结果、日志、版本号
+8. **监控（Observability）**：成功率、字段缺失率、耗时、站点错误分布；报警
+9. **迭代工具链（Dev Loop）**：回放失败样本、更新规则、回归测试、灰度发布
+
+---
+
+## 2) 核心模块拆分（你需要哪些模块）
+
+### A. 接口层：CLI + REST API（批量调用入口）
+
+* **CLI**：适合你本地/脚本快速批量跑
+* **REST API**：适合被其他系统调用（例如你未来做“抓取服务”）
+
+建议能力：
+
+* `POST /jobs`：提交任务（profile + urls + 输出 schema）
+* `GET /jobs/{id}`：查看状态/进度
+* `GET /jobs/{id}/results`：下载结果（JSONL/CSV）
+
+### B. 任务调度与队列（可扩展、可控并发）
+
+职责：
+
+* URL 去重、分片、优先级、并发控制、失败重试（指数退避）
+* 域名级别限速（避免封禁，也更稳定）
+* 支持“定时抓取”（每天/每小时）
+
+实现建议：
+
+* 轻量：`asyncio + redis`（自研简单队列）
+* 工程化：`Celery/RQ + Redis` 或 `Kafka/RabbitMQ`
+
+### C. 抓取层 Fetcher（HTTP + 浏览器双通道）
+
+你会遇到两类网站：
+
+* **静态/半静态**：HTTP 请求即可（快、成本低）
+* **强 JS 渲染/反爬**：需要浏览器渲染（Playwright）
+
+Fetcher 子模块建议：
+
+* `HttpFetcher`：requests/httpx，支持代理、cookie、header、缓存
+* `BrowserFetcher`：Playwright，支持等待元素出现、滚动加载、点击分页
+* `SessionManager`：cookie 池、登录态（如需要）
+* `RateLimiter`：域名级 QPS、并发上限
+* `Cache`：同一 URL 反复调试时不重复抓（节省时间/成本）
+
+### D. 页面归一化 Normalizer（让后面的提取更稳定）
+
+职责：
+
+* 编码统一、HTML 清洗（去脚本/样式不一定要，但可选）
+* 解析 DOM（lxml/parsel）
+* 提取“结构化线索”：
+
+  * `JSON-LD`（电商/内容站经常有 Product/Article）
+  * OpenGraph（标题、图片、描述）
+  * meta 标签、canonical、分页信息
+  * 内嵌 JSON（很多站点把数据塞在 `window.__NEXT_DATA__` 或 `__NUXT__` 等）
+
+> 这一层很关键：很多情况下你根本不需要 CSS 选择器，直接读 JSON-LD 或 Next/Nuxt 数据就能拿到 80% 字段。
+
+### E. 提取引擎 Extractor（可迭代的“策略链”）
+
+你想要的“持续迭代”，核心就在这里：**同一字段可以有多种提取策略，按优先级回退**。
+
+建议做成“策略链（Chain of Responsibility）”：
+
+* **策略 1：结构化数据优先**
+
+  * JSON-LD / Microdata / RDFa
+  * Next.js/Nuxt 注水数据（script 中的 JSON）
+* **策略 2：DOM 定位**
+
+  * XPath（比 CSS 更可控，且可由工具生成）
+  * 文本锚点 + 相对路径（不需要你懂 CSS）
+* **策略 3：正则/启发式**
+
+  * 价格、日期、作者等常见模式
+* **策略 4：模型辅助（可选）**
+
+  * 给模型一段 HTML/DOM 片段 + 你要的字段描述，让它输出 JSON
+  * 用于“快速起步/改版救火”，然后再沉淀成规则（降低成本）
+
+Extractor 的输入输出：
+
+* 输入：`NormalizedPage`（dom + structured hints + url + meta）
+* 输出：`Record(schema=..., fields=..., confidence=..., evidence=...)`
+
+建议每个字段都保留：
+
+* `value`
+* `source`（来自 jsonld/xpath/regex/llm）
+* `evidence`（命中的片段或路径）
+  这样你排查失败会非常快。
+
+### F. Schema 与校验 Validator（保证“结构化”是真的结构化）
+
+你需要一个统一的“字段规范”，否则越迭代越乱。
+
+建议：
+
+* 用 `Pydantic`（Python）或 `JSON Schema` 定义 schema
+* 对每条记录做：
+
+  * 类型校验（价格必须是 number）
+  * 必填字段校验（title 不能为空）
+  * 合理性校验（价格不能为负，日期不能在未来等）
+* 输出质量指标：字段填充率、失败原因分布
+
+### G. 站点配置与插件系统 Profile Registry（多站点扩展关键）
+
+你未来会抓“电商站、内容站、论坛站”，最稳的是把站点能力抽象成 **Profile（站点配置/插件）**：
+
+一个 Profile 典型包含：
+
+* 匹配规则：哪些域名/URL pattern 属于它
+* 抓取策略：用 HTTP 还是 Browser；等待条件；分页方式；滚动方式
+* 提取 schema：Product / Article / 自定义
+* 字段映射规则：每个字段的策略链（JSONLD→XPath→Regex→LLM）
+* 限速策略：qps、并发、重试次数
+* 反爬策略：headers、代理池、cookie、随机延迟等
+
+这样新增站点就是新增一个 profile（配置或小插件），不会改动核心引擎。
+
+### H. 存储层 Storage（原始与结果都要存）
+
+为了可迭代，你必须能“回放”失败样本。
+
+建议至少存：
+
+* `raw_html`（或压缩存）
+* `response_headers/status`
+* `screenshot`（浏览器抓取时非常有用）
+* `extracted_record`
+* `logs`（哪一步失败）
+* `profile_version`
+
+存储建议：
+
+* 结果数据：PostgreSQL / SQLite（起步）/ MongoDB（半结构化也可）
+* 原始页面：对象存储（S3/MinIO）或本地文件系统（起步）
+
+### I. 监控与回归测试（保证能持续迭代不崩）
+
+监控指标（按站点维度）：
+
+* 成功率、平均耗时、超时率
+* 字段缺失率（title/price/author 等）
+* 失败原因分布（403/验证码/选择器失效/解析异常）
+
+回归测试（强烈建议做）：
+
+* 保存一批“黄金样本页”（HTML 快照）
+* 每次改规则，跑一遍离线回归
+* 输出 diff：哪个字段变了、缺失了
+
+---
+
+## 3) 你不懂 CSS/JS，如何“指定抓取字段”？
+
+给你三种路径，从易到强：
+
+### 方案 1：配置式（你写字段名，不写 CSS）
+
+你只需要写“我要哪些字段”，以及提供**少量样例页面**，系统走以下优先级：
+
+* 先读 JSON-LD / 内嵌 JSON
+* 再用工具自动生成 XPath（你通过点选生成，不用手写）
+* 最后才需要你补一点规则
+
+### 方案 2：可视化点选（推荐）
+
+做一个极简 Web UI（或浏览器插件）：
+
+* 你打开页面 → 鼠标点选“标题/价格/作者/正文”
+* 工具自动生成 XPath / 文本锚点规则
+* 保存为 profile 配置
+
+这类“点选生成选择器”的方式可以完全绕开你对 CSS/JS 的要求。
+
+### 方案 3：模型辅助生成规则（救火/快速起步）
+
+你提供：
+
+* 字段列表（title/price/sku/description…）
+* 2-5 个样例 URL
+  系统：
+* 抓取页面 → 让模型输出 JSON
+* 同时让模型给出“可解释的证据路径”（例如 XPath 或 JSON key path）
+* 你确认后固化为规则 + 加入回归测试样本
+
+长期建议：**模型用于生成/修复规则，不要作为主抓取路径**（否则成本和稳定性不可控）。
+
+---
+
+## 4) 批量调用与扩展性怎么做
+
+### 批量输入输出
+
+* 输入：URL 列表（txt/csv）或通过 API 提交
+* 输出：建议用 **JSONL**（一行一条记录，适合大规模与流式处理）
+* 支持增量：按 URL hash 或内容 hash 去重，避免重复抓
+
+### 并发模型
+
+* 单机起步：`asyncio` + Playwright（控制并发数）
+* 多机扩展：队列 + worker（横向扩容）
+* 域名限速：每个域名单独令牌桶
+
+---
+
+## 5) 推荐的项目结构（可直接照着搭）
+
+```text
+scraper/
+  api/                  # FastAPI 接口
+  cli/                  # 命令行入口
+  core/
+    orchestrator.py     # 任务编排
+    queue.py            # 队列抽象
+    rate_limit.py
+    types.py            # Page/Record/Job 等数据结构
+  fetcher/
+    http.py
+    browser.py
+    session.py
+  normalize/
+    dom.py
+    structured_hints.py # JSON-LD/NextData 提取
+  extract/
+    engine.py           # 策略链执行
+    strategies/
+      jsonld.py
+      nextdata.py
+      xpath.py
+      regex.py
+      llm.py            # 可选
+  profiles/
+    registry.py
+    ecommerce_xxx.yaml  # 站点配置（或 python 插件）
+    content_xxx.yaml
+  validate/
+    schemas.py          # Pydantic/JSON Schema
+    rules.py
+  storage/
+    results_db.py
+    raw_store.py
+  observability/
+    logging.py
+    metrics.py
+  tests/
+    golden_pages/       # HTML 快照
+    test_profiles.py
+```
+
+---
+
+## 6) Profile 配置示例（让你“只写字段，不写前端”）
+
+下面示例体现“策略链”：同一字段可以多条规则回退。
+
+```yaml
+name: "example_ecommerce"
+match:
+  domains: ["example.com"]
+fetch:
+  mode: "browser"         # http | browser
+  wait_for: "networkidle"
+  concurrency: 3
+  rate_limit_qps: 0.5
+
+schema: "Product"
+
+fields:
+  title:
+    - type: "jsonld"
+      path: "$.name"
+    - type: "xpath"
+      expr: "//h1"
+  price:
+    - type: "jsonld"
+      path: "$.offers.price"
+    - type: "regex"
+      pattern: "(\\d+[\\.,]?\\d*)"
+  images:
+    - type: "jsonld"
+      path: "$.image"
+```
+
+你未来新增内容站，只要换一个 profile，schema 变成 Article，字段变成 title/author/date/body 即可。
+
+---
+
+## 7) 你最需要优先做的 MVP（最小可用版本）
+
+建议你按这个顺序做，能最快跑通并支持迭代：
+
+1. **CLI + Profile（YAML）**：先能批量跑 URL → 输出 JSONL
+2. **Fetcher 双通道**：HTTP + Playwright
+3. **Structured hints 优先**：JSON-LD / NextData 抽取（极大减少选择器维护）
+4. **Extractor 策略链 + 证据记录**：方便定位字段为什么取不到
+5. **保存 raw_html + 回归样本**：为迭代打基础
+6. **简单 API + 队列**：开始服务化、支持并发与定时任务
+7. **点选生成 XPath（可选但强烈推荐）**：彻底解决你“不懂 CSS/JS”的问题
+
+---
+
+## 8) 风险与工程注意事项（必须提前设计）
+
+* 合规：遵守站点 ToS、robots、频控，尽量优先官方 API 或公开 feed
+* 反爬：不要一上来就上高并发；先把限速、重试、代理抽象好
+* 改版：一定要有“字段缺失率监控 + 黄金样本回归”
+* 成本：浏览器抓取比 HTTP 贵很多，尽量优先结构化数据/接口数据
+
+---
+
+如果你愿意，我可以基于你的实际目标再把它落成更具体的“工程蓝图”，例如：
+
+* 你首个要抓的电商站点是哪一个（或同类型站）
+* 你需要的字段清单（SKU、价格、库存、店铺、销量、正文等）
+  我会给出：profile 设计、字段 schema、抓取流程、以及一套可直接实现的技术选型与目录骨架。
+
+
+
+
+
+--------------------------------------------------------
+
+Question：我希望得到一个可以“迭代/伸缩”的框架，即最开始可以不包含队列调度，监控，测试这一系列工具，最开始只包含最基本的职责功能的工具。但是到后期可以复用当前的代码、模块，然后扩展到更体系化的整体框架上。因此你先进行缩减，生成一个初始的版本。最重要的功能是：可以指定网页抓取，不同网页能配置不同的解析配置，以及模块，来解析。
+A：下面给你一个“可迭代/可伸缩”的**最小初始版本（MVP）框架**：先只做**核心职责**——
+
+1. **按 URL 抓取页面**
+2. **按不同页面/站点选择不同解析配置（Profile）**
+3. **按配置提取结构化字段并输出结果**
+
+后期你要加队列、监控、测试、回归、分布式 worker 时，**现有模块接口不需要推倒重写**，只是在外层加“编排层”。
+
+---
+
+## 1. MVP 的最小模块划分
+
+### (A) Profile（解析配置）
+
+* 解决“不同网页能配置不同解析规则”的关键
+* 每个 Profile 包含：
+
+  * 匹配规则：域名 / URL 正则
+  * 抓取方式：HTTP 或 Browser（MVP 先只做 HTTP）
+  * 字段定义：每个字段的提取策略链（优先 JSON-LD，其次 XPath/Regex）
+
+### (B) Fetcher（抓取器）
+
+* 输入：URL
+* 输出：HTML + 响应元信息（status、final_url 等）
+
+### (C) Extractor（提取器）
+
+* 输入：HTML（以及 URL）
+* 输出：结构化 dict（字段值 + 可选证据）
+
+### (D) Runner（单机批量运行）
+
+* 读取 URL 列表
+* 对每个 URL：选择 Profile → Fetch → Extract → 输出（JSONL）
+
+> 后期扩展点：Runner 可以替换成 Queue Worker，但 Fetcher/Extractor/Profile 都保持不变。
+
+---
+
+## 2. 推荐项目目录（MVP 版）
+
+```text
+scraper_mvp/
+  main.py                  # CLI 入口：批量抓取
+  core/
+    registry.py            # Profile 注册与匹配
+    types.py               # Page / Record 数据结构
+  fetcher/
+    http_fetcher.py        # HTTP 抓取
+  extract/
+    engine.py              # 策略链执行（按字段逐条策略回退）
+    strategies/
+      jsonld.py            # JSON-LD 提取
+      xpath.py             # XPath 提取（可选）
+      regex.py             # Regex 提取（可选）
+  profiles/
+    ecommerce.yaml         # 电商站 Profile 示例
+    content.yaml           # 内容站 Profile 示例
+  output/
+    writer.py              # JSONL 输出
+```
+
+---
+
+## 3. Profile 配置格式（你只改 YAML 就能迭代）
+
+### profiles/ecommerce.yaml（示例：电商商品页）
+
+```yaml
+name: "ecommerce_product"
+match:
+  domains: ["example-shop.com"]
+  url_regex: [".*/product/.*"]
+
+fetch:
+  mode: "http"
+  headers:
+    user-agent: "Mozilla/5.0"
+
+fields:
+  title:
+    - type: "jsonld"
+      path: "$.name"
+    - type: "xpath"
+      expr: "//h1"
+
+  price:
+    - type: "jsonld"
+      path: "$.offers.price"
+    - type: "regex"
+      pattern: "(\\d+[\\.,]?\\d*)"
+
+  images:
+    - type: "jsonld"
+      path: "$.image"
+```
+
+### profiles/content.yaml（示例：内容文章页）
+
+```yaml
+name: "content_article"
+match:
+  domains: ["example-news.com"]
+  url_regex: [".*/article/.*"]
+
+fetch:
+  mode: "http"
+
+fields:
+  title:
+    - type: "xpath"
+      expr: "//meta[@property='og:title']/@content"
+    - type: "xpath"
+      expr: "//h1"
+
+  author:
+    - type: "jsonld"
+      path: "$.author.name"
+    - type: "regex"
+      pattern: "By\\s+([A-Za-z\\s]+)"
+
+  published_at:
+    - type: "jsonld"
+      path: "$.datePublished"
+    - type: "xpath"
+      expr: "//time/@datetime"
+
+  body:
+    - type: "xpath"
+      expr: "//article"
+```
+
+> 你不懂 CSS/JS 也没关系：
+>
+> * 优先走 **JSON-LD**（很多电商/内容站都有）
+> * XPath 可以先用最简单的 `//h1`、`//article` 起步
+> * 后期你再做“点选生成 XPath”的小工具即可（不影响框架）
+
+---
+
+## 4. MVP 的关键接口（保持未来可扩展）
+
+### core/types.py
+
+```python
+from dataclasses import dataclass
+from typing import Any, Dict, Optional
+
+@dataclass
+class Page:
+    url: str
+    final_url: str
+    status_code: int
+    html: str
+    headers: Dict[str, str]
+
+@dataclass
+class Record:
+    url: str
+    profile: str
+    data: Dict[str, Any]
+    errors: Optional[Dict[str, str]] = None
+```
+
+### core/registry.py（按 URL 选择 Profile）
+
+```python
+import re
+from typing import Any, Dict, List, Optional
+from urllib.parse import urlparse
+
+class ProfileRegistry:
+    def __init__(self, profiles: List[Dict[str, Any]]):
+        self.profiles = profiles
+
+    def match(self, url: str) -> Optional[Dict[str, Any]]:
+        host = urlparse(url).netloc.lower()
+        for p in self.profiles:
+            domains = [d.lower() for d in p.get("match", {}).get("domains", [])]
+            regexes = p.get("match", {}).get("url_regex", [])
+            domain_ok = (not domains) or any(host.endswith(d) for d in domains)
+            regex_ok = (not regexes) or any(re.match(r, url) for r in regexes)
+            if domain_ok and regex_ok:
+                return p
+        return None
+```
+
+### fetcher/http_fetcher.py
+
+```python
+import httpx
+from core.types import Page
+
+class HttpFetcher:
+    def __init__(self, timeout: float = 20.0):
+        self.client = httpx.Client(timeout=timeout, follow_redirects=True)
+
+    def fetch(self, url: str, headers: dict | None = None) -> Page:
+        resp = self.client.get(url, headers=headers or {})
+        return Page(
+            url=url,
+            final_url=str(resp.url),
+            status_code=resp.status_code,
+            html=resp.text,
+            headers={k: v for k, v in resp.headers.items()},
+        )
+```
+
+### extract/engine.py（字段策略链：按顺序回退）
+
+```python
+from typing import Any, Dict, List, Tuple
+from lxml import html as lxml_html
+
+from extract.strategies.jsonld import extract_jsonld_path
+from extract.strategies.xpath import extract_xpath
+from extract.strategies.regex import extract_regex
+
+class ExtractEngine:
+    def extract(self, page_html: str, url: str, fields_cfg: Dict[str, List[Dict[str, Any]]]
+               ) -> Tuple[Dict[str, Any], Dict[str, str]]:
+        doc = lxml_html.fromstring(page_html)
+        data: Dict[str, Any] = {}
+        errors: Dict[str, str] = {}
+
+        for field, strategies in fields_cfg.items():
+            val = None
+            last_err = None
+            for st in strategies:
+                try:
+                    t = st["type"]
+                    if t == "jsonld":
+                        val = extract_jsonld_path(page_html, st["path"])
+                    elif t == "xpath":
+                        val = extract_xpath(doc, st["expr"])
+                    elif t == "regex":
+                        val = extract_regex(page_html, st["pattern"])
+                    else:
+                        last_err = f"unknown strategy type: {t}"
+                        continue
+
+                    if val is not None and val != "":
+                        break
+                except Exception as e:
+                    last_err = str(e)
+
+            if val is None or val == "":
+                errors[field] = last_err or "no match"
+            else:
+                data[field] = val
+
+        return data, errors
+```
+
+### extract/strategies/jsonld.py（MVP 简化：取第一段 Product/Article JSON-LD）
+
+```python
+import json
+import re
+from typing import Any, Optional
+
+def _find_jsonld_blocks(html: str) -> list[dict]:
+    blocks = []
+    for m in re.finditer(r'<script[^>]*type="application/ld\+json"[^>]*>(.*?)</script>',
+                         html, re.DOTALL | re.IGNORECASE):
+        raw = m.group(1).strip()
+        try:
+            obj = json.loads(raw)
+            if isinstance(obj, list):
+                blocks.extend([x for x in obj if isinstance(x, dict)])
+            elif isinstance(obj, dict):
+                blocks.append(obj)
+        except Exception:
+            continue
+    return blocks
+
+def _get_by_path(obj: Any, path: str) -> Optional[Any]:
+    # very small JSONPath subset: $.a.b.c
+    if not path.startswith("$."):
+        return None
+    cur = obj
+    for key in path[2:].split("."):
+        if isinstance(cur, dict) and key in cur:
+            cur = cur[key]
+        else:
+            return None
+    return cur
+
+def extract_jsonld_path(html: str, path: str) -> Optional[Any]:
+    for obj in _find_jsonld_blocks(html):
+        val = _get_by_path(obj, path)
+        if val is not None:
+            return val
+    return None
+```
+
+### extract/strategies/xpath.py
+
+```python
+from typing import Any, Optional
+
+def extract_xpath(doc, expr: str) -> Optional[Any]:
+    res = doc.xpath(expr)
+    if not res:
+        return None
+    first = res[0]
+    if hasattr(first, "text_content"):
+        return first.text_content().strip()
+    return str(first).strip()
+```
+
+### extract/strategies/regex.py
+
+```python
+import re
+from typing import Optional
+
+def extract_regex(text: str, pattern: str) -> Optional[str]:
+    m = re.search(pattern, text, re.IGNORECASE)
+    if not m:
+        return None
+    return (m.group(1) if m.groups() else m.group(0)).strip()
+```
+
+### output/writer.py（JSONL 输出）
+
+```python
+import json
+from core.types import Record
+
+class JsonlWriter:
+    def __init__(self, path: str):
+        self.path = path
+
+    def write(self, record: Record):
+        with open(self.path, "a", encoding="utf-8") as f:
+            f.write(json.dumps(record.__dict__, ensure_ascii=False) + "\n")
+```
+
+### main.py（单机批量跑通）
+
+```python
+import glob
+import yaml
+
+from core.registry import ProfileRegistry
+from fetcher.http_fetcher import HttpFetcher
+from extract.engine import ExtractEngine
+from core.types import Record
+from output.writer import JsonlWriter
+
+def load_profiles() -> list[dict]:
+    profiles = []
+    for fp in glob.glob("profiles/*.yaml"):
+        with open(fp, "r", encoding="utf-8") as f:
+            profiles.append(yaml.safe_load(f))
+    return profiles
+
+def run(urls: list[str], out_path: str = "results.jsonl"):
+    profiles = load_profiles()
+    registry = ProfileRegistry(profiles)
+    fetcher = HttpFetcher()
+    engine = ExtractEngine()
+    writer = JsonlWriter(out_path)
+
+    for url in urls:
+        p = registry.match(url)
+        if not p:
+            writer.write(Record(url=url, profile="__no_profile__", data={}, errors={"_": "no profile matched"}))
+            continue
+
+        page = fetcher.fetch(url, headers=p.get("fetch", {}).get("headers"))
+        data, errors = engine.extract(page.html, url, p.get("fields", {}))
+        writer.write(Record(url=url, profile=p["name"], data=data, errors=errors or None))
+
+if __name__ == "__main__":
+    # 你可以替换成从文件读入
+    urls = [
+        "https://example-shop.com/product/123",
+        "https://example-news.com/article/abc",
+    ]
+    run(urls)
+```
+
+---
+
+## 5. 这个 MVP 如何天然支持“后期伸缩”？
+
+你后面要加的东西基本都在“外层”，而不是推翻内核：
+
+* **队列/调度**：把 `main.py` 的 for-loop 换成 worker 从队列取 URL；Fetcher/Extractor/Profile 不变
+* **监控**：在 Runner 外层加 metrics 统计（成功率、字段缺失率）；不改策略实现
+* **测试/回归**：保存 HTML 快照，然后直接喂给 `ExtractEngine.extract()`；Fetcher 不参与
+* **浏览器抓取**：新增 `BrowserFetcher` 实现同样的 `fetch()` 输出 `Page`；Runner 不变
+* **更复杂页面**：给 Profile 增加 `custom_parser: "plugins.xxx:parse"`，遇到复杂站点用插件兜底；不破坏 YAML 驱动方式
+
+---
+
+## 6. 你用它的最小工作流（符合“快速迭代”）
+
+1. 先为一个站写一个 profile（尽量走 JSON-LD）
+2. 批量跑 URL → 看到哪些字段缺失
+3. 只改 YAML（加一条 XPath/Regex 备选策略）→ 立刻再跑
+4. 复杂站点再上“自定义插件”或后续上 Playwright
+
+---
+
+如果你给我两个信息：
+
+* 你第一阶段要抓的电商站（任意一个具体站点或“类似淘宝/亚马逊/Shopify”哪类）
+* 你要的字段清单（例如：title、price、currency、images、sku、brand、rating、reviews_count、description）
+
+我可以直接按上面的 MVP 结构，帮你把 **Profile 的字段策略设计**也落到可用级别（优先 JSON-LD/内嵌 JSON，尽量减少你写 XPath 的工作量）。
+
+
+
+
+-----------------------------------------------------------------------------------
+Question:不需要写代码，只需要给模块划分：要哪些函数/文件/模块（哪些类，哪些配置文件，函数），以及这些模块用什么技术栈即可（比如抓取用python什么包，解析用哪几种模式）
+A:下面给你一个“**最小可用、可迭代扩展**”的网页抓取与结构化解析框架（不含队列/监控/测试），只覆盖你强调的两点：
+
+1. **能抓取指定网页**
+2. **不同网页/站点可配置不同解析配置（Profile），并可插拔扩展解析模块**
+
+我会按“文件/模块/类/关键函数/配置文件格式/技术栈”给出清晰划分。
+
+---
+
+## 0. 设计原则（保证后期可扩展）
+
+* **核心抽象稳定**：`Fetcher`、`Profile`、`Extractor`、`Strategy` 四个抽象后期不会变。
+* **配置驱动**：新增/修改站点规则优先改 YAML/JSON 配置，尽量不改代码。
+* **策略链（回退机制）**：同一字段可配置多种提取方式（JSON-LD → 内嵌 JSON → XPath → Regex），提高抗改版能力。
+* **可插拔**：复杂站点允许挂一个 `CustomParser` 插件（Python 函数），不污染通用抽取引擎。
+
+---
+
+## 1) 最小目录结构（MVP）
+
+```text
+web_scraper/
+  app/
+    run.py                     # CLI 入口：给 URLs -> 输出结构化结果
+    pipeline.py                # 抓取+解析编排（串行/小并发）
+  core/
+    types.py                   # Page, Record, Profile 等数据结构
+    registry.py                # ProfileRegistry：按 URL 选择 Profile
+    errors.py                  # 统一异常类型（FetchError, ExtractError）
+  fetch/
+    http_fetcher.py            # HttpFetcher
+    headers.py                 # User-Agent / headers 预设与合并逻辑
+  extract/
+    engine.py                  # ExtractEngine：字段级策略链执行
+    strategies/
+      jsonld.py                # JSON-LD 提取策略
+      embedded_json.py         # 内嵌 JSON 提取（Next/Nuxt/window.__DATA__）
+      xpath.py                 # XPath 提取策略
+      regex.py                 # 正则提取策略
+      text_cleanup.py          # 文本清洗（可选，MVP 简化）
+    plugins/
+      __init__.py              # 插件注册入口（可选）
+  profiles/
+    profiles.yaml              # 所有 Profile 列表（或一个目录多个 YAML）
+    schemas/
+      product.yaml             # 可选：字段 schema（MVP 可以不启用）
+      article.yaml
+  output/
+    writer.py                  # 输出 JSON / JSONL / CSV（MVP 默认 JSONL）
+```
+
+> MVP 只要 `run.py + pipeline.py + registry + http_fetcher + extract engine + profiles.yaml + writer` 就能跑通。
+
+---
+
+## 2) 核心模块与职责（类/函数清单）
+
+### A. `core/types.py`（数据结构，不涉及业务）
+
+**类/数据结构**
+
+* `Page`
+
+  * 字段：`url`, `final_url`, `status_code`, `html`, `headers`, `fetched_at`
+* `Record`
+
+  * 字段：`url`, `profile_name`, `data`, `errors`, `meta`
+* `Profile`
+
+  * 字段：`name`, `match`, `fetch`, `fields`, `plugin`（可选）
+
+**为什么要有这些类型**：后期加队列/监控/存储时，这些类型仍是系统输入输出契约。
+
+---
+
+### B. `core/registry.py`（Profile 选择器）
+
+**类**
+
+* `ProfileRegistry`
+
+**关键函数**
+
+* `load_profiles(path: str) -> list[Profile]`
+
+  * 从 `profiles.yaml`（或目录）加载配置
+* `match(url: str) -> Profile | None`
+
+  * 按域名、URL 正则、可选的“页面类型特征”匹配最合适的 profile
+* `list_profiles() -> list[str]`（可选）
+
+**匹配策略（MVP）**
+
+* `domains`（endswith 匹配）
+* `url_regex`（正则匹配）
+* `priority`（当多个命中时选择优先级高的）
+
+---
+
+### C. `fetch/http_fetcher.py`（抓取层：MVP 只做 HTTP）
+
+**类**
+
+* `HttpFetcher`
+
+**关键函数**
+
+* `fetch(url: str, fetch_cfg: dict) -> Page`
+
+  * 输入：URL + profile 的 `fetch` 配置（headers/timeout/redirect 等）
+  * 输出：Page（html + status + headers 等）
+
+**技术栈建议**
+
+* HTTP 客户端：`httpx`（推荐）或 `requests`
+
+  * `httpx` 支持更现代的连接池/HTTP2（可选）、超时控制更细
+* 解析编码：交给 `response.text`，必要时用 `charset-normalizer`（通常 httpx 已处理）
+
+**MVP fetch_cfg 建议字段**
+
+* `timeout`
+* `headers`（User-Agent 等）
+* `follow_redirects`
+* `proxy`（先预留字段，MVP 可不实现）
+
+---
+
+### D. `extract/engine.py`（字段抽取引擎：系统核心）
+
+**类**
+
+* `ExtractEngine`
+
+**关键函数**
+
+* `extract(page: Page, profile: Profile) -> Record`
+
+  * 对 `profile.fields` 逐字段执行策略链
+* `extract_field(field_name: str, strategies: list[dict], ctx) -> (value, evidence, err)`
+
+  * 策略链逐个尝试，成功即停止；失败则记录错误原因
+* `build_context(page: Page) -> ExtractContext`
+
+  * 预解析 DOM、提取 JSON-LD、提取 embedded JSON（可做缓存，避免重复解析）
+
+**ExtractContext 内容（MVP）**
+
+* `url`
+* `html`
+* `dom`（lxml tree）
+* `jsonld_objects`（list）
+* `embedded_json_objects`（dict/list，按 key 分类）
+
+---
+
+### E. `extract/strategies/*`（可插拔策略集合）
+
+每个策略文件定义：
+
+* `apply(ctx, config) -> (value, evidence)`，失败抛 `ExtractError` 或返回 None
+
+#### 1) `jsonld.py`（强推荐优先）
+
+**用途**：优先拿 Product/Article 结构化数据（电商/内容站很常见）
+
+* `apply_jsonld(ctx, path: str, selector: dict|None)`
+
+**技术栈**
+
+* `re` 定位 `<script type="application/ld+json">`
+* `json` 解析
+* `jmespath` 或“简单 path”（MVP 可用 `$.a.b` 简版）
+
+#### 2) `embedded_json.py`（强推荐）
+
+**用途**：Next.js/Nuxt/Vue SSR 常把数据塞到 script 里（比 XPath 稳）
+
+* `apply_embedded_json(ctx, source: str, path: str)`
+
+  * `source` 示例：`__NEXT_DATA__`, `window.__NUXT__`, `__APOLLO_STATE__` 等
+* 技术栈：`re + json`，必要时用 `orjson`（可选）
+
+#### 3) `xpath.py`（可选，但通用兜底）
+
+**用途**：当页面没有结构化数据，只能从 DOM 抓
+
+* `apply_xpath(ctx, expr: str, attr: str|None, post: dict|None)`
+* 技术栈：`lxml`（推荐）或 `parsel`
+
+#### 4) `regex.py`（可选兜底）
+
+**用途**：从 HTML/文本中抓价格、日期等简单模式
+
+* `apply_regex(ctx, pattern: str, group: int=1)`
+* 技术栈：`re`
+
+#### 5) `text_cleanup.py`（可选）
+
+**用途**：对 extracted text 做基本清洗
+
+* `normalize_whitespace(text)`
+* `strip_currency(text)`（可选）
+
+---
+
+### F. `extract/plugins/`（自定义解析插件：为复杂站预留）
+
+**用途**：当某个站点极难用通用策略搞定时，允许 profile 指定一个插件函数直接解析整个页面。
+
+**接口**
+
+* 插件函数签名建议：`parse(page: Page, profile: Profile) -> dict`
+* 在 `profiles.yaml` 中配置：`plugin: "extract.plugins.site_xxx:parse"`
+
+**好处**
+
+* 你不会因为 1 个难站点把通用引擎搞复杂
+* 后期如果做“站点专用 Parser 包”，也很好收敛
+
+---
+
+### G. `profiles/profiles.yaml`（配置核心：你主要改它迭代）
+
+建议结构（MVP 够用）：
+
+* `name`: profile 名称
+* `match`:
+
+  * `domains`: list
+  * `url_regex`: list
+  * `priority`: int（可选）
+* `fetch`:
+
+  * `mode`: `http`（MVP）
+  * `headers`, `timeout`, `follow_redirects`
+* `fields`（核心）：
+
+  * 每个字段是一个策略链（按顺序回退）
+  * 策略项格式：
+
+    * `type`: jsonld / embedded_json / xpath / regex
+    * 其余参数因 type 而异
+* `plugin`（可选）
+
+> 你后期即使加“browser mode / queue / metrics”，profiles.yaml 仍可复用，只是 fetch 里多几个字段。
+
+---
+
+### H. `app/pipeline.py`（轻编排，不要做重调度）
+
+**类/函数**
+
+* `run_once(url: str) -> Record`
+
+  * match profile → fetch → extract → return record
+* `run_batch(urls: list[str], concurrency: int=1) -> list[Record]`
+
+  * MVP 默认串行，或用轻量并发（如 `concurrent.futures`）
+* `load_urls(source: str) -> list[str]`
+
+  * 从 txt/csv 读取（可选）
+
+**技术栈**
+
+* 并发（可选）：`concurrent.futures.ThreadPoolExecutor`（HTTP IO 场景够用）
+* 不引入队列系统（满足你“先不加调度/监控/测试”要求）
+
+---
+
+### I. `app/run.py`（CLI 入口）
+
+**功能**
+
+* `--urls` 输入文件或命令行列表
+* `--out` 输出路径
+* `--profile` 强制使用某 profile（可选）
+* `--concurrency` 小并发（可选）
+
+**技术栈**
+
+* CLI：`typer` 或 `argparse`
+
+---
+
+### J. `output/writer.py`（输出）
+
+**类**
+
+* `JsonlWriter`
+* `JsonWriter`（可选）
+* `CsvWriter`（可选，字段固定时更好）
+
+**关键函数**
+
+* `write(records)`
+* `write_one(record)`
+
+---
+
+## 3) 技术栈汇总（MVP 版）
+
+* 语言：Python 3.10+
+* 抓取：`httpx`（首选）或 `requests`
+* DOM 解析：`lxml`（XPath 支持强、速度快）
+* 结构化数据解析：`json` + `re`
+* JSON 路径：
+
+  * MVP：自定义 `$.a.b` 简单 path
+  * 需要更强：`jmespath`（推荐）或 `jsonpath-ng`
+* 配置：`PyYAML`
+* 输出：标准库 `json`（JSONL）+（可选）`pandas` 导出 CSV
+
+---
+
+## 4) 解析模式建议（你不懂前端时最稳的优先级）
+
+对每个字段的默认策略链建议：
+
+1. **JSON-LD**（几乎不受 DOM 改版影响）
+2. **内嵌 JSON（Next/Nuxt 等）**（非常稳定，字段齐全）
+3. **XPath**（通用但对改版敏感）
+4. **Regex**（仅做兜底）
+
+你在配置里只需要写“字段名 + 策略链”，无需理解 CSS/JS。
+
+---
+
+## 5) 未来扩展点（不实现，但预留）
+
+为了保证后期能扩到体系化框架，MVP 阶段建议预留这些接口字段（不一定实现）：
+
+* `fetch.mode`: `http | browser`
+* `fetch.wait_for`, `fetch.scroll`, `fetch.actions`（给 Playwright 用）
+* `profile.version`（配置版本号，便于回归）
+* `record.meta`: `strategy_used`、`evidence`（定位失败很快）
+
+---
+
+如果你愿意，我可以在不写代码的前提下，再补一份“profiles.yaml 的字段配置规范（Schema）”模板：例如 Product/Article 两类页面，常见字段清单与推荐策略链写法，便于你直接开始写配置并迭代。
+
+--------------------------------------------------------
+Question:core里面types数据结构有啥用
+A:`core/types.py` 里的数据结构（例如 `Page / Profile / Record`）本质上是**系统内部的“契约层（contract layer）”**：把抓取、解析、输出各环节用一致的对象/字段连接起来。它的价值不在“能不能写出来”，而在于让你的系统**可迭代、可扩展、可复用**时不需要推翻重写。
+
+下面按“为什么要有、解决什么问题、没有会怎样”讲清楚。
+
+---
+
+## 1) `Page` 的用处：把“抓取结果”标准化
+
+### 它解决的问题
+
+抓取层未来一定会变：
+
+* 现在：HTTP 抓取（httpx）
+* 未来：Browser 抓取（Playwright）、需要滚动、点击分页、登录态、代理
+* 甚至：直接读缓存/读本地 HTML（用于回放/调试）
+
+如果没有统一的 `Page` 结构，你的解析层（Extractor）会被迫适配不同抓取方式的返回值，耦合会迅速扩大。
+
+### `Page` 典型字段为什么有意义
+
+* `url`：你请求的原始 URL（用于追踪任务输入）
+* `final_url`：重定向后的 URL（电商站经常 301/302，识别页面类型很关键）
+* `status_code`：用于判断是否需要重试或标记错误（MVP 也有用）
+* `html`：解析的核心输入
+* `headers`：后期反爬、字符集、缓存策略、诊断都用得上
+* `fetched_at`：后期做增量、更新频率、缓存失效策略用得上
+
+### 没有 `Page` 会怎样
+
+你会在各处传递一堆松散变量：`html, status, final_url, headers...`
+很快就会变成“函数参数爆炸”，并且每加一个抓取能力（代理/截图/响应体 bytes）都要改一堆函数签名。
+
+---
+
+## 2) `Profile` 的用处：把“站点/页面规则”变成可管理对象
+
+你现在的核心需求是“不同网页能配置不同解析配置”。`Profile` 就是这个配置在代码里的统一表现形式。
+
+### 它解决的问题
+
+* 配置的来源可能会变：YAML → DB → Web UI 配置中心
+* 选择 profile 的逻辑可能会变：域名匹配 → 正则匹配 → 特征匹配（页面包含某些 meta/结构）
+
+把 Profile 作为一个标准结构后，`registry.match(url)` 返回的东西始终是同一种对象，后续替换配置来源不影响 pipeline。
+
+### 没有 `Profile` 会怎样
+
+你会直接在代码里到处传 dict 配置，键名不统一、缺字段时运行时才报错，维护成本显著上升。
+
+---
+
+## 3) `Record` 的用处：把“解析输出”标准化（含错误与元信息）
+
+抓取系统不是只需要“成功的数据”，更需要：
+
+* 哪些字段缺失
+* 为什么缺失（哪个策略失败）
+* 用的哪个 profile
+* 证据是什么（便于你快速迭代配置）
+
+`Record` 的目标是：**让输出不仅能用，还能诊断。**
+
+### `Record` 典型字段的意义
+
+* `url`：结果对应输入
+* `profile_name`：知道用的哪套规则（改配置后能对比）
+* `data`：结构化字段结果
+* `errors`：字段级错误原因（极其关键，否则你不知道怎么修）
+* `meta`：（可选）策略命中信息、耗时、final_url 等
+
+### 没有 `Record` 会怎样
+
+你输出一堆 JSON，但字段为空时不知道原因，只能手工打开网页猜哪里坏了，迭代速度会很慢；批量跑时也无法统计缺失分布（后期做监控会很痛苦）。
+
+---
+
+## 4) 更工程化的一句话：types 是“解耦与扩展的最小成本点”
+
+在 MVP 阶段，你确实可以不用 types，直接传字符串/字典也能跑。
+
+但只要你计划迭代到：
+
+* 加 BrowserFetcher
+* 加批量并发/队列
+* 加缓存/回放
+* 加更复杂的提取策略与插件
+  你就会发现：`Page/Profile/Record` 这种稳定的契约对象能把变化限制在局部模块里。
+
+---
+
+## 5) MVP 到底要不要 types？
+
+结论是：
+
+* **如果你只抓一个站、写一次脚本就丢：可以不要。**
+* **如果你明确要“持续迭代/新增站点/配置驱动”：强烈建议从第一天就保留 types。**
+
+并且它不需要复杂：MVP 的 types 可以很小（3 个类，每个 5~8 个字段），但能显著降低后期重构成本。
+
+---
+
+如果你希望更“极简”，我也可以给你一个 **MVP 最小 types 集合**（只保留你当前必需字段），并说明哪些字段是“现在必须”、哪些字段是“为未来预留”。
+
+--------------------------------------------------------
+Question:还是加入types。并且还是划分成几个目录，只是每个功能/模块目录下仅保留最基本功能实现的python即可。然后抓取的框架使用playwright。并以此编写编写 Plan.md 和接口定义。
+A: 下面给你一个带 `types`、分目录、每个目录仅保留最基本 Python 实现、抓取使用 **Playwright** 的最小可迭代框架，并给出 **Plan.md（内容）** 与 **接口定义**（模块级 API 与配置 schema）。
+
+---
+
+# 1) 目录结构（最小但可扩展）
+
+```text
+mvp_scraper/
+  Plan.md
+  pyproject.toml                 # 可选：依赖声明（也可用 requirements.txt）
+
+  app/
+    run.py                       # CLI入口：批量URL -> 结果JSONL
+
+  core/
+    types.py                     # Page / Profile / Record / StrategySpec
+    registry.py                  # 加载profiles.yaml + URL匹配
+
+  fetch/
+    playwright_fetcher.py        # Playwright抓取：返回Page
+
+  extract/
+    engine.py                    # 字段抽取策略链执行
+    strategies/
+      jsonld.py                  # JSON-LD抽取
+      xpath.py                   # XPath抽取
+      regex.py                   # Regex抽取
+
+  profiles/
+    profiles.yaml                # 多Profile配置（核心迭代点）
+
+  output/
+    writer.py                    # JSONL输出
+```
+
+> 这是“最小可用 + 可迭代伸缩”的边界：后期加队列/监控/测试，只需要新增目录或外层编排，不破坏这些模块的接口契约。
+
+---
+
+# 2) Plan.md（直接可用内容）
+
+```md
+# MVP Scraper Plan
+
+## 目标（MVP范围）
+1. 输入一批 URL（命令行或文件）
+2. 根据 URL 匹配到对应 Profile（可配置）
+3. 使用 Playwright 抓取页面 HTML（支持最基本的 goto/wait）
+4. 根据 Profile 的字段策略链，结构化抽取字段（JSON-LD / XPath / Regex）
+5. 输出 JSONL：每行一个 Record（包含 data 与 field-level errors）
+
+## 非目标（MVP不做）
+- 队列调度、分布式 worker
+- 监控指标、告警
+- 回归测试、黄金样本
+- 反爬对抗（代理池、验证码处理、复杂登录）
+- 浏览器交互编排（点击/滚动/分页）——仅预留配置字段
+
+## 技术栈
+- Python 3.10+
+- Playwright（浏览器抓取）：playwright.async_api
+- HTML解析：lxml（XPath）
+- JSON-LD解析：json + regex（script[type=application/ld+json]）
+- 配置：PyYAML
+- 输出：JSONL（标准库 json）
+
+## 安装与运行
+1) 安装依赖：
+- pip install playwright lxml pyyaml
+- playwright install
+
+2) 运行示例：
+- python -m app.run --urls urls.txt --out results.jsonl
+
+## 配置（profiles/profiles.yaml）
+- 通过新增/修改 profile 来支持新站点或新页面类型
+- 每个 profile 定义：
+  - match: domains / url_regex / priority
+  - fetch: wait_until / timeout_ms / user_agent
+  - fields: 字段 -> 策略链（按顺序回退）
+  - 可选：plugin（MVP不实现，仅预留）
+
+## 迭代策略（推荐实践）
+1) 优先用 JSON-LD 或内嵌 JSON（若站点提供），稳定性最好
+2) XPath 作为通用兜底
+3) Regex 仅做最后兜底（价格/日期等）
+
+## 后续演进（不破坏现有接口）
+Phase 1: 增加 fetch.actions（滚动/点击/等待 selector）与 browser context 复用
+Phase 2: 增加并发（async gather + semaphore），输出仍是 Record JSONL
+Phase 3: 引入队列/worker，run.py 变为 producer/consumer，但 fetch/extract/core 不变
+Phase 4: 增加回归测试：保存 HTML 快照，直接喂给 extract.engine 进行离线对比
+```
+
+---
+
+# 3) profiles.yaml 配置 Schema（MVP）
+
+> 这是你“快速迭代”的核心接口。你主要改这个文件来适配新站点/新页面。
+
+```yaml
+profiles:
+  - name: "ecommerce_product"
+    priority: 100
+    match:
+      domains: ["example.com"]
+      url_regex: [".*/product/.*"]
+    fetch:
+      wait_until: "domcontentloaded"   # playwright: load/domcontentloaded/networkidle
+      timeout_ms: 20000
+      user_agent: "Mozilla/5.0 ..."
+    fields:
+      title:
+        - type: "jsonld"
+          path: "$.name"
+        - type: "xpath"
+          expr: "//h1"
+      price:
+        - type: "jsonld"
+          path: "$.offers.price"
+        - type: "regex"
+          pattern: "(\\d+[\\.,]?\\d*)"
+
+  - name: "content_article"
+    priority: 50
+    match:
+      domains: ["news.example.com"]
+      url_regex: [".*/article/.*"]
+    fetch:
+      wait_until: "domcontentloaded"
+      timeout_ms: 20000
+    fields:
+      title:
+        - type: "xpath"
+          expr: "//meta[@property='og:title']/@content"
+        - type: "xpath"
+          expr: "//h1"
+      published_at:
+        - type: "jsonld"
+          path: "$.datePublished"
+        - type: "xpath"
+          expr: "//time/@datetime"
+```
+
+---
+
+# 4) 模块接口定义（Contract / API）
+
+下面是每个模块对外应提供的最小接口。你后续扩展时，应尽量保持这些签名稳定。
+
+## 4.1 `core/types.py`
+
+**职责**：定义跨模块共享的数据结构，避免“散乱 dict 参数”导致耦合扩散。
+
+```python
+# core/types.py
+from __future__ import annotations
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Literal
+
+StrategyType = Literal["jsonld", "xpath", "regex"]
+
+@dataclass(frozen=True)
+class StrategySpec:
+    type: StrategyType
+    # jsonld: path
+    # xpath: expr
+    # regex: pattern, group
+    args: Dict[str, Any]
+
+@dataclass(frozen=True)
+class Profile:
+    name: str
+    priority: int
+    match: Dict[str, Any]          # domains, url_regex
+    fetch: Dict[str, Any]          # wait_until, timeout_ms, user_agent
+    fields: Dict[str, List[StrategySpec]]
+
+@dataclass(frozen=True)
+class Page:
+    url: str
+    final_url: str
+    status: int
+    html: str
+    content_type: Optional[str] = None
+
+@dataclass(frozen=True)
+class Record:
+    url: str
+    profile: str
+    data: Dict[str, Any]
+    errors: Dict[str, str]         # field -> reason
+    meta: Dict[str, Any]           # timing, final_url, status, etc.
+```
+
+---
+
+## 4.2 `core/registry.py`
+
+**职责**：加载配置并按 URL 匹配 Profile。
+
+```python
+# core/registry.py
+from typing import List, Optional
+from core.types import Profile
+
+def load_profiles(path: str = "profiles/profiles.yaml") -> List[Profile]:
+    """Parse YAML -> Profile objects (StrategySpec normalized)."""
+
+def match_profile(url: str, profiles: List[Profile]) -> Optional[Profile]:
+    """
+    Return best-matching Profile for url.
+    Matching rules (MVP):
+      - domain endswith any configured domain (if present)
+      - url_regex any match (if present)
+    Tie-break:
+      - higher priority wins
+      - if same priority, first in file wins
+    """
+```
+
+---
+
+## 4.3 `fetch/playwright_fetcher.py`
+
+**职责**：用 Playwright 抓取 HTML，输出 `Page`。
+
+```python
+# fetch/playwright_fetcher.py
+from typing import Optional
+from core.types import Page, Profile
+
+class PlaywrightFetcher:
+    async def fetch(self, url: str, profile: Profile) -> Page:
+        """
+        Minimal behavior (MVP):
+          - launch browser (chromium)
+          - new context with optional user_agent
+          - page.goto(url, wait_until, timeout)
+          - html = await page.content()
+        """
+```
+
+> 后期扩展点：browser/context 复用、拦截资源、cookie、代理、actions（滚动/点击/等待 selector）等，都只需要在这里扩展，不影响 extract。
+
+---
+
+## 4.4 `extract/engine.py`
+
+**职责**：字段级策略链执行（同字段多策略回退），输出 `data + errors`。
+
+```python
+# extract/engine.py
+from typing import Dict, Any, Tuple
+from core.types import Page, Profile
+
+class ExtractEngine:
+    def extract(self, page: Page, profile: Profile) -> Tuple[Dict[str, Any], Dict[str, str]]:
+        """
+        For each field in profile.fields:
+          - apply strategies in order
+          - first non-empty value wins
+          - if all fail, store errors[field]
+        """
+```
+
+---
+
+## 4.5 `extract/strategies/*`
+
+**职责**：每种策略一个最小函数，保持纯函数风格，便于测试与复用。
+
+### `extract/strategies/jsonld.py`
+
+```python
+from typing import Any, Optional
+
+def extract_jsonld(html: str, path: str) -> Optional[Any]:
+    """Find JSON-LD blocks and get value by simple path like '$.a.b.c'."""
+```
+
+### `extract/strategies/xpath.py`
+
+```python
+from typing import Optional
+from lxml.html import HtmlElement
+
+def extract_xpath(doc: HtmlElement, expr: str) -> Optional[str]:
+    """Evaluate XPath and return first result (text_content or attribute)."""
+```
+
+### `extract/strategies/regex.py`
+
+```python
+from typing import Optional
+
+def extract_regex(text: str, pattern: str, group: int = 1) -> Optional[str]:
+    """Return first match group (or whole match if group not present)."""
+```
+
+---
+
+## 4.6 `output/writer.py`
+
+**职责**：把 `Record` 写成 JSONL。
+
+```python
+from core.types import Record
+
+class JsonlWriter:
+    def __init__(self, path: str): ...
+    def write(self, record: Record) -> None: ...
+```
+
+---
+
+## 4.7 `app/run.py`
+
+**职责**：最薄的编排层（MVP 只做串行或小并发），不引入队列。
+
+```python
+from typing import List
+from core.types import Record
+
+async def run(urls: List[str], out_path: str) -> None:
+    """
+    - load_profiles
+    - for url in urls:
+        - profile = match_profile
+        - page = fetcher.fetch
+        - data, errors = extractor.extract
+        - writer.write(Record)
+    """
+```
+
+---
+
+# 5) 最基本 Python 实现（每个目录只保留“能跑通”的最小实现）
+
+你要求“每个功能/模块目录下仅保留最基本功能实现的 python 即可”，上面接口定义已经足够你（或团队）直接按模块最小实现落地。为了避免此回复变成完整代码仓库，我建议实现时遵循这三条最低标准：
+
+1. **PlaywrightFetcher**：只实现 `goto + content()`，不做复杂 actions
+2. **ExtractEngine**：只支持 `jsonld/xpath/regex` 三策略链回退
+3. **profiles.yaml**：把适配工作全部压到配置文件上（你的主要迭代入口）
+
+---
+
+# 6) 运行方式与依赖（建议写入 README 或 Plan.md）
+
+* 依赖：
+
+  * `playwright`
+  * `lxml`
+  * `pyyaml`
+* 安装浏览器：
+
+  * `playwright install`
+
+---
+
+如果你希望我继续把“接口定义”进一步严格化（例如：把 `profiles.yaml` 的 schema 形式化为 `pydantic` 模型、或定义“策略参数必填校验”），我可以在不增加模块数量的情况下补一份 **Config Contract**（字段、类型、默认值、错误提示规范），这样你写配置时几乎不会踩坑。
