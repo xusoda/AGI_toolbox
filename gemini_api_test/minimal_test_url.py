@@ -8,7 +8,7 @@ payload = {
     "contents": [
         {"parts": [{"text": "用一句话解释什么是机器学习。"}]}
     ]
-}
+} 
 
 headers = {
     "x-goog-api-key": API_KEY,
