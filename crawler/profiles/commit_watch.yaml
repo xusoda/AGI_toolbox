@@ -1,0 +1,88 @@
+id: commit_watch_onsale_list_v1
+version: 1
+site: commit-watch.co.jp
+owner: user
+description: >
+  Commit Ginza onsale collection list page.
+  Extract watch model(ref), sale price(JPY, tax-in), image url, and product url from listing cards.
+
+match:
+  url_regex: "^https://commit-watch\\.co\\.jp/(en/)?collections/onsale(\\?.*)?$"
+  priority: 20
+
+fetch:
+  engine: playwright
+  goto:
+    wait_until: networkidle
+    timeout_ms: 45000
+  wait_for:
+    # 列表页中商品链接通常包含 /products/
+    - selector: "main a[href*='/products/']"
+      state: attached
+  viewport:
+    width: 1280
+    height: 720
+
+parse:
+  type: list
+  # 商品“卡片”容器：优先取 li，其次 div（不同 Shopify 主题可能不一致）
+  # Playwright 原生支持 :has()
+  item_selector_candidates:
+    - "main li:has(a[href*='/products/'])"
+    - "main div:has(a[href*='/products/']):has(img)"
+  item_selector_pick: first_non_empty
+
+  fields:
+    product_url:
+      selector: "a[href*='/products/']"
+      attr: "href"
+      transforms:
+        - type: url_join
+          base: "https://commit-watch.co.jp"
+        - type: strip
+
+    image:
+      selector: "img"
+      attr_candidates: ["src", "data-src", "data-original", "data-lazy-src", "srcset", "data-srcset"]
+      transforms:
+        # 若是 srcset / data-srcset，取最大图
+        - type: pick_best_srcset
+        - type: strip
+
+    model:
+      # 从商品标题文本中提取“型番：XXXX”或“Ref.XXXX”
+      selector: "a[href*='/products/']"
+      text: true
+      transforms:
+        - type: regex_capture
+          # 兼容：型番：116,500LN 这种写法（站内出现逗号）:contentReference[oaicite:2]{index=2}
+          pattern: "(?:型番：\\s*|Ref\\.?\\s*)([0-9A-Za-z\\.,\\-/_]+)"
+          group: 1
+        - type: replace
+          from: ","
+          to: ""
+        - type: strip
+
+    price_jpy:
+      # 在卡片容器内抓“Sale price¥... (税込)”优先；兼容“販売価格 ¥...（税込）”
+      selector: ":root"
+      text: true
+      transforms:
+        - type: regex_capture
+          pattern: "(?:Sale\\s*price\\s*¥|販売価格\\s*¥)([0-9,]+)"
+          group: 1
+        - type: replace
+          from: ","
+          to: ""
+        - type: to_int
+
+pagination:
+  # 可选：用于翻页批量抓全量（333 products, page 1/7 这类结构在页面里可见）:contentReference[oaicite:3]{index=3}
+  next_page:
+    selector_candidates:
+      - "a:has-text('Next')"
+      - "a[rel='next']"
+    attr: "href"
+    transforms:
+      - type: url_join
+        base: "https://commit-watch.co.jp"

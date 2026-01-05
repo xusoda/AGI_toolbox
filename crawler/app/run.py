@@ -62,9 +62,24 @@ async def process_urls(
                 # 写入结果
                 writer.write_record(record)
 
-                print(f"  完成: 提取了 {len(record.data)} 个字段")
+                # 显示提取结果
+                if "items" in record.data:
+                    items = record.data["items"]
+                    print(f"  完成: 提取了 {len(items)} 个列表项")
+                    if items:
+                        # 显示第一个项的字段信息
+                        first_item = items[0]
+                        print(f"  每个项包含字段: {list(first_item.keys())}")
+                        print(f"  示例项数据: {first_item}")
+                else:
+                    print(f"  完成: 提取了 {len(record.data)} 个字段")
+                    if record.data:
+                        print(f"  字段: {list(record.data.keys())}")
+                
                 if record.errors:
-                    print(f"  警告: {len(record.errors)} 个字段提取失败")
+                    print(f"  警告: {len(record.errors)} 个错误")
+                    for error in record.errors:
+                        print(f"    - {error.field}: {error.error}")
 
             except Exception as e:
                 print(f"  错误: {e}")
@@ -116,8 +131,8 @@ def main():
     parser.add_argument(
         "--profiles",
         type=str,
-        default="profiles/profiles.yaml",
-        help="Profile配置文件路径（默认: profiles/profiles.yaml）",
+        default="profiles",
+        help="Profile配置文件路径或目录（默认: profiles，会自动加载目录下所有yaml文件）",
     )
 
     args = parser.parse_args()

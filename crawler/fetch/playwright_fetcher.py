@@ -38,28 +38,51 @@ class PlaywrightFetcher:
         if not self.browser:
             await self.start()
 
-        context = await self.browser.new_context()
+        # 创建浏览器上下文，支持 viewport 配置
+        context_options = {}
+        if config.viewport:
+            context_options["viewport"] = {
+                "width": config.viewport.width,
+                "height": config.viewport.height,
+            }
         if config.user_agent:
-            await context.set_extra_http_headers(
-                {"User-Agent": config.user_agent}
-            )
+            context_options["user_agent"] = config.user_agent
+
+        context = await self.browser.new_context(**context_options)
 
         page = await context.new_page()
 
         try:
-            # 导航到页面
-            response = await page.goto(
-                url,
-                wait_until=config.wait_until,
-                timeout=config.timeout_ms,
-            )
+            # 导航到页面（支持 goto 配置）
+            goto_options = {}
+            if config.goto:
+                goto_options["wait_until"] = config.goto.wait_until
+                goto_options["timeout"] = config.goto.timeout_ms
+            else:
+                goto_options["wait_until"] = config.wait_until
+                goto_options["timeout"] = config.timeout_ms
+
+            response = await page.goto(url, **goto_options)
+
+            # 等待特定元素（wait_for 配置）
+            if config.wait_for:
+                for wait_config in config.wait_for:
+                    try:
+                        await page.wait_for_selector(
+                            wait_config.selector,
+                            state=wait_config.state,
+                            timeout=5000,  # 默认5秒超时
+                        )
+                    except Exception:
+                        # 等待失败不影响继续执行
+                        pass
 
             # 获取HTML内容
-            html = await page.content()
+            html_content = await page.content()
 
             status_code = response.status if response else 200
 
-            return Page(url=url, html=html, status_code=status_code)
+            return Page(url=url, html=html_content, status_code=status_code)
 
         finally:
             await context.close()
