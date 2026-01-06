@@ -40,6 +40,21 @@ parse:
           base: "https://watchnian.com"
         - type: strip
 
+    item_id:
+      # 从商品URL中提取最后一个路径段作为item_id
+      # 例如：https://watchnian.com/shop/g/gik-00-0707255/ -> gik-00-0707255
+      selector: "dl > a"
+      attr: "href"
+      transforms:
+        - type: url_join
+          base: "https://watchnian.com"
+        - type: strip
+        # 提取最后一个路径段（去掉查询参数、锚点和末尾斜杠）
+        - type: regex_capture
+          pattern: "/([^/?#]+)/?$"
+          group: 1
+        - type: strip
+
     image:
       # 商品图片
       selector_candidates:

@@ -42,6 +42,21 @@ parse:
           base: "https://commit-watch.co.jp"
         - type: strip
 
+    item_id:
+      # 从商品URL中提取最后一个路径段作为item_id
+      # 例如：https://commit-watch.co.jp/products/3icbytva -> 3icbytva
+      selector: "a[href*='/products/']"
+      attr: "href"
+      transforms:
+        - type: url_join
+          base: "https://commit-watch.co.jp"
+        - type: strip
+        # 提取最后一个路径段（去掉查询参数、锚点和末尾斜杠）
+        - type: regex_capture
+          pattern: "/([^/?#]+)/?$"
+          group: 1
+        - type: strip
+
     image:
       # 优先选择商品链接内的图片，如果没有则选择item容器内的第一张图片
       # 使用selector_candidates：先尝试商品链接内的图片，再尝试容器内的图片

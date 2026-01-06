@@ -1,0 +1,30 @@
+# 测试配置文件
+# 为每个profile配置测试URL列表和字段检查标准
+
+# 默认配置：所有字段的默认检查标准
+defaults:
+  # 检查类型：0=任意非空内容, 1=数字, 2=非空字符串, 3=URL链接
+  type: 0  # 默认：任意非空内容
+  # 满足标准的比例阈值（0.0-1.0）
+  threshold: 0.9  # 默认：90%
+
+profiles:
+  # commit_watch profile的测试URL
+  commit_watch_onsale_list_v1:
+    urls:
+      - https://commit-watch.co.jp/collections/onsale
+    # 字段级别的检查标准（覆盖默认配置）
+    fields:
+      price_jpy:
+        type: 1  # 数字
+        threshold: 0.7  # 70%
+  
+  # watchnian profile的测试URL
+  watchnian_supd_list_v1:
+    urls:
+      - https://watchnian.com/shop/r/rwatch_supd/?filtercode13=1#block_of_filter
+    fields:
+      price_jpy:
+        type: 1  # 数字
+        threshold: 0.9  # 90%
+
