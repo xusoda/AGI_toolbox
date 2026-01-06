@@ -26,11 +26,11 @@ class FileWriter:
         config_path = Path(__file__).parent.parent / "config.yaml"
         default_config = {
             "image": {
-                "base_dir": "/Users/xushuda/WorkSpace/GoodsHunter/resource/image",
+                "base_dir": "/Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/image",
                 "max_retries": 3
             },
             "text": {
-                "base_dir": "/Users/xushuda/WorkSpace/GoodsHunter/resource/text"
+                "base_dir": "/Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/text"
             }
         }
         
@@ -125,7 +125,7 @@ class FileWriter:
             # 加载配置
             config = FileWriter._load_config()
             if base_dir is None:
-                base_dir = config.get("image", {}).get("base_dir", "/Users/xushuda/WorkSpace/GoodsHunter/resource/image")
+                base_dir = config.get("image", {}).get("base_dir", "/Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/image")
             
             # 创建目录路径
             site_dir_name = FileWriter._get_site_dir_name(site)
@@ -174,7 +174,7 @@ class FileWriter:
             # 加载配置
             config = FileWriter._load_config()
             if base_dir is None:
-                base_dir = config.get("text", {}).get("base_dir", "/Users/xushuda/WorkSpace/GoodsHunter/resource/text")
+                base_dir = config.get("text", {}).get("base_dir", "/Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/text")
             
             # 创建目录路径
             site_dir_name = FileWriter._get_site_dir_name(site)

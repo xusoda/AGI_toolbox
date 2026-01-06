@@ -1,11 +1,11 @@
 # 爬虫配置文件
 image:
   # 图片保存的基础目录
-  base_dir: /Users/xushuda/WorkSpace/GoodsHunter/resource/image
+  base_dir: /Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/image
   # 下载重试次数
   max_retries: 3
 
 text:
   # 文本保存的基础目录
-  base_dir: /Users/xushuda/WorkSpace/GoodsHunter/resource/text
+  base_dir: /Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/text
 

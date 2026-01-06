@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/y9jd753q
+item_id: y9jd753q
+model_no: 126720VTNR
+brand_name: ロレックス
+model_name: GMTマスターII
+price_jpy: 3058000

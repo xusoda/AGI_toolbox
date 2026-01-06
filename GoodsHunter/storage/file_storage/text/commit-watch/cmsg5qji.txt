@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/cmsg5qji
+item_id: cmsg5qji
+model_no: 126710BLRO
+brand_name: ロレックス
+model_name: GMTマスターII
+price_jpy: 4103000

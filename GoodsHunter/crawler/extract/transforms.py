@@ -24,7 +24,7 @@ class TransformProcessor:
         config_path = Path(__file__).parent.parent / "config.yaml"
         default_config = {
             "image": {
-                "base_dir": "/Users/xushuda/WorkSpace/GoodsHunter/resource/image",
+                "base_dir": "/Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/image",
                 "max_retries": 3
             }
         }
@@ -325,7 +325,7 @@ class TransformProcessor:
         # 加载配置
         config = TransformProcessor._load_config()
         if base_dir is None:
-            base_dir = config.get("image", {}).get("base_dir", "/Users/xushuda/WorkSpace/GoodsHunter/resource/image")
+            base_dir = config.get("image", {}).get("base_dir", "/Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/image")
         max_retries = config.get("image", {}).get("max_retries", 3)
         
         try:

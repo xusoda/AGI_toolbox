@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/s6y6tn8a
+item_id: s6y6tn8a
+model_no: 16570
+brand_name: ロレックス
+model_name: エクスプローラーII
+price_jpy: 1738000
