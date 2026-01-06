@@ -29,6 +29,7 @@ class TransformSpec:
 class FieldExtractConfig:
     """字段提取配置（新格式）"""
     selector: Optional[str] = None
+    selector_candidates: Optional[List[str]] = None  # selector候选列表，按顺序尝试
     attr: Optional[str] = None
     attr_candidates: Optional[List[str]] = None
     text: bool = False

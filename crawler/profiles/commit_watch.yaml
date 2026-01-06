@@ -42,7 +42,11 @@ parse:
         - type: strip
 
     image:
-      selector: "img"
+      # 优先选择商品链接内的图片，如果没有则选择item容器内的第一张图片
+      # 使用selector_candidates：先尝试商品链接内的图片，再尝试容器内的图片
+      selector_candidates:
+        - "a[href*='/products/'] img"
+        - "img"
       attr_candidates: ["src", "data-src", "data-original", "data-lazy-src", "srcset", "data-srcset"]
       transforms:
         # 若是 srcset / data-srcset，取最大图

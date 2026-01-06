@@ -168,6 +168,7 @@ class ProfileRegistry:
                 
                 fields_config[field_name] = FieldExtractConfig(
                     selector=field_data.get("selector"),
+                    selector_candidates=field_data.get("selector_candidates"),
                     attr=field_data.get("attr"),
                     attr_candidates=field_data.get("attr_candidates"),
                     text=field_data.get("text", False),

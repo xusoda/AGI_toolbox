@@ -322,43 +322,70 @@ class ExtractEngine:
     def _extract_field_from_element(self, root_elem, field_config) -> tuple[Optional[Any], Optional[FieldError]]:
         """从元素中提取字段值"""
         try:
-            selector = field_config.selector
-            print(f"[ExtractField]    selector: {selector}")
-            
-            # 处理特殊 selector
-            if selector == ":root":
-                # 使用根元素本身
-                print(f"[ExtractField]    使用 :root (根元素)")
-                elements = [root_elem]
-            elif not selector:
+            # 优先使用selector_candidates，如果没有则使用selector
+            selectors_to_try = []
+            if field_config.selector_candidates:
+                selectors_to_try = field_config.selector_candidates
+                print(f"[ExtractField]    使用selector_candidates: {selectors_to_try}")
+            elif field_config.selector:
+                selectors_to_try = [field_config.selector]
+                print(f"[ExtractField]    使用selector: {field_config.selector}")
+            else:
                 return None, FieldError(
                     field="unknown",
-                    error="未指定selector",
+                    error="未指定selector或selector_candidates",
                 )
-            else:
+            
+            elements = []
+            last_error = None
+            
+            # 尝试每个selector候选
+            for selector in selectors_to_try:
+                print(f"[ExtractField]    尝试selector: {selector}")
+                
+                # 处理特殊 selector
+                if selector == ":root":
+                    # 使用根元素本身
+                    print(f"[ExtractField]      使用 :root (根元素)")
+                    elements = [root_elem]
+                    break
+                
                 # 使用 CSS selector 或 XPath
                 try:
                     if CSSSELECT_AVAILABLE:
-                        print(f"[ExtractField]    尝试 CSS selector")
+                        print(f"[ExtractField]      尝试 CSS selector")
                         elements = root_elem.cssselect(selector)
                     else:
                         # 回退到 XPath
-                        print(f"[ExtractField]    尝试 XPath (cssselect不可用)")
+                        print(f"[ExtractField]      尝试 XPath (cssselect不可用)")
                         elements = root_elem.xpath(selector)
-                    print(f"[ExtractField]    找到 {len(elements)} 个元素")
+                    print(f"[ExtractField]      找到 {len(elements)} 个元素")
+                    if elements:
+                        # 找到元素，跳出循环
+                        break
                 except Exception as e:
-                    print(f"[ExtractField]    CSS selector/XPath失败: {str(e)}")
+                    print(f"[ExtractField]      CSS selector/XPath失败: {str(e)}")
+                    last_error = e
                     # CSS selector 失败，尝试 XPath
                     try:
-                        print(f"[ExtractField]    尝试 XPath回退")
+                        print(f"[ExtractField]      尝试 XPath回退")
                         elements = root_elem.xpath(selector)
-                        print(f"[ExtractField]    XPath找到 {len(elements)} 个元素")
+                        print(f"[ExtractField]      XPath找到 {len(elements)} 个元素")
+                        if elements:
+                            # 找到元素，跳出循环
+                            break
                     except Exception as e2:
-                        print(f"[ExtractField]    XPath也失败: {str(e2)}")
-                        return None, FieldError(
-                            field="unknown",
-                            error=f"无效的selector: {selector} (CSS: {str(e)}, XPath: {str(e2)})",
-                        )
+                        print(f"[ExtractField]      XPath也失败: {str(e2)}")
+                        last_error = e2
+                        # 继续尝试下一个selector
+                        continue
+            
+            # 如果所有selector都失败
+            if not elements and last_error:
+                return None, FieldError(
+                    field="unknown",
+                    error=f"所有selector均失败，最后一个错误: {str(last_error)}",
+                )
             
             if not elements:
                 print(f"[ExtractField]    未找到元素")
