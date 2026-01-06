@@ -105,6 +105,7 @@ class Profile:
     fields: Optional[Dict[str, List[StrategySpec]]] = None  # 旧格式：字段名 -> 策略链
     parse: Optional[ParseConfig] = None  # 新格式：解析配置
     plugin: Optional[str] = None  # MVP不实现，仅预留
+    site: Optional[str] = None  # 站点名称，用于创建图片保存目录
 
 
 @dataclass
@@ -113,6 +114,7 @@ class Page:
     url: str
     html: str
     status_code: int = 200
+    resources: Optional[Dict[str, bytes]] = None  # 已加载的资源，key为URL，value为资源内容
 
 
 @dataclass

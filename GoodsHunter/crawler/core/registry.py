@@ -240,6 +240,7 @@ class ProfileRegistry:
             fields=fields,
             parse=parse_config,
             plugin=data.get("plugin"),
+            site=data.get("site"),
         )
 
     def match_profile(self, url: str) -> Optional[Profile]:

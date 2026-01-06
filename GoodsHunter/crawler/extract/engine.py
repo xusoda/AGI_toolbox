@@ -94,7 +94,9 @@ class ExtractEngine:
             if profile.parse.type == "list":
                 # 列表提取
                 print(f"[ExtractEngine] 开始列表提取...")
-                items = self._extract_list(page, profile.parse)
+                # 传递页面资源（如果可用）
+                page_resources = page.resources if hasattr(page, 'resources') and page.resources else None
+                items = self._extract_list(page, profile.parse, profile, page_resources)
                 print(f"[ExtractEngine] 列表提取完成，找到 {len(items)} 个项")
                 data["items"] = items
                 if not items:
@@ -174,7 +176,7 @@ class ExtractEngine:
         record.errors = errors
         return record
 
-    def _extract_list(self, page: Page, parse_config) -> List[Dict[str, Any]]:
+    def _extract_list(self, page: Page, parse_config, profile: Profile, page_resources: Optional[Dict[str, bytes]] = None) -> List[Dict[str, Any]]:
         """提取列表数据"""
         try:
             print(f"[ExtractList] 解析HTML...")
@@ -297,6 +299,37 @@ class ExtractEngine:
                     print(f"[ExtractList]  后处理步骤 {step_idx+1}: {step.method}")
                     items = ParseTool.process(step.method, items, step.config)
                     print(f"[ExtractList]    处理后剩余 {len(items)} 个项")
+            
+            # 保存图片（如果存在image字段和item_id字段）
+            if profile.site:
+                print(f"[ExtractList] 开始保存图片，站点: {profile.site}")
+                # 使用页面资源（如果可用）
+                resources = page_resources if page_resources is not None else (page.resources if hasattr(page, 'resources') and page.resources else None)
+                if resources:
+                    print(f"[ExtractList] 检测到 {len(resources)} 个已加载的资源，将优先使用")
+                saved_count = 0
+                for item_idx, item in enumerate(items):
+                    image_url = item.get("image")
+                    item_id = item.get("item_id")
+                    if image_url and item_id:
+                        print(f"[ExtractList]  保存项 {item_idx+1} 的图片: {item_id}")
+                        saved_path = TransformProcessor.save_image(
+                            image_url=image_url,
+                            item_id=item_id,
+                            site=profile.site,
+                            page_resources=resources
+                        )
+                        if saved_path:
+                            saved_count += 1
+                            print(f"[ExtractList]    ✓ 图片已保存: {saved_path}")
+                        else:
+                            print(f"[ExtractList]    ✗ 图片保存失败")
+                    else:
+                        if not image_url:
+                            print(f"[ExtractList]  项 {item_idx+1} 缺少 image 字段")
+                        if not item_id:
+                            print(f"[ExtractList]  项 {item_idx+1} 缺少 item_id 字段")
+                print(f"[ExtractList] 图片保存完成: {saved_count}/{len(items)} 个图片已保存")
             
             print(f"[ExtractList] 最终返回 {len(items)} 个项")
             return items

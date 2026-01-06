@@ -1,6 +1,7 @@
 """Playwright页面抓取器"""
 from playwright.async_api import async_playwright, Browser, Page as PlaywrightPage
-from typing import Optional
+from typing import Optional, Dict
+import re
 
 from core.types import Page, FetchConfig
 
@@ -51,6 +52,32 @@ class PlaywrightFetcher:
         context = await self.browser.new_context(**context_options)
 
         page = await context.new_page()
+        
+        # 存储已加载的图片资源
+        image_resources: Dict[str, bytes] = {}
+        
+        # 拦截响应，捕获图片资源
+        async def handle_response(response):
+            """处理响应，捕获图片资源"""
+            try:
+                # 检查是否是图片资源
+                content_type = response.headers.get('content-type', '')
+                if 'image/' in content_type:
+                    resource_url = response.url
+                    try:
+                        # 获取响应内容
+                        body = await response.body()
+                        if body:
+                            image_resources[resource_url] = body
+                    except Exception as e:
+                        # 如果获取失败，忽略（可能是流式响应）
+                        pass
+            except Exception:
+                # 忽略错误，继续处理
+                pass
+        
+        # 监听响应事件
+        page.on("response", handle_response)
 
         try:
             # 导航到页面（支持 goto 配置）
@@ -82,7 +109,7 @@ class PlaywrightFetcher:
 
             status_code = response.status if response else 200
 
-            return Page(url=url, html=html_content, status_code=status_code)
+            return Page(url=url, html=html_content, status_code=status_code, resources=image_resources if image_resources else None)
 
         finally:
             await context.close()
