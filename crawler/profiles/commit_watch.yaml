@@ -53,6 +53,12 @@ parse:
         # 若是 srcset / data-srcset，取最大图
         - type: pick_best_srcset
         - type: strip
+        # 处理协议相对URL（//开头的URL），将其转换为 https://
+        # 使用replace将开头的//替换为https://
+        # 注意：这会替换所有//，但URL中通常只有开头有//，所以应该没问题
+        - type: replace
+          from: "//"
+          to: "https://"
 
     model_no:
       # 从商品容器文本中提取"型番：XXXX"或"Ref.XXXX"

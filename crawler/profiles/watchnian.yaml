@@ -1,0 +1,101 @@
+id: watchnian_supd_list_v1
+version: 1
+site: watchnian.com
+owner: user
+description: >
+  Watchnian supd collection list page.
+  Extract watch brand, model name, model number(ref), sale price(JPY, tax-in), image url, and product url from listing cards.
+
+match:
+  url_regex: "^https://watchnian\\.com/shop/r/rwatch_supd/.*$"
+  example_url: https://watchnian.com/shop/r/rwatch_supd/?filtercode13=1#block_of_filter
+  priority: 20
+
+fetch:
+  engine: playwright
+  goto:
+    wait_until: networkidle
+    timeout_ms: 45000
+  wait_for:
+    # 等待商品列表加载
+    - selector: "div.block-genre-goods-list-container ul li"
+      state: attached
+  viewport:
+    width: 1280
+    height: 720
+
+parse:
+  type: list
+  # 商品列表容器
+  item_selector_candidates:
+    - "div.block-genre-goods-list-container ul > li"
+  item_selector_pick: first_non_empty
+
+  fields:
+    product_url:
+      selector: "dl > a"
+      attr: "href"
+      transforms:
+        - type: url_join
+          base: "https://watchnian.com"
+        - type: strip
+
+    image:
+      # 商品图片
+      selector_candidates:
+        - "dl > a > dt > figure > img"
+        - "dl > a img"
+        - "img"
+      attr_candidates: ["src", "data-src", "data-original", "data-lazy-src", "srcset", "data-srcset"]
+      transforms:
+        # 若是 srcset / data-srcset，取最大图
+        - type: pick_best_srcset
+        - type: strip
+        # 如果是相对路径，添加 https://watchnian.com/ 前缀
+        - type: url_join
+          base: "https://watchnian.com"
+
+    brand_name_model_name_model_no:
+      # 从商品名称区域的第一行提取品牌名称
+      # 假设文本格式为：品牌名\n型号名\n型番
+      selector: "dl > a > dd > div.block-thumbnail-t--goods-name > p"
+      text: true
+      transforms:
+        # 提取第一行（到第一个换行符或结束）
+        - type: regex_capture
+          pattern: "^([^\\n\\r\\t]+)"
+          group: 1
+        - type: strip
+    
+    price_jpy:
+      # 提取价格（税込）
+      selector: "dl > a > dd > div.block-thumbnail-t--price-infos > div > div.block-thumbnail-t--price.price.price-default"
+      text: true
+      transforms:
+        # 匹配价格格式：¥ 1,848,000（税込）或类似格式
+        - type: regex_capture
+          pattern: "¥\\s*([0-9,]+)"
+          group: 1
+        - type: replace
+          from: ","
+          to: ""
+        - type: to_int
+
+  # 后处理步骤：在提取字段后执行
+  post_list_process:
+    - method: deduplicate_by_url
+      config:
+        url_field: product_url
+
+pagination:
+  # 翻页链接
+  next_page:
+    selector_candidates:
+      - "a:has-text('次')"
+      - "a:has-text('Next')"
+      - "a[rel='next']"
+    attr: "href"
+    transforms:
+      - type: url_join
+        base: "https://watchnian.com"
+
