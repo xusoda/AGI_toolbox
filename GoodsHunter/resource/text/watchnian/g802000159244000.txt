@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/g802000159244000/
+item_id: g802000159244000
+brand_name_model_name_model_no: パテックフィリップ ワールドタイム 5230G-001 グレー/ホワイト メンズ 時計 【wristwatch】
+price_jpy: 5000000

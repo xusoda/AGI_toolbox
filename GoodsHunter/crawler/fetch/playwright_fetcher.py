@@ -95,13 +95,17 @@ class PlaywrightFetcher:
             if config.wait_for:
                 for wait_config in config.wait_for:
                     try:
+                        # 使用配置的超时时间，如果没有则使用默认值10秒
+                        timeout = (wait_config.timeout_ms / 1000) if wait_config.timeout_ms else 10000
                         await page.wait_for_selector(
                             wait_config.selector,
                             state=wait_config.state,
-                            timeout=5000,  # 默认5秒超时
+                            timeout=timeout,
                         )
-                    except Exception:
-                        # 等待失败不影响继续执行
+                        print(f"[PlaywrightFetcher] 等待元素成功: {wait_config.selector} (state: {wait_config.state})")
+                    except Exception as e:
+                        # 等待失败不影响继续执行，但打印警告
+                        print(f"[PlaywrightFetcher] 等待元素超时或失败: {wait_config.selector} (state: {wait_config.state}), 错误: {str(e)}")
                         pass
 
             # 处理懒加载图片：强制加载 + 滚动 + 等待网络空闲

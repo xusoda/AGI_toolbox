@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0708052/
 item_id: gik-00-0708052
 brand_name_model_name_model_no: オメガ シーマスター プロフェッショナル 300 ミッドサイズ 2561.80 ブルー ユニセックス 時計 【中古】【wristwatch】
-price_jpy: 220000
+price_jpy: 221100

@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0708703/
 item_id: gik-00-0708703
 brand_name_model_name_model_no: タグ ホイヤー カレラ スキッパー CBS2213.FN6002 ブルー メンズ 時計 【中古】【wristwatch】
+price_jpy: 756800

@@ -1,4 +1,3 @@
 product_url: https://watchnian.com/shop/g/gik-00-0705886/
 item_id: gik-00-0705886
 brand_name_model_name_model_no: ロレックス デイトジャスト 16233 グレー メンズ 時計 【中古】【wristwatch】
-price_jpy: 982300

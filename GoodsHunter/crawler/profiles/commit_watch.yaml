@@ -8,7 +8,7 @@ description: >
 
 match:
   url_regex: "^https://commit-watch\\.co\\.jp/(en/)?collections/onsale(\\?.*)?$"
-  example_url: https://commit-watch.co.jp/en/collections/onsale
+  example_url: https://commit-watch.co.jp/collections/onsale
   priority: 20
 
 fetch:

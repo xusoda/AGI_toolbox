@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0707565/
 item_id: gik-00-0707565
 brand_name_model_name_model_no: ロレックス GMTマスター 16700 ブラック メンズ 時計 【中古】【wristwatch】
-price_jpy: 2090000
+price_jpy: 2101000

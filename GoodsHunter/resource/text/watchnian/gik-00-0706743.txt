@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0706743/
 item_id: gik-00-0706743
 brand_name_model_name_model_no: オメガ コンステレーション コーアクシャル 123.10.35.20.03.002 ブルー メンズ 時計 【中古】【wristwatch】
-price_jpy: 324500
+price_jpy: 325600

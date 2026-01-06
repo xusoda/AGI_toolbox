@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0707104/
 item_id: gik-00-0707104
 brand_name_model_name_model_no: オメガ スピードマスター ブロードアロー 1957 コーアクシャル 321.90.42.50.13.001 ブラウン メンズ 時計 【中古】【wristwatch】
-price_jpy: 1064800
+price_jpy: 1069200

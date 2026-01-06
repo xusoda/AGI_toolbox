@@ -117,6 +117,7 @@ class ProfileRegistry:
                     WaitForConfig(
                         selector=wait_data["selector"],
                         state=wait_data.get("state", "attached"),
+                        timeout_ms=wait_data.get("timeout_ms"),
                     )
                 )
         

@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0699371/
+item_id: gik-00-0699371
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 76080 ブラック レディース 時計 【中古】【wristwatch】
+price_jpy: 465300

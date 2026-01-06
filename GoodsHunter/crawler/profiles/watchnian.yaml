@@ -20,6 +20,11 @@ fetch:
     # 等待商品列表加载
     - selector: "div.block-genre-goods-list-container ul li"
       state: attached
+      timeout_ms: 5000  # 5秒超时
+    # 等待价格元素加载（确保价格数据已渲染）
+    - selector: "div.block-genre-goods-list-container ul li div.block-thumbnail-t--price-infos"
+      state: visible
+      timeout_ms: 1500  # 1.5秒超时，价格可能动态加载需要更长时间
   viewport:
     width: 1280
     height: 720
@@ -84,12 +89,24 @@ parse:
     
     price_jpy:
       # 提取价格（税込）
-      selector: "dl > a > dd > div.block-thumbnail-t--price-infos > div > div.block-thumbnail-t--price.price.price-default"
+      # 支持两种价格格式：
+      # 1. div.block-thumbnail-t--price-infos > div > div > span.num（没有block-thumbnail-t--price类）
+      # 2. div.block-thumbnail-t--price-infos > div > div.block-thumbnail-t--price.price.price-default > span.num（有block-thumbnail-t--price类）
+      selector_candidates:
+        # 第一种格式：直接查找 span.num
+        - "dl > a > dd > div.block-thumbnail-t--price-infos > div > div > span.num"
+        # 第二种格式：有 block-thumbnail-t--price 类的格式
+        - "dl > a > dd > div.block-thumbnail-t--price-infos > div > div.block-thumbnail-t--price.price.price-default > span.num"
+        # 回退：如果没有 span.num，尝试直接获取价格容器的文本
+        - "dl > a > dd > div.block-thumbnail-t--price-infos > div > div.block-thumbnail-t--price.price.price-default"
       text: true
       transforms:
-        # 匹配价格格式：¥ 1,848,000（税込）或类似格式
+        # 匹配价格格式：支持两种情况
+        # 1. span.num 只包含数字：1,464,100
+        # 2. 价格容器包含 ¥ 符号：¥ 1,848,000
+        # 使用可选匹配：¥ 符号是可选的
         - type: regex_capture
-          pattern: "¥\\s*([0-9,]+)"
+          pattern: "(?:¥\\s*)?([0-9,]+)"
           group: 1
         - type: replace
           from: ","

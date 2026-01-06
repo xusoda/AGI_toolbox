@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0707140/
 item_id: gik-00-0707140
 brand_name_model_name_model_no: ショパール アルパイン イーグル 33 298617-3002 ブルー メンズ 時計 【中古】【wristwatch】
+price_jpy: 1553200

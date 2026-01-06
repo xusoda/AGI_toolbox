@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0676871/
 item_id: gik-00-0676871
 brand_name_model_name_model_no: ロレックス デイトジャスト サンダーバード 16264 ホワイト メンズ 時計 【中古】【wristwatch】
-price_jpy: 999900
+price_jpy: 1004300

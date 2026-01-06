@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0707677/
 item_id: gik-00-0707677
 brand_name_model_name_model_no: ロレックス オイスターパーペチュアル デイト 15200 ホワイト メンズ 時計 【中古】【wristwatch】
-price_jpy: 654500
+price_jpy: 657800

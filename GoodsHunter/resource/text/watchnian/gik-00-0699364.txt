@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0699364/
 item_id: gik-00-0699364
 brand_name_model_name_model_no: ロレックス デイトジャスト 79173 シャンパン レディース 時計 【中古】【wristwatch】
+price_jpy: 856900

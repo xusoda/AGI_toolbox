@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0701771/
 item_id: gik-00-0701771
 brand_name_model_name_model_no: ロレックス レディ デイトジャスト 28 279171G オリーブグリーン/ダイヤモンド レディース 時計 【中古】【wristwatch】
+price_jpy: 2101000

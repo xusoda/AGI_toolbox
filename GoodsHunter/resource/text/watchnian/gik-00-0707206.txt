@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0707206/
 item_id: gik-00-0707206
 brand_name_model_name_model_no: ブルガリ ブルガリ ブルガリ BBL26S ブラック レディース 時計 【中古】【wristwatch】
+price_jpy: 171600

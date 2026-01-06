@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0708638/
 item_id: gik-00-0708638
 brand_name_model_name_model_no: カルティエ パンテール ドゥ カルティエ SM W3PN0006 シルバー レディース 時計 【中古】【wristwatch】
+price_jpy: 1733600

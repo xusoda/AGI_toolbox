@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0699969/
 item_id: gik-00-0699969
 brand_name_model_name_model_no: モーリス ラクロア アイコン オートマティック 39 AI6007-SS002-731-1 ピンク メンズ 時計 【中古】【wristwatch】
+price_jpy: 160600

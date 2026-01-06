@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0696327/
 item_id: gik-00-0696327
 brand_name_model_name_model_no: ウブロ スピリット オブ ビッグバン チタニウム 641.NM.0173.LR スケルトン メンズ 時計 【中古】【wristwatch】
-price_jpy: 1686300
+price_jpy: 1738000

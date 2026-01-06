@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0708602/
 item_id: gik-00-0708602
 brand_name_model_name_model_no: カルティエ タンクフランセーズ MM W51003Q3 シルバー レディース 時計 【中古】【wristwatch】
+price_jpy: 446600

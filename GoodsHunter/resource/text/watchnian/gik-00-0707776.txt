@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0707776/
 item_id: gik-00-0707776
 brand_name_model_name_model_no: タグ ホイヤー アクアレーサー キャリバー5 WAY211C.BA0928 ブルー メンズ 時計 【中古】【wristwatch】
+price_jpy: 266200

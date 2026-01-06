@@ -59,6 +59,7 @@ class WaitForConfig:
     """等待配置"""
     selector: str
     state: str = "attached"  # attached, visible, hidden, etc.
+    timeout_ms: Optional[int] = None  # 超时时间（毫秒），如果为None则使用默认值
 
 
 @dataclass

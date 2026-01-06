@@ -1,3 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0685602/
 item_id: gik-00-0685602
 brand_name_model_name_model_no: ロレックス コスモグラフ デイトナ 126508 グリーン メンズ 時計 【新品】【wristwatch】
+price_jpy: 15235000
