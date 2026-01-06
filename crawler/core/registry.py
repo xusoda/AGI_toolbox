@@ -18,6 +18,7 @@ from core.types import (
     GotoConfig,
     WaitForConfig,
     ViewportConfig,
+    ProcessStep,
 )
 
 
@@ -173,11 +174,44 @@ class ProfileRegistry:
                     transforms=transforms,
                 )
             
+            # 解析预处理和后处理步骤
+            pre_list_process = None
+            if "pre_list_process" in parse_data:
+                pre_list_process = []
+                for step_data in parse_data["pre_list_process"]:
+                    # 兼容两种格式：
+                    # 1. {method: "deduplicate_by_url", config: {url_field: "product_url"}}
+                    # 2. {method: "deduplicate_by_url", url_field: "product_url"}
+                    method = step_data["method"]
+                    if "config" in step_data:
+                        step_config = step_data["config"]
+                    else:
+                        # 直接写参数的情况，排除 method 字段
+                        step_config = {k: v for k, v in step_data.items() if k != "method"}
+                    pre_list_process.append(ProcessStep(method=method, config=step_config))
+            
+            post_list_process = None
+            if "post_list_process" in parse_data:
+                post_list_process = []
+                for step_data in parse_data["post_list_process"]:
+                    # 兼容两种格式：
+                    # 1. {method: "deduplicate_by_url", config: {url_field: "product_url"}}
+                    # 2. {method: "deduplicate_by_url", url_field: "product_url"}
+                    method = step_data["method"]
+                    if "config" in step_data:
+                        step_config = step_data["config"]
+                    else:
+                        # 直接写参数的情况，排除 method 字段
+                        step_config = {k: v for k, v in step_data.items() if k != "method"}
+                    post_list_process.append(ProcessStep(method=method, config=step_config))
+            
             parse_config = ParseConfig(
                 type=parse_data.get("type", "single"),
                 item_selector_candidates=parse_data.get("item_selector_candidates"),
                 item_selector_pick=parse_data.get("item_selector_pick", "first_non_empty"),
                 fields=fields_config,
+                pre_list_process=pre_list_process,
+                post_list_process=post_list_process,
             )
 
         # 解析fields配置（旧格式，兼容）

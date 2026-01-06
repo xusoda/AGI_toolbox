@@ -50,12 +50,13 @@ parse:
         - type: strip
 
     model:
-      # 从商品标题文本中提取“型番：XXXX”或“Ref.XXXX”
-      selector: "a[href*='/products/']"
+      # 从商品容器文本中提取"型番：XXXX"或"Ref.XXXX"
+      # 使用:root从整个item容器中提取文本，因为型番信息可能在容器的任何位置
+      selector: ":root"
       text: true
       transforms:
         - type: regex_capture
-          # 兼容：型番：116,500LN 这种写法（站内出现逗号）:contentReference[oaicite:2]{index=2}
+          # 兼容：型番：116,500LN 这种写法（站内出现逗号）
           pattern: "(?:型番：\\s*|Ref\\.?\\s*)([0-9A-Za-z\\.,\\-/_]+)"
           group: 1
         - type: replace
@@ -75,6 +76,12 @@ parse:
           from: ","
           to: ""
         - type: to_int
+
+  # 后处理步骤：在提取字段后执行
+  post_list_process:
+    - method: deduplicate_by_url
+      config:
+        url_field: product_url
 
 pagination:
   # 可选：用于翻页批量抓全量（333 products, page 1/7 这类结构在页面里可见）:contentReference[oaicite:3]{index=3}

@@ -36,12 +36,21 @@ class FieldExtractConfig:
 
 
 @dataclass
+class ProcessStep:
+    """处理步骤配置"""
+    method: str  # 处理方法名，如 "deduplicate_by_url"
+    config: Dict[str, Any] = field(default_factory=dict)  # 方法配置参数
+
+
+@dataclass
 class ParseConfig:
     """解析配置"""
     type: str = "single"  # single 或 list
     item_selector_candidates: Optional[List[str]] = None
     item_selector_pick: str = "first_non_empty"  # first_non_empty 或 all
     fields: Dict[str, FieldExtractConfig] = field(default_factory=dict)
+    pre_list_process: Optional[List[ProcessStep]] = None  # 列表提取前的预处理步骤
+    post_list_process: Optional[List[ProcessStep]] = None  # 列表提取后的后处理步骤
 
 
 @dataclass

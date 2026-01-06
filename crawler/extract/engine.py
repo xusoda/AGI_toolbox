@@ -14,6 +14,7 @@ from extract.strategies.jsonld import JSONLDStrategy
 from extract.strategies.xpath import XPathStrategy
 from extract.strategies.regex import RegexStrategy
 from extract.transforms import TransformProcessor
+from extract.parse_tool import ParseTool
 
 
 def _css_has_to_xpath(selector: str) -> str:
@@ -288,6 +289,16 @@ class ExtractEngine:
                     print(f"[ExtractList]  ✗ 项 {item_idx+1} 未提取到任何字段，跳过")
             
             print(f"[ExtractList] 总共提取到 {len(items)} 个有效项")
+            
+            # 执行后处理步骤
+            if parse_config.post_list_process:
+                print(f"[ExtractList] 执行 {len(parse_config.post_list_process)} 个后处理步骤...")
+                for step_idx, step in enumerate(parse_config.post_list_process):
+                    print(f"[ExtractList]  后处理步骤 {step_idx+1}: {step.method}")
+                    items = ParseTool.process(step.method, items, step.config)
+                    print(f"[ExtractList]    处理后剩余 {len(items)} 个项")
+            
+            print(f"[ExtractList] 最终返回 {len(items)} 个项")
             return items
         
         except Exception as e:
@@ -395,7 +406,10 @@ class ExtractEngine:
                         original_value = value
                         value = TransformProcessor.apply_transforms(value, field_config.transforms)
                         print(f"[ExtractField]        转换后: {str(value)[:100] if value else None}")
-                    values.append(value)
+                    # 即使transforms返回None，也记录原始值（用于调试）
+                    # 但只有当最终值不为None时才添加到values
+                    if value is not None:
+                        values.append(value)
                 else:
                     print(f"[ExtractField]      未提取到值")
             
