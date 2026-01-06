@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/hqfe79e7
+item_id: hqfe79e7
+model_no: 16808
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 4598000

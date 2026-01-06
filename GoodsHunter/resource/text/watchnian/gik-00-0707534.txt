@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707534/
+item_id: gik-00-0707534
+brand_name_model_name_model_no: ロレックス サブマリーナ デイト 16610 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 1630200

@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/dmrvb8ta
+item_id: dmrvb8ta
+model_no: 116520
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 3883000

@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/hc4dofwo
+item_id: hc4dofwo
+model_no: 5146G-001
+brand_name: パテックフィリップ
+model_name: アニュアルカレンダー ムーンフェイズ
+price_jpy: 4785000

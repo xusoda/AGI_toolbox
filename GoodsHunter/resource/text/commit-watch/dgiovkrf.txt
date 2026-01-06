@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/dgiovkrf
+item_id: dgiovkrf
+model_no: 220.028
+brand_name: A.ランゲ＆ゾーネ
+model_name: 1815
+price_jpy: 4488000

@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/izmivkod
+item_id: izmivkod
+model_no: 5124G-011
+brand_name: パテックフィリップ
+model_name: ゴンドーロ
+price_jpy: 3388000

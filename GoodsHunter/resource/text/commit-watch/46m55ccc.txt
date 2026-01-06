@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/46m55ccc
+item_id: 46m55ccc
+model_no: 16570
+brand_name: ロレックス
+model_name: エクスプローラーII
+price_jpy: 1892000

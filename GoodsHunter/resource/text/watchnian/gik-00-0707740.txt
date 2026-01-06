@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707740/
+item_id: gik-00-0707740
+brand_name_model_name_model_no: オメガ シーマスター アクアテラ クォーツ 231.10.39.60.02.001 シルバー メンズ 時計 【中古】【wristwatch】
+price_jpy: 369600

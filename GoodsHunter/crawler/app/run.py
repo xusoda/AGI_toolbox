@@ -3,7 +3,7 @@ import argparse
 import asyncio
 import sys
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 # 将项目根目录添加到Python路径
 # 获取当前文件的目录（app/），然后获取父目录（crawler/）
@@ -16,13 +16,13 @@ from core.registry import ProfileRegistry
 from core.types import Profile
 from fetch.playwright_fetcher import PlaywrightFetcher
 from extract.engine import ExtractEngine
-from output.writer import JSONLWriter
+from output.fileWriter import FileWriter
 
 
 async def process_urls(
     urls: List[str],
     profiles_path: str,
-    output_path: str,
+    output_path: Optional[str] = None,
 ):
     """
     处理URL列表
@@ -30,13 +30,12 @@ async def process_urls(
     Args:
         urls: URL列表
         profiles_path: profiles.yaml路径
-        output_path: 输出JSONL文件路径
+        output_path: 输出JSONL文件路径（可选，如果为None则不保存JSONL，只保存图片和文本文件）
     """
     # 初始化组件
     registry = ProfileRegistry(profiles_path)
     fetcher = PlaywrightFetcher()
     engine = ExtractEngine()
-    writer = JSONLWriter(output_path)
 
     try:
         await fetcher.start()
@@ -59,18 +58,27 @@ async def process_urls(
                 # 抽取字段
                 record = engine.extract(page, profile)
 
-                # 写入结果
-                writer.write_record(record)
+                # 保存记录（包括JSONL、图片和文本文件）
+                stats = FileWriter.save_record(
+                    record=record,
+                    site=profile.site,
+                    output_path=output_path
+                )
 
                 # 显示提取结果
                 if "items" in record.data:
                     items = record.data["items"]
                     print(f"  完成: 提取了 {len(items)} 个列表项")
                     if items:
-                        # 显示第一个项的字段信息
+                        # 显示第一个项的字段信息（排除内部字段）
                         first_item = items[0]
-                        print(f"  每个项包含字段: {list(first_item.keys())}")
-                        print(f"  示例项数据: {first_item}")
+                        display_keys = [k for k in first_item.keys() if not k.startswith("_")]
+                        print(f"  每个项包含字段: {display_keys}")
+                        # 显示示例数据（排除图片数据）
+                        display_item = {k: v for k, v in first_item.items() if not k.startswith("_") and k != "image"}
+                        if "_image_data" in first_item:
+                            display_item["_image_data"] = f"<binary data, {len(first_item['_image_data'])} bytes>"
+                        print(f"  示例项数据: {display_item}")
                 else:
                     print(f"  完成: 提取了 {len(record.data)} 个字段")
                     if record.data:
@@ -125,8 +133,9 @@ def main():
     parser.add_argument(
         "--out",
         type=str,
-        required=True,
-        help="输出JSONL文件路径",
+        required=False,
+        default=None,
+        help="输出JSONL文件路径（可选，如果不指定则只保存图片和文本文件）",
     )
     parser.add_argument(
         "--profiles",
@@ -154,7 +163,10 @@ def main():
     # 运行异步处理
     asyncio.run(process_urls(urls, args.profiles, args.out))
 
-    print(f"完成！结果已保存到: {args.out}")
+    if args.out:
+        print(f"完成！结果已保存到: {args.out}")
+    else:
+        print("完成！图片和文本文件已保存到配置的目录")
 
 
 if __name__ == "__main__":

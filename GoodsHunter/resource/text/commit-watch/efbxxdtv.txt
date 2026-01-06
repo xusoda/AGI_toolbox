@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/efbxxdtv
+item_id: efbxxdtv
+model_no: 116500LN
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 4378000

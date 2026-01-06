@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706931/
+item_id: gik-00-0706931
+brand_name_model_name_model_no: オメガ スピードマスター レーシング ミハエル・シューマッハ 3510.61 レッド メンズ 時計 【中古】【wristwatch】
+price_jpy: 403700

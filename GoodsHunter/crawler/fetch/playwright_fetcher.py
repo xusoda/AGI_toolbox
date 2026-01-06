@@ -104,6 +104,94 @@ class PlaywrightFetcher:
                         # 等待失败不影响继续执行
                         pass
 
+            # 处理懒加载图片：强制加载 + 滚动 + 等待网络空闲
+            print(f"[PlaywrightFetcher] 开始处理懒加载图片...")
+            
+            # 1. 强制加载懒加载图片（将data-src等属性转换为src）
+            try:
+                await page.evaluate("""
+                    () => {
+                        // 处理所有可能的懒加载属性
+                        const lazyAttrs = ['data-src', 'data-lazy-src', 'data-original', 'data-lazy', 'data-srcset'];
+                        let loadedCount = 0;
+                        
+                        document.querySelectorAll('img').forEach(img => {
+                            for (const attr of lazyAttrs) {
+                                if (img.hasAttribute(attr)) {
+                                    const srcValue = img.getAttribute(attr);
+                                    if (srcValue) {
+                                        img.src = srcValue;
+                                        loadedCount++;
+                                        break;
+                                    }
+                                }
+                            }
+                        });
+                        
+                        // 处理背景图片的懒加载
+                        document.querySelectorAll('[data-bg], [data-background], [data-lazy-bg]').forEach(el => {
+                            const bgAttr = el.getAttribute('data-bg') || 
+                                          el.getAttribute('data-background') || 
+                                          el.getAttribute('data-lazy-bg');
+                            if (bgAttr) {
+                                el.style.backgroundImage = `url(${bgAttr})`;
+                                loadedCount++;
+                            }
+                        });
+                        
+                        return loadedCount;
+                    }
+                """)
+                print(f"[PlaywrightFetcher] 强制加载懒加载图片完成")
+            except Exception as e:
+                print(f"[PlaywrightFetcher] 强制加载懒加载图片时出错: {str(e)}")
+            
+            # 2. 滚动页面触发懒加载（分步滚动，确保所有图片都有机会加载）
+            try:
+                await page.evaluate("""
+                    async () => {
+                        const scrollStep = 500;
+                        const scrollDelay = 200;
+                        let lastHeight = 0;
+                        let currentHeight = document.body.scrollHeight;
+                        let scrollPosition = 0;
+                        let unchangedCount = 0;
+                        
+                        // 分步向下滚动
+                        while (scrollPosition < currentHeight && unchangedCount < 3) {
+                            scrollPosition += scrollStep;
+                            window.scrollTo(0, Math.min(scrollPosition, currentHeight));
+                            await new Promise(resolve => setTimeout(resolve, scrollDelay));
+                            
+                            const newHeight = document.body.scrollHeight;
+                            if (newHeight === currentHeight) {
+                                unchangedCount++;
+                            } else {
+                                unchangedCount = 0;
+                                currentHeight = newHeight;
+                            }
+                        }
+                        
+                        // 滚动到底部
+                        window.scrollTo(0, document.body.scrollHeight);
+                        await new Promise(resolve => setTimeout(resolve, scrollDelay));
+                        
+                        // 滚动回顶部
+                        window.scrollTo(0, 0);
+                        await new Promise(resolve => setTimeout(resolve, scrollDelay));
+                    }
+                """)
+                print(f"[PlaywrightFetcher] 页面滚动完成")
+            except Exception as e:
+                print(f"[PlaywrightFetcher] 页面滚动时出错: {str(e)}")
+            
+            # 3. 等待网络空闲，确保所有图片加载完成
+            try:
+                await page.wait_for_load_state("networkidle", timeout=10000)
+                print(f"[PlaywrightFetcher] 网络空闲，图片加载完成")
+            except Exception as e:
+                print(f"[PlaywrightFetcher] 等待网络空闲超时: {str(e)}，继续执行")
+            
             # 获取HTML内容
             html_content = await page.content()
 

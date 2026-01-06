@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/d5misdtb
+item_id: d5misdtb
+model_no: 116520
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 4180000

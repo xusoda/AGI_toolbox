@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706872/
+item_id: gik-00-0706872
+brand_name_model_name_model_no: ロレックス デイトジャスト 16233G ブルー・グラデーション/ダイヤモンド メンズ 時計 【中古】【wristwatch】
+price_jpy: 1384900

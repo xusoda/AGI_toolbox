@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706870/
+item_id: gik-00-0706870
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル デイト 15200 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 801900

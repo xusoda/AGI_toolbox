@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706146/
+item_id: gik-00-0706146
+brand_name_model_name_model_no: ロレックス デイトジャスト 16234 ブルー メンズ 時計 【中古】【wristwatch】
+price_jpy: 1065900

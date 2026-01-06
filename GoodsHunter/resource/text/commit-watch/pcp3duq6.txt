@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/pcp3duq6
+item_id: pcp3duq6
+model_no: 116718LN
+brand_name: ロレックス
+model_name: GMTマスターII
+price_jpy: 5995000

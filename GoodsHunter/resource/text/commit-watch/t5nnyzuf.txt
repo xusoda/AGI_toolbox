@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/t5nnyzuf
+item_id: t5nnyzuf
+model_no: 226570
+brand_name: ロレックス
+model_name: エクスプローラーII
+price_jpy: 1738000

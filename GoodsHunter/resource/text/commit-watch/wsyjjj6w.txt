@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/wsyjjj6w
+item_id: wsyjjj6w
+model_no: 8928BR/5W/844
+brand_name: ブレゲ
+model_name: クイーンオブネイプルズ
+price_jpy: 2398000

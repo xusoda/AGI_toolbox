@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/jtueoz9o
+item_id: jtueoz9o
+model_no: 19018N
+brand_name: ロレックス
+model_name: オイスタークォーツ デイデイト36
+price_jpy: 3245000

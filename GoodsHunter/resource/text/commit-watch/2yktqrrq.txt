@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/2yktqrrq
+item_id: 2yktqrrq
+model_no: 126610LV
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 2343000

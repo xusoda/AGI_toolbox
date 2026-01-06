@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707787/
+item_id: gik-00-0707787
+brand_name_model_name_model_no: オメガ シーマスター 300 ミッドサイズ 2562.80 ブルー ユニセックス 時計 【中古】【wristwatch】
+price_jpy: 209000

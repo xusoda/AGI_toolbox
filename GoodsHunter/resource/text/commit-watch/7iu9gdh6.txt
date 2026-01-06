@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/7iu9gdh6
+item_id: 7iu9gdh6
+model_no: 126000
+brand_name: ロレックス
+model_name: オイスターパーペチュアル36
+price_jpy: 2420000

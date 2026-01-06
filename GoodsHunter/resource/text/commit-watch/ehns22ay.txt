@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/ehns22ay
+item_id: ehns22ay
+model_no: 7700V/110A-B172
+brand_name: ヴァシュロンコンスタンタン
+model_name: オーヴァーシーズ ワールドタイム
+price_jpy: 3520000

@@ -259,7 +259,7 @@ class ExtractEngine:
             # 提取每个列表项的字段
             items = []
             total_fields = len(parse_config.fields)
-            for item_idx, item_elem in enumerate(item_elements):
+            for item_idx, item_elem in enumerate[Any](item_elements):
                 print(f"[ExtractList] 处理项 {item_idx+1}/{len(item_elements)}")
                 item_data = {}
                 item_errors = []
@@ -300,36 +300,38 @@ class ExtractEngine:
                     items = ParseTool.process(step.method, items, step.config)
                     print(f"[ExtractList]    处理后剩余 {len(items)} 个项")
             
-            # 保存图片（如果存在image字段和item_id字段）
+            # 获取图片数据到内存（如果存在image字段和item_id字段）
             if profile.site:
-                print(f"[ExtractList] 开始保存图片，站点: {profile.site}")
+                print(f"[ExtractList] 开始获取图片数据，站点: {profile.site}")
                 # 使用页面资源（如果可用）
                 resources = page_resources if page_resources is not None else (page.resources if hasattr(page, 'resources') and page.resources else None)
                 if resources:
                     print(f"[ExtractList] 检测到 {len(resources)} 个已加载的资源，将优先使用")
-                saved_count = 0
+                    # TODO，这里可能有风险，会将lazyloading.png作为图片链接。可能要做的修改是：加一个“预先检测的步骤”：若加载的资源中，有超过2个image的url是相同的，则认为资源中的这个url是lazyloading的url，需要去寻找上述读取每个item的image url的字段获取的image连接作为
+                fetched_count = 0
                 for item_idx, item in enumerate(items):
                     image_url = item.get("image")
                     item_id = item.get("item_id")
                     if image_url and item_id:
-                        print(f"[ExtractList]  保存项 {item_idx+1} 的图片: {item_id}")
-                        saved_path = TransformProcessor.save_image(
+                        print(f"[ExtractList]  获取项 {item_idx+1} 的图片数据: {item_id}")
+                        image_data = TransformProcessor.get_image_data(
                             image_url=image_url,
-                            item_id=item_id,
-                            site=profile.site,
                             page_resources=resources
                         )
-                        if saved_path:
-                            saved_count += 1
-                            print(f"[ExtractList]    ✓ 图片已保存: {saved_path}")
+                        if image_data:
+                            # 将图片数据保存到 item 中（使用 _image_data 字段）
+                            item["_image_data"] = image_data
+                            item["_image_url"] = image_url  # 保存原始URL用于后续保存文件时获取扩展名
+                            fetched_count += 1
+                            print(f"[ExtractList]    ✓ 图片数据已获取，大小: {len(image_data)} 字节")
                         else:
-                            print(f"[ExtractList]    ✗ 图片保存失败")
+                            print(f"[ExtractList]    ✗ 图片数据获取失败")
                     else:
                         if not image_url:
                             print(f"[ExtractList]  项 {item_idx+1} 缺少 image 字段")
                         if not item_id:
                             print(f"[ExtractList]  项 {item_idx+1} 缺少 item_id 字段")
-                print(f"[ExtractList] 图片保存完成: {saved_count}/{len(items)} 个图片已保存")
+                print(f"[ExtractList] 图片数据获取完成: {fetched_count}/{len(items)} 个图片已获取")
             
             print(f"[ExtractList] 最终返回 {len(items)} 个项")
             return items

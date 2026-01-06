@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/92dv9eqq
+item_id: 92dv9eqq
+model_no: 116520
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 3883000

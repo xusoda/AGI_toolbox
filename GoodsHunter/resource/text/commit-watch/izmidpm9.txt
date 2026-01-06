@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/izmidpm9
+item_id: izmidpm9
+model_no: 114060
+brand_name: ロレックス
+model_name: サブマリーナー ノンデイト
+price_jpy: 1683000

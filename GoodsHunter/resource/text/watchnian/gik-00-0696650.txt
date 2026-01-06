@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0696650/
+item_id: gik-00-0696650
+brand_name_model_name_model_no: ロレックス デイデイト 18238A シャンパン/ダイヤモンド メンズ 時計 【中古】【wristwatch】
+price_jpy: 3410000

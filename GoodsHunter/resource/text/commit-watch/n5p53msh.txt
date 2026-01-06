@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/n5p53msh
+item_id: n5p53msh
+model_no: 16800
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 1694000

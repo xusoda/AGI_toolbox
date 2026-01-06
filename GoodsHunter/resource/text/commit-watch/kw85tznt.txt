@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/kw85tznt
+item_id: kw85tznt
+model_no: 30.3400.3610/63.C916
+brand_name: ゼニス
+model_name: クロノマスター オリジナル ト...
+price_jpy: 3993000

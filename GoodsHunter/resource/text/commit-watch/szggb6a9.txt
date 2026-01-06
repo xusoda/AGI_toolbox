@@ -1,0 +1,5 @@
+product_url: https://commit-watch.co.jp/products/szggb6a9
+item_id: szggb6a9
+model_no: 7000RDF
+brand_name: フランクミュラー
+model_name: ラウンド スプリットセコンド ...

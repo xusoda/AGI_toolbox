@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/e3bqmtw6
+item_id: e3bqmtw6
+model_no: 570
+brand_name: パテックフィリップ
+model_name: カラトラバ
+price_jpy: 4994000

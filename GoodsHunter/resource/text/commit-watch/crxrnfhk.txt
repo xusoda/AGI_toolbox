@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/crxrnfhk
+item_id: crxrnfhk
+model_no: 116515LN
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 7370000

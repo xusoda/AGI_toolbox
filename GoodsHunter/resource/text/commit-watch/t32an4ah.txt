@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/t32an4ah
+item_id: t32an4ah
+model_no: 127334
+brand_name: ロレックス
+model_name: ランドドゥエラー
+price_jpy: 4675000

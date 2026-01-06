@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/7ojgtoqa
+item_id: 7ojgtoqa
+model_no: 16613
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 1595000

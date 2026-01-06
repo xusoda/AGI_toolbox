@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708030/
+item_id: gik-00-0708030
+brand_name_model_name_model_no: オメガ シーマスター 300 デイト 2551.80 ブルー メンズ 時計 【中古】【wristwatch】
+price_jpy: 298100

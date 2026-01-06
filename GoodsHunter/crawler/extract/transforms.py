@@ -219,9 +219,95 @@ class TransformProcessor:
         return candidates[0][1]
 
     @staticmethod
+    def get_image_data(image_url: str, page_resources: Optional[Dict[str, bytes]] = None) -> Optional[bytes]:
+        """
+        获取图片数据到内存（不写文件）
+        
+        Args:
+            image_url: 图片URL
+            page_resources: 页面已加载的资源字典（URL -> 内容），如果图片已加载则直接使用
+            
+        Returns:
+            图片的二进制数据，如果失败则返回None
+        """
+        if not image_url:
+            return None
+        
+        # 加载配置
+        config = TransformProcessor._load_config()
+        max_retries = config.get("image", {}).get("max_retries", 3)
+        
+        try:
+            # 尝试从已加载的资源中获取图片
+            image_data = None
+            if page_resources:
+                parsed_url = urlparse(image_url)
+                # 尝试精确匹配
+                if image_url in page_resources:
+                    image_data = page_resources[image_url]
+                    print(f"[GetImageData] 从已加载资源中获取图片: {image_url}")
+                else:
+                    # 尝试匹配URL（去除查询参数和锚点）
+                    base_image_url = f"{parsed_url.scheme}://{parsed_url.netloc}{parsed_url.path}"
+                    for resource_url, resource_data in page_resources.items():
+                        resource_parsed = urlparse(resource_url)
+                        resource_base = f"{resource_parsed.scheme}://{resource_parsed.netloc}{resource_parsed.path}"
+                        if base_image_url == resource_base:
+                            image_data = resource_data
+                            print(f"[GetImageData] 从已加载资源中获取图片（匹配基础URL）: {resource_url}")
+                            break
+            
+            # 如果没有从已加载资源中获取到，则下载图片（带重试）
+            if image_data is None:
+                headers = {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                }
+                
+                last_error = None
+                for attempt in range(1, max_retries + 1):
+                    try:
+                        print(f"[GetImageData] 尝试下载图片 (第 {attempt}/{max_retries} 次): {image_url}")
+                        response = requests.get(image_url, headers=headers, timeout=30, stream=True)
+                        response.raise_for_status()
+                        
+                        # 读取响应内容
+                        image_data = b''
+                        for chunk in response.iter_content(chunk_size=8192):
+                            if chunk:
+                                image_data += chunk
+                        
+                        print(f"[GetImageData] 图片下载成功，大小: {len(image_data)} 字节")
+                        break
+                        
+                    except Exception as e:
+                        last_error = e
+                        print(f"[GetImageData] 下载失败 (第 {attempt}/{max_retries} 次): {str(e)}")
+                        if attempt < max_retries:
+                            # 等待后重试（指数退避）
+                            wait_time = 2 ** (attempt - 1)
+                            print(f"[GetImageData] 等待 {wait_time} 秒后重试...")
+                            time.sleep(wait_time)
+                        else:
+                            print(f"[GetImageData] 达到最大重试次数，放弃下载")
+                            return None
+            
+            if image_data is None or len(image_data) == 0:
+                print(f"[GetImageData] 图片数据为空")
+                return None
+            
+            return image_data
+            
+        except Exception as e:
+            print(f"[GetImageData] 获取图片数据失败: {image_url}, 错误: {str(e)}")
+            return None
+
+    @staticmethod
     def save_image(image_url: str, item_id: str, site: str, page_resources: Optional[Dict[str, bytes]] = None, base_dir: Optional[str] = None) -> Optional[str]:
         """
-        保存图片到本地目录
+        保存图片到本地目录（已废弃）
+        
+        注意：此方法已废弃，请使用 output.fileWriter.FileWriter.save_image() 代替。
+        此方法保留仅用于向后兼容。
         
         Args:
             image_url: 图片URL

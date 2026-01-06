@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/awgj3z55
+item_id: awgj3z55
+model_no: 16623NGS
+brand_name: ロレックス
+model_name: ヨットマスター40
+price_jpy: 2475000

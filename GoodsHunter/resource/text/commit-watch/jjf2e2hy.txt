@@ -1,0 +1,5 @@
+product_url: https://commit-watch.co.jp/products/jjf2e2hy
+item_id: jjf2e2hy
+model_no: 126334
+brand_name: ロレックス
+model_name: デイトジャスト41

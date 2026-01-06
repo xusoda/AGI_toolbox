@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0482361/
+item_id: gik-00-0482361
+brand_name_model_name_model_no: ロレックス エクスプローラー 1016 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 2629000
