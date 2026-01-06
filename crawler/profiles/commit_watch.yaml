@@ -8,6 +8,7 @@ description: >
 
 match:
   url_regex: "^https://commit-watch\\.co\\.jp/(en/)?collections/onsale(\\?.*)?$"
+  example_url: https://commit-watch.co.jp/en/collections/onsale
   priority: 20
 
 fetch:
@@ -53,7 +54,7 @@ parse:
         - type: pick_best_srcset
         - type: strip
 
-    model:
+    model_no:
       # 从商品容器文本中提取"型番：XXXX"或"Ref.XXXX"
       # 使用:root从整个item容器中提取文本，因为型番信息可能在容器的任何位置
       selector: ":root"
@@ -68,6 +69,20 @@ parse:
           to: ""
         - type: strip
 
+    brand_name:
+      # 从商品链接内的品牌名称元素提取
+      selector: "p.brand_name"
+      text: true
+      transforms:
+        - type: strip
+
+    model_name:
+      # 从商品链接内的型号名称元素提取
+      selector: "p.model_name"
+      text: true
+      transforms:
+        - type: strip
+    
     price_jpy:
       # 在卡片容器内抓“Sale price¥... (税込)”优先；兼容“販売価格 ¥...（税込）”
       selector: ":root"
