@@ -41,6 +41,33 @@ services:
     networks:
       - goodshunter-network
 
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    container_name: goodshunter-api
+    environment:
+      DATABASE_URL: postgresql://goodshunter:goodshunter123@postgres:5432/goodshunter
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: minioadmin
+      MINIO_SECRET_KEY: minioadmin123
+      MINIO_BUCKET: watch-images
+      MINIO_USE_SSL: "false"
+      IMAGE_URL_MODE: presign
+      PRESIGN_EXPIRES_SECONDS: "1800"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    volumes:
+      - ./services/api:/app
+      - ./storage:/app/../storage
+    networks:
+      - goodshunter-network
+
 volumes:
   postgres_data:
   minio_data:
