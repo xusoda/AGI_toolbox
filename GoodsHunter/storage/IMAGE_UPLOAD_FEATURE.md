@@ -32,8 +32,8 @@ Crawler → Extract → Record
 ### 基本使用
 
 ```python
-from output.db_writer import DBWriter
-from core.types import Record
+from storage.output.db_writer import DBWriter
+from crawler.core.types import Record
 
 # 初始化DBWriter（默认启用图片上传）
 db_writer = DBWriter()

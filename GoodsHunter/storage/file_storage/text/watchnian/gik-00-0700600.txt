@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700600/
+item_id: gik-00-0700600
+brand_name_model_name_model_no: オメガ シーマスター 300 コーアクシャル マスタークロノメーター 234.30.41.21.03.001 ブルー メンズ 時計 【中古】【wristwatch】
+price_jpy: 748000

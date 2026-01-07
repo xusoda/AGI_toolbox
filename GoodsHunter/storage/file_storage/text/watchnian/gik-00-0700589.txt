@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700589/
+item_id: gik-00-0700589
+brand_name_model_name_model_no: ロレックス サブマリーナ デイト 16613 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 1819400

@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700619/
+item_id: gik-00-0700619
+brand_name_model_name_model_no: パネライ サブマーシブル ルナ・ロッサ PAM01579 ホワイト メンズ 時計 【中古】【wristwatch】
+price_jpy: 1188000

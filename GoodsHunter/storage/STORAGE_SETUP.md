@@ -71,8 +71,8 @@ pip install -r requirements.txt
 ```python
 import os
 from dotenv import load_dotenv
-from output.db_writer import DBWriter
-from core.types import Record
+from storage.output.db_writer import DBWriter
+from crawler.core.types import Record
 
 # 加载环境变量
 load_dotenv()
@@ -89,7 +89,7 @@ db_writer.write_record(record, site="commit-watch.co.jp")
 在 `crawler/app/run.py` 的 `process_urls` 函数中，可以在保存文件后添加数据库写入：
 
 ```python
-from output.db_writer import DBWriter
+from storage.output.db_writer import DBWriter
 
 # 在 process_urls 函数中
 db_writer = DBWriter()

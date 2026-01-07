@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0669362/
+item_id: gik-00-0669362
+brand_name_model_name_model_no: ロレックス デイトジャスト 36 126234G ブルーコンピュータ/ダイヤモンド メンズ 時計 【中古】【wristwatch】
+price_jpy: 1837000

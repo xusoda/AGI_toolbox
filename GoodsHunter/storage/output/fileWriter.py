@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Optional, Dict, Any, List
 from urllib.parse import urlparse
 
-from core.types import Record
+from crawler.core.types import Record
 
 
 class FileWriter:

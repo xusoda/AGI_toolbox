@@ -3,7 +3,7 @@ import json
 from pathlib import Path
 from typing import List
 
-from core.types import Record, FieldError
+from crawler.core.types import Record, FieldError
 
 
 class JSONLWriter:

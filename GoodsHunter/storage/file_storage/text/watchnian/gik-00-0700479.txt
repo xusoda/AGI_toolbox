@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700479/
+item_id: gik-00-0700479
+brand_name_model_name_model_no: オメガ シーマスター アクアテラ NZL-32 クロノグラフ 2513.30 シルバー/ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 434500

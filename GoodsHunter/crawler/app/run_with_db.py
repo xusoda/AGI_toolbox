@@ -7,20 +7,23 @@ from typing import List, Optional
 
 # 将项目根目录添加到Python路径
 _current_file = Path(__file__).resolve()
-_project_root = _current_file.parent.parent
+_crawler_root = _current_file.parent.parent
+_project_root = _crawler_root.parent
+if str(_crawler_root) not in sys.path:
+    sys.path.insert(0, str(_crawler_root))
 if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
 # 加载环境变量
 from dotenv import load_dotenv
-load_dotenv(_project_root.parent / ".env")
+load_dotenv(_project_root / ".env")
 
 from core.registry import ProfileRegistry
 from core.types import Profile
 from fetch.playwright_fetcher import PlaywrightFetcher
 from extract.engine import ExtractEngine
-from output.fileWriter import FileWriter
-from output.db_writer import DBWriter
+from storage.output.fileWriter import FileWriter
+from storage.output.db_writer import DBWriter
 
 
 async def process_urls(
@@ -181,11 +184,11 @@ def main():
 
     args = parser.parse_args()
 
-    # 处理profiles路径：如果是相对路径，则基于项目根目录解析
+    # 处理profiles路径：如果是相对路径，则基于crawler目录解析
     profiles_path = Path(args.profiles)
     if not profiles_path.is_absolute():
-        # 相对路径：基于项目根目录（crawler目录）
-        profiles_path = _project_root / profiles_path
+        # 相对路径：基于crawler目录
+        profiles_path = _crawler_root / profiles_path
     profiles_path_str = str(profiles_path.resolve())
 
     # 加载URLs

@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700919/
+item_id: gik-00-0700919
+brand_name_model_name_model_no: ロレックス デイトジャスト 36 126234 オリーブグリーン パームモチーフ メンズ 時計 【中古】【wristwatch】
+price_jpy: 2222000

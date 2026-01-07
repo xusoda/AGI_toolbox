@@ -23,19 +23,13 @@ try:
 except ImportError:
     Image = None
 
-# 导入MinIOClient（需要从项目根目录导入）
-import sys
-_current_file = Path(__file__).resolve()
-_project_root = _current_file.parent.parent.parent
-if str(_project_root) not in sys.path:
-    sys.path.insert(0, str(_project_root))
-
+# 导入MinIOClient
 try:
     from storage.minio_client import MinIOClient
 except ImportError:
     MinIOClient = None
 
-from core.types import Record
+from crawler.core.types import Record
 
 
 class DBWriter:

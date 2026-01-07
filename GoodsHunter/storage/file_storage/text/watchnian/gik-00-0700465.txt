@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700465/
+item_id: gik-00-0700465
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 76080 ピンク レディース 時計 【中古】【wristwatch】
+price_jpy: 449900

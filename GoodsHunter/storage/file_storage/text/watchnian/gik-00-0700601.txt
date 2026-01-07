@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700601/
+item_id: gik-00-0700601
+brand_name_model_name_model_no: オメガ シーマスター 300 マスターコーアクシャル 233.30.41.21.01.001 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 622600

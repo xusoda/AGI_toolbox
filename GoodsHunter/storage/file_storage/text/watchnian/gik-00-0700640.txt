@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700640/
+item_id: gik-00-0700640
+brand_name_model_name_model_no: ロレックス エクスプローラー 14270 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 1027400

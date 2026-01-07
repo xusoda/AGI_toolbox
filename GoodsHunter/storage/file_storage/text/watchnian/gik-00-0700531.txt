@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700531/
+item_id: gik-00-0700531
+brand_name_model_name_model_no: オメガ シーマスター 300 ジャックマイヨール 1999 175.0518 シルバー メンズ 時計 【中古】【wristwatch】
+price_jpy: 374000

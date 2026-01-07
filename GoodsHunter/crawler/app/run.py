@@ -8,7 +8,10 @@ from typing import List, Optional
 # 将项目根目录添加到Python路径
 # 获取当前文件的目录（app/），然后获取父目录（crawler/）
 _current_file = Path(__file__).resolve()
-_project_root = _current_file.parent.parent
+_crawler_root = _current_file.parent.parent
+_project_root = _crawler_root.parent
+if str(_crawler_root) not in sys.path:
+    sys.path.insert(0, str(_crawler_root))
 if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
@@ -16,7 +19,7 @@ from core.registry import ProfileRegistry
 from core.types import Profile
 from fetch.playwright_fetcher import PlaywrightFetcher
 from extract.engine import ExtractEngine
-from output.fileWriter import FileWriter
+from storage.output.fileWriter import FileWriter
 
 
 async def process_urls(

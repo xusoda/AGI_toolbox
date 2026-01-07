@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0669300/
+item_id: gik-00-0669300
+brand_name_model_name_model_no: ブレゲ マリーンII ラージデイト 5817ST/92/SV0 ブラック/シルバー メンズ 時計 【中古】【wristwatch】
+price_jpy: 1691800

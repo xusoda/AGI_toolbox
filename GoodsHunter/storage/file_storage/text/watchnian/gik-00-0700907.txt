@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700907/
+item_id: gik-00-0700907
+brand_name_model_name_model_no: ブライトリング スーパーオーシャン オートマチック 42 A17375E71C1A1 ブルー メンズ 時計 【中古】【wristwatch】
+price_jpy: 507100

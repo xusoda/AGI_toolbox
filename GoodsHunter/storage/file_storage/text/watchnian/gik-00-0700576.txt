@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700576/
+item_id: gik-00-0700576
+brand_name_model_name_model_no: ロレックス デイトジャスト サンダーバード 16264 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 1054900

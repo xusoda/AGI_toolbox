@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0669121/
+item_id: gik-00-0669121
+brand_name_model_name_model_no: ロレックス シードゥエラー 16600 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 1475100

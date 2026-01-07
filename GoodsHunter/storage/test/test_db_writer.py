@@ -14,7 +14,7 @@ if str(_crawler_dir) not in sys.path:
     sys.path.insert(0, str(_crawler_dir))
 
 from dotenv import load_dotenv
-from output.db_writer import DBWriter
+from storage.output.db_writer import DBWriter
 
 # 加载环境变量
 load_dotenv(_project_root / ".env")

@@ -49,8 +49,8 @@ MINIO_BUCKET=watch-images
 在 crawler 代码中使用 `DBWriter`：
 
 ```python
-from output.db_writer import DBWriter
-from core.types import Record
+from storage.output.db_writer import DBWriter
+from crawler.core.types import Record
 
 # 初始化DBWriter（会自动从环境变量读取DATABASE_URL）
 db_writer = DBWriter()

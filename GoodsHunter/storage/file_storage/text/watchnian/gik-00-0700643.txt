@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700643/
+item_id: gik-00-0700643
+brand_name_model_name_model_no: オメガ スピードマスター レーシング コーアクシャル 326.30.40.50.01.001 ブラック メンズ 時計 【中古】【wristwatch】
+price_jpy: 487300

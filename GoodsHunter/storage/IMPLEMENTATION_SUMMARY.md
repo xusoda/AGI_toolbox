@@ -115,8 +115,8 @@ DATABASE_URL=postgresql://goodshunter:goodshunter123@localhost:5432/goodshunter
 ### 4. 使用 DBWriter
 
 ```python
-from output.db_writer import DBWriter
-from core.types import Record
+from storage.output.db_writer import DBWriter
+from crawler.core.types import Record
 
 db_writer = DBWriter()
 db_writer.write_record(record, site="commit-watch.co.jp")
