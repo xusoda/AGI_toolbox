@@ -1,0 +1,16 @@
+#!/bin/bash
+# 运行 item_extract 模块脚本
+
+set -e
+
+# 获取脚本所在目录
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# 切换到项目根目录（脚本所在目录的上一级）
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$PROJECT_ROOT"
+
+# 执行 Python 脚本
+# 使用 -u 参数确保无缓冲输出，让日志实时显示
+python -u -m item_extract.main --once
+
