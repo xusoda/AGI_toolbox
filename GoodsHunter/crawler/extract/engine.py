@@ -80,7 +80,7 @@ class ExtractEngine:
         print(f"[ExtractEngine] 开始提取，URL: {page.url}")
         print(f"[ExtractEngine] Profile: {profile.name}")
         
-        record = Record(url=page.url)
+        record = Record(url=page.url, status_code=page.status_code)
         data = {}
         errors = []
 

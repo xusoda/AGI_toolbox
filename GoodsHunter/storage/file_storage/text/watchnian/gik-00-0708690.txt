@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708690/
+item_id: gik-00-0708690
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 26 176200 シルバー レディース 時計 【中古】【wristwatch】
+price_jpy: 726000

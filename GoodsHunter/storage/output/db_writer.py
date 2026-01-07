@@ -389,13 +389,14 @@ class DBWriter:
             "raw_item": item  # 保留原始item数据用于raw_json
         }
     
-    def write_record(self, record: Record, site: Optional[str] = None) -> int:
+    def write_record(self, record: Record, site: Optional[str] = None, run_id: int = -1) -> int:
         """
         写入单条记录到数据库
         
         Args:
             record: Record对象
             site: 站点名称，如果为None则从record.url提取
+            run_id: 关联一次crawl run，手动调用时默认为-1
             
         Returns:
             成功写入的记录数
@@ -443,6 +444,27 @@ class DBWriter:
                     raw_item["_image_data"] = f"<binary data, {len(raw_item['_image_data'])} bytes>"
                 raw_json = json.dumps(raw_item, ensure_ascii=False, default=str)
                 
+                # 生成新字段
+                # source_uid: {site}:{item_id}
+                source_uid = f"{normalized['site']}:{normalized['item_id']}"
+                
+                # raw_hash: raw_json的SHA256哈希值
+                raw_hash = hashlib.sha256(raw_json.encode('utf-8')).hexdigest()
+                
+                # status: 默认'success'，如果有错误可以设置为'failed'
+                status = 'success'
+                error = None
+                if record.errors:
+                    # 如果有错误，可以设置为failed（但这里先保持success，因为可能只是部分字段提取失败）
+                    # 如果需要更严格的错误处理，可以根据业务逻辑调整
+                    pass
+                
+                # http_status: 从record.status_code获取
+                http_status = record.status_code
+                
+                # fetch_url: 实际抓取的URL
+                fetch_url = record.url
+                
                 # 插入数据
                 insert_sql = """
                     INSERT INTO crawler_log (
@@ -450,12 +472,14 @@ class DBWriter:
                         brand_name, model_name, model_no,
                         currency, price,
                         image_original_key, image_thumb_300_key, image_thumb_600_key, image_sha256,
+                        source_uid, raw_hash, status, error, http_status, fetch_url, run_id,
                         crawl_time, dt
                     ) VALUES (
                         %s, %s, %s, %s::jsonb,
                         %s, %s, %s,
                         %s, %s,
                         %s, %s, %s, %s,
+                        %s, %s, %s, %s, %s, %s, %s,
                         %s, %s
                     )
                 """
@@ -474,6 +498,13 @@ class DBWriter:
                     image_thumb_300_key,
                     image_thumb_600_key,
                     image_sha256,
+                    source_uid,
+                    raw_hash,
+                    status,
+                    error,
+                    http_status,
+                    fetch_url,
+                    run_id,
                     crawl_time,
                     crawl_date
                 ))
@@ -494,20 +525,21 @@ class DBWriter:
                 cursor.close()
                 self._return_connection(conn)
     
-    def write_records(self, records: List[Record], site: Optional[str] = None) -> int:
+    def write_records(self, records: List[Record], site: Optional[str] = None, run_id: int = -1) -> int:
         """
         批量写入记录到数据库
         
         Args:
             records: Record对象列表
             site: 站点名称，如果为None则从record.url提取
+            run_id: 关联一次crawl run，手动调用时默认为-1
             
         Returns:
             成功写入的记录总数
         """
         total_count = 0
         for record in records:
-            count = self.write_record(record, site)
+            count = self.write_record(record, site, run_id)
             total_count += count
         return total_count
     

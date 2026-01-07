@@ -1,0 +1,27 @@
+你的 crawler_log 作为“原始事实表（append-only）”是必要的，但单靠它不足以保证一致性与避免重复。要做到可批量/可流式调度、可重试、可回溯，建议采用**“两层表 + 两阶段写入 + 幂等键”**的最小闭环设计。
+
+保存每次抓取到的原始 JSON（可追溯、可回放）
+
+允许同一个 item 被多次抓取（用于历史、排错、审计）
+但它不应该承担：
+
+“当前最新商品状态”
+
+“去重后唯一的商品主记录”
+
+“任务调度状态”
+
+2) 最小还需要的两类字段/约束（加在 crawler_log 上）
+A) 幂等去重键：source_uid 与 raw_hash
+
+用于区分两类重复：
+
+1、幂等去重键：source_uid 重复抓到同一item（同一商品）：用 {site}:{item_id}
+2、同一商品内容完全没变：用 raw_hash TEXT NOT NULL —— 对raw_json 做 hash（sha256）用于快速判断“本次抓取内容是否变化”
+
+用于记录状态：
+status TEXT NOT NULL DEFAULT 'success' —— 记录抓取是否成功（success/failed）
+error TEXT NULL —— 失败原因
+http_status INT NULL —— 便于排障/统计
+fetch_url TEXT NULL —— 实际抓取 URL（排障很重要）
+run_id BIGINT NULL —— 关联一次 crawl run（可选但很建议）【后续进行任务调度的时候用】

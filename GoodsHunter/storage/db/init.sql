@@ -20,6 +20,13 @@ CREATE TABLE crawler_log (
     image_thumb_300_key TEXT NULL,
     image_thumb_600_key TEXT NULL,
     image_sha256 TEXT NULL,
+    source_uid TEXT NOT NULL,
+    raw_hash TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'success',
+    error TEXT NULL,
+    http_status INT NULL,
+    fetch_url TEXT NULL,
+    run_id BIGINT NULL,
     crawl_time TIMESTAMPTZ NOT NULL DEFAULT now(),
     dt DATE NOT NULL DEFAULT CURRENT_DATE
 );
@@ -35,6 +42,10 @@ CREATE INDEX idx_crawler_log_price ON crawler_log(price);
 CREATE INDEX idx_crawler_log_crawl_time ON crawler_log(crawl_time DESC);
 CREATE INDEX idx_crawler_log_dt ON crawler_log(dt);
 CREATE INDEX idx_crawler_log_image_sha256 ON crawler_log(image_sha256);
+CREATE INDEX idx_crawler_log_source_uid ON crawler_log(source_uid);
+CREATE INDEX idx_crawler_log_raw_hash ON crawler_log(raw_hash);
+CREATE INDEX idx_crawler_log_status ON crawler_log(status);
+CREATE INDEX idx_crawler_log_run_id ON crawler_log(run_id);
 
 -- 创建组合索引
 CREATE INDEX idx_crawler_log_site_item_id ON crawler_log(site, item_id);
@@ -56,6 +67,13 @@ COMMENT ON COLUMN crawler_log.image_original_key IS 'MinIO原图key';
 COMMENT ON COLUMN crawler_log.image_thumb_300_key IS 'MinIO 300px缩略图key';
 COMMENT ON COLUMN crawler_log.image_thumb_600_key IS 'MinIO 600px缩略图key';
 COMMENT ON COLUMN crawler_log.image_sha256 IS '图片SHA256哈希值（用于去重）';
+COMMENT ON COLUMN crawler_log.source_uid IS '幂等去重键：{site}:{item_id}';
+COMMENT ON COLUMN crawler_log.raw_hash IS 'raw_json的SHA256哈希值（用于判断内容是否变化）';
+COMMENT ON COLUMN crawler_log.status IS '抓取状态：success/failed';
+COMMENT ON COLUMN crawler_log.error IS '失败原因（如果status为failed）';
+COMMENT ON COLUMN crawler_log.http_status IS 'HTTP状态码';
+COMMENT ON COLUMN crawler_log.fetch_url IS '实际抓取的URL';
+COMMENT ON COLUMN crawler_log.run_id IS '关联一次crawl run（用于任务调度）';
 COMMENT ON COLUMN crawler_log.crawl_time IS '抓取时间（精确时刻）';
 COMMENT ON COLUMN crawler_log.dt IS '分区键（按天）';
 

@@ -132,4 +132,5 @@ class Record:
     url: str
     data: Dict[str, Any] = field(default_factory=dict)
     errors: List[FieldError] = field(default_factory=list)
+    status_code: int = 200
 
