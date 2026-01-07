@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/3gg2o7co
+item_id: 3gg2o7co
+model_no: 6035T/000R-B634
+brand_name: ヴァシュロンコンスタンタン
+model_name: トラディショナル・トゥールビヨン
+price_jpy: 13970000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/txvz9q7s
+item_id: txvz9q7s
+model_no: 15500OR.OO.D002CR.01
+brand_name: オーデマピゲ
+model_name: ロイヤルオーク
+price_jpy: 7678000
+category: watch

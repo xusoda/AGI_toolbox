@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0613351/
+item_id: gik-00-0613351
+brand_name: オーデマ
+model_name: オーデマ ピゲ ロイヤルオーク ジャンボ エクストラシン ブルー
+model_no: 15202IP.OO.1240IP.01
+brand_name_model_name_model_no: オーデマ ピゲ ロイヤルオーク ジャンボ エクストラシン 15202IP.OO.1240IP.01 ブルー メンズ
+price_jpy: 17930000
+category: watch

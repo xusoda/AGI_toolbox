@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0682872/
+item_id: gik-00-0682872
+brand_name: タグ
+model_name: タグ ホイヤー カレラ キャリバーホイヤー02 クロノグラフ スケルトン
+model_no: CBG2A91.FT6173
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバーホイヤー02 クロノグラフ CBG2A91.FT6173 スケルトン メンズ
+price_jpy: 519200
+category: watch

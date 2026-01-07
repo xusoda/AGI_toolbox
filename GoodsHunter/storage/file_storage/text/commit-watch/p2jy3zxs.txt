@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/p2jy3zxs
+item_id: p2jy3zxs
+model_no: 127234
+brand_name: ロレックス
+model_name: ランドドゥエラー
+price_jpy: 3795000
+category: watch

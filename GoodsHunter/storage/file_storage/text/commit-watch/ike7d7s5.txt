@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ike7d7s5
+item_id: ike7d7s5
+model_no: 109.025
+brand_name: A.ランゲ＆ゾーネ
+model_name: ランゲ1 ムーンフェイズ
+price_jpy: 4950000
+category: watch

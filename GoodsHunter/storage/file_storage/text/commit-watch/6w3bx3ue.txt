@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/6w3bx3ue
+item_id: 6w3bx3ue
+model_no: 336934
+brand_name: ロレックス
+model_name: スカイドゥエラー
+price_jpy: 4268000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/uzgie8gi
+item_id: uzgie8gi
+model_no: 4200H/222A-B934
+brand_name: ヴァシュロンコンスタンタン
+model_name: ヒストリーク 222
+price_jpy: 7975000
+category: watch

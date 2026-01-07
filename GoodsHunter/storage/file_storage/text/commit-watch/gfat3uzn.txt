@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/gfat3uzn
+item_id: gfat3uzn
+model_no: 5000H/000R-B059
+brand_name: ヴァシュロンコンスタンタン
+model_name: ヒストリーク コルヌ・ドゥ・ヴ...
+price_jpy: 4950000
+category: watch

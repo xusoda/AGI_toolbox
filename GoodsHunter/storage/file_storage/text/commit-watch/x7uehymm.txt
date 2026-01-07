@@ -3,5 +3,4 @@ item_id: x7uehymm
 model_no: 16520
 brand_name: ロレックス
 model_name: デイトナ エルプリメロ
-price_jpy: 1980000
 category: watch

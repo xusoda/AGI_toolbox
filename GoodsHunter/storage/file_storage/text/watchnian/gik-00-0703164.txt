@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0703164/
+item_id: gik-00-0703164
+brand_name: オメガ
+model_name: オメガ スピードマスター レーシング ミハエル・シューマッハ 2000 ブラック
+model_no: 3518.50
+brand_name_model_name_model_no: オメガ スピードマスター レーシング ミハエル・シューマッハ 2000 3518.50 ブラック メンズ
+price_jpy: 632500
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/mffkbajj
+item_id: mffkbajj
+model_no: 126506
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 18920000
+category: watch

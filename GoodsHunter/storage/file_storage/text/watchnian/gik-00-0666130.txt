@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0666130/
+item_id: gik-00-0666130
+brand_name: ブルガリ
+model_name: ブルガリ オクト フィニッシモ クロノグラフ GMT グリーングラデーション
+model_no: 103890
+brand_name_model_name_model_no: ブルガリ オクト フィニッシモ クロノグラフ GMT 103890 グリーングラデーション メンズ
+price_jpy: 1718200
+category: watch

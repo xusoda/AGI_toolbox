@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0695595/
+item_id: gik-00-0695595
+brand_name: ロレックス
+model_name: ロレックス コスモグラフ デイトナ ホワイト
+model_no: 126503
+brand_name_model_name_model_no: ロレックス コスモグラフ デイトナ 126503 ホワイト メンズ
+price_jpy: 4345000
+category: watch

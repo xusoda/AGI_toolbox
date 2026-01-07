@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0694041/
+item_id: gik-00-0694041
+brand_name: ロレックス
+model_name: ロレックス デイデイト 36 シャンパンコンピュータ/ダイヤモンド
+model_no: 18238G
+brand_name_model_name_model_no: ロレックス デイデイト 36 18238G シャンパンコンピュータ/ダイヤモンド メンズ
+price_jpy: 3641000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707601/
+item_id: gik-00-0707601
+brand_name: ロレックス
+model_name: ロレックス ヨットマスターII ホワイト
+model_no: 116680
+brand_name_model_name_model_no: ロレックス ヨットマスターII 116680 ホワイト メンズ
+price_jpy: 2801700
+category: watch
