@@ -3,7 +3,6 @@ from typing import Optional
 from datetime import datetime, date
 from .event_key_generator import generate_price_event_key, generate_status_event_key
 from .exceptions import DatabaseError
-from .models import _ensure_current_month_partition
 
 
 def write_price_change(
@@ -28,7 +27,7 @@ def write_price_change(
         currency: 货币单位
         log_id: crawler_log 的 id
         crawl_time: 抓取时间
-        dt: 日期（分区键）
+        dt: 变更日期
         item_version: item 的版本号
         
     Returns:
@@ -37,9 +36,6 @@ def write_price_change(
     cursor = conn.cursor()
     
     try:
-        # 确保当前月份的分区存在
-        _ensure_current_month_partition(conn, cursor)
-        
         # 生成 event_key
         event_key = generate_price_event_key(source_uid, log_id, new_price)
         
@@ -60,7 +56,7 @@ def write_price_change(
                 %s, %s, %s,
                 'crawler_update', %s, %s, %s
             )
-            ON CONFLICT (dt, event_key) DO NOTHING
+            ON CONFLICT (event_key) DO NOTHING
             """,
             (
                 dt, source_uid, crawl_time,
@@ -109,9 +105,6 @@ def write_status_change(
     cursor = conn.cursor()
     
     try:
-        # 确保当前月份的分区存在
-        _ensure_current_month_partition(conn, cursor)
-        
         # 生成 event_key
         event_key = generate_status_event_key(source_uid, sold_dt, new_status)
         
@@ -127,7 +120,7 @@ def write_status_change(
                 %s, %s,
                 %s, %s, %s
             )
-            ON CONFLICT (dt, event_key) DO NOTHING
+            ON CONFLICT (event_key) DO NOTHING
             """,
             (
                 sold_dt, source_uid,
