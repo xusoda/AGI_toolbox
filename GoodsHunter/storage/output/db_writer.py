@@ -377,6 +377,9 @@ class DBWriter:
         # 确定category（可以根据site或其他字段判断，这里先设为"watch"）
         category = item.get("category") or "watch"
         
+        # 提取product_url
+        product_url = item.get("product_url") or None
+        
         return {
             "item_id": item_id,
             "brand_name": brand_name,
@@ -386,6 +389,7 @@ class DBWriter:
             "currency": currency,
             "category": category,
             "site": site,
+            "product_url": product_url,
             "raw_item": item  # 保留原始item数据用于raw_json
         }
     
@@ -472,14 +476,14 @@ class DBWriter:
                         brand_name, model_name, model_no,
                         currency, price,
                         image_original_key, image_thumb_300_key, image_thumb_600_key, image_sha256,
-                        source_uid, raw_hash, status, error, http_status, fetch_url, run_id,
+                        source_uid, raw_hash, status, error, http_status, fetch_url, product_url, run_id,
                         crawl_time, dt
                     ) VALUES (
                         %s, %s, %s, %s::jsonb,
                         %s, %s, %s,
                         %s, %s,
                         %s, %s, %s, %s,
-                        %s, %s, %s, %s, %s, %s, %s,
+                        %s, %s, %s, %s, %s, %s, %s, %s,
                         %s, %s
                     )
                 """
@@ -504,6 +508,7 @@ class DBWriter:
                     error,
                     http_status,
                     fetch_url,
+                    normalized["product_url"],
                     run_id,
                     crawl_time,
                     crawl_date

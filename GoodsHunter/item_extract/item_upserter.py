@@ -54,6 +54,7 @@ def upsert_item(conn, log_record: Dict) -> Tuple[Dict, Optional[int]]:
         image_original_key = log_record.get('image_original_key')
         image_thumb_300_key = log_record.get('image_thumb_300_key')
         image_thumb_600_key = log_record.get('image_thumb_600_key')
+        product_url = log_record.get('product_url')
         
         # 时间字段
         crawl_time = log_record.get('crawl_time')
@@ -103,6 +104,7 @@ def upsert_item(conn, log_record: Dict) -> Tuple[Dict, Optional[int]]:
                     brand_name, model_name, model_no,
                     currency, price,
                     image_sha256, image_original_key, image_thumb_300_key, image_thumb_600_key,
+                    product_url,
                     status, first_seen_dt, last_seen_dt,
                     last_crawl_time, last_log_id, version
                 ) VALUES (
@@ -110,6 +112,7 @@ def upsert_item(conn, log_record: Dict) -> Tuple[Dict, Optional[int]]:
                     %s, %s, %s,
                     %s, %s,
                     %s, %s, %s, %s,
+                    %s,
                     'active', %s, %s,
                     %s, %s, %s
                 )
@@ -120,6 +123,7 @@ def upsert_item(conn, log_record: Dict) -> Tuple[Dict, Optional[int]]:
                     brand_name, model_name, model_no,
                     currency, new_price,
                     image_sha256, image_original_key, image_thumb_300_key, image_thumb_600_key,
+                    product_url,
                     dt, dt,  # first_seen_dt, last_seen_dt
                     crawl_time, log_id, version
                 )
@@ -138,10 +142,11 @@ def upsert_item(conn, log_record: Dict) -> Tuple[Dict, Optional[int]]:
                     last_seen_dt = %s,
                     last_crawl_time = %s,
                     last_log_id = %s,
+                    product_url = %s,
                     updated_at = now()
                 WHERE id = %s
                 """,
-                (dt, crawl_time, log_id, item_db_id)
+                (dt, crawl_time, log_id, product_url, item_db_id)
             )
             
             version = current_version
@@ -163,6 +168,7 @@ def upsert_item(conn, log_record: Dict) -> Tuple[Dict, Optional[int]]:
             'image_original_key': image_original_key,
             'image_thumb_300_key': image_thumb_300_key,
             'image_thumb_600_key': image_thumb_600_key,
+            'product_url': product_url,
             'version': version,
             'crawl_time': crawl_time,
             'dt': dt,

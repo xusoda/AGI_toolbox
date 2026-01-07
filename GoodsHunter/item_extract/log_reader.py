@@ -29,7 +29,7 @@ def fetch_unprocessed_logs(
                 brand_name, model_name, model_no,
                 currency, price,
                 image_original_key, image_thumb_300_key, image_thumb_600_key, image_sha256,
-                source_uid, crawl_time, dt
+                source_uid, product_url, crawl_time, dt
             FROM crawler_log
             WHERE id > %s 
                 AND status = 'success'

@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS crawler_log (
     error TEXT NULL,
     http_status INT NULL,
     fetch_url TEXT NULL,
+    product_url TEXT NULL,
     run_id BIGINT NULL,
     crawl_time TIMESTAMPTZ NOT NULL DEFAULT now(),
     dt DATE NOT NULL DEFAULT CURRENT_DATE
@@ -77,6 +78,7 @@ COMMENT ON COLUMN crawler_log.status IS '抓取状态：success/failed';
 COMMENT ON COLUMN crawler_log.error IS '失败原因（如果status为failed）';
 COMMENT ON COLUMN crawler_log.http_status IS 'HTTP状态码';
 COMMENT ON COLUMN crawler_log.fetch_url IS '实际抓取的URL';
+COMMENT ON COLUMN crawler_log.product_url IS '原网站的商品URL';
 COMMENT ON COLUMN crawler_log.run_id IS '关联一次crawl run（用于任务调度）';
 COMMENT ON COLUMN crawler_log.crawl_time IS '抓取时间（精确时刻）';
 COMMENT ON COLUMN crawler_log.dt IS '分区键（按天）';
@@ -123,6 +125,9 @@ CREATE TABLE IF NOT EXISTS crawler_item (
     image_thumb_300_key TEXT NULL,
     image_thumb_600_key TEXT NULL,
     
+    -- 商品URL
+    product_url TEXT NULL,
+    
     -- 状态字段
     status TEXT NOT NULL DEFAULT 'active',
     first_seen_dt DATE NOT NULL,
@@ -160,6 +165,7 @@ CREATE INDEX IF NOT EXISTS idx_crawler_item_status
 
 COMMENT ON TABLE crawler_item IS '商品主表，存储从 crawler_log 提取的商品信息';
 COMMENT ON COLUMN crawler_item.source_uid IS '幂等去重键：{site}:{item_id}';
+COMMENT ON COLUMN crawler_item.product_url IS '原网站的商品URL';
 COMMENT ON COLUMN crawler_item.status IS '商品状态：active/sold/removed';
 
 -- ============================================================================
