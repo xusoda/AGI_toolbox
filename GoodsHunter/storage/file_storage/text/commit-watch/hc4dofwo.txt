@@ -4,3 +4,4 @@ model_no: 5146G-001
 brand_name: パテックフィリップ
 model_name: アニュアルカレンダー ムーンフェイズ
 price_jpy: 4785000
+category: watch

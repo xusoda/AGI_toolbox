@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700882/
 item_id: gik-00-0700882
-brand_name_model_name_model_no: ロレックス デイトジャスト 16234G ピンク/ダイヤモンド メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス デイトジャスト ピンク/ダイヤモンド
+model_no: 16234G
+brand_name_model_name_model_no: ロレックス デイトジャスト 16234G ピンク/ダイヤモンド メンズ
 price_jpy: 1111000
+category: watch

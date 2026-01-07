@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700599/
 item_id: gik-00-0700599
-brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 36 126000 ブライトブラック メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス オイスターパーペチュアル 36 ブライトブラック
+model_no: 126000
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 36 126000 ブライトブラック メンズ
 price_jpy: 1285900
+category: watch

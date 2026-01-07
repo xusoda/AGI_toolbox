@@ -2,3 +2,4 @@ product_url: https://watchnian.com/shop/g/gik-00-0669360/
 item_id: gik-00-0669360
 brand_name_model_name_model_no: シャネル プルミエール S H0001 ブラック レディース 時計 【中古】【wristwatch】
 price_jpy: 327800
+category: watch

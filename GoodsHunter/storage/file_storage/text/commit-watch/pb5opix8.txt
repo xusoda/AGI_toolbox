@@ -4,3 +4,4 @@ model_no: 5513
 brand_name: ロレックス
 model_name: サブマリーナー
 price_jpy: 1782000
+category: watch

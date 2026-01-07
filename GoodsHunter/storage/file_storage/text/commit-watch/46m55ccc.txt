@@ -4,3 +4,4 @@ model_no: 16570
 brand_name: ロレックス
 model_name: エクスプローラーII
 price_jpy: 1892000
+category: watch

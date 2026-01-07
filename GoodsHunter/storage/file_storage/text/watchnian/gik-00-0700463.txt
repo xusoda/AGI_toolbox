@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700463/
 item_id: gik-00-0700463
-brand_name_model_name_model_no: ロレックス エアキング 14000 ブラック メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス エアキング ブラック
+model_no: 14000
+brand_name_model_name_model_no: ロレックス エアキング 14000 ブラック メンズ
 price_jpy: 863500
+category: watch

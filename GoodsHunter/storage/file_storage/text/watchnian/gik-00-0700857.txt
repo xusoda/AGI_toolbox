@@ -1,4 +1,7 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700857/
 item_id: gik-00-0700857
-brand_name_model_name_model_no: オメガ スピードマスター ムーンウォッチ プロフェッショナル 3570.50 ブラック メンズ 時計 【中古】【wristwatch】
+brand_name: オメガ
+model_name: オメガ スピードマスター ムーン
+brand_name_model_name_model_no: オメガ スピードマスター ムーン
 price_jpy: 685300
+category: watch

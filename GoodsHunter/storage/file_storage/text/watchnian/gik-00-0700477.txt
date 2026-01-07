@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700477/
 item_id: gik-00-0700477
-brand_name_model_name_model_no: タグ ホイヤー フォーミュラ1 クォーツ クロノグラフ レッドブルレーシング CAZ1018.BA0842 ブルー/シルバー メンズ 時計 【中古】【wristwatch】
+brand_name: タグ
+model_name: タグ ホイヤー フォーミュラ1 クォーツ クロノグラフ レッドブルレーシング ブルー/シルバー
+model_no: CAZ1018.BA0842
+brand_name_model_name_model_no: タグ ホイヤー フォーミュラ1 クォーツ クロノグラフ レッドブルレーシング CAZ1018.BA0842 ブルー/シルバー メンズ
 price_jpy: 187000
+category: watch

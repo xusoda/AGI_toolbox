@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700651/
 item_id: gik-00-0700651
-brand_name_model_name_model_no: ロレックス コスモグラフ デイトナ 116520 ホワイト メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス コスモグラフ デイトナ ホワイト
+model_no: 116520
+brand_name_model_name_model_no: ロレックス コスモグラフ デイトナ 116520 ホワイト メンズ
 price_jpy: 3872000
+category: watch

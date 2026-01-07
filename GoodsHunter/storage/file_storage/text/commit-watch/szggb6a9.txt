@@ -3,3 +3,4 @@ item_id: szggb6a9
 model_no: 7000RDF
 brand_name: フランクミュラー
 model_name: ラウンド スプリットセコンド ...
+category: watch

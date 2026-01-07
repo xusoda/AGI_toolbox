@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0704268/
 item_id: gik-00-0704268
-brand_name_model_name_model_no: ロレックス コスモグラフ デイトナ 116509G ブラック/ダイヤモンド メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス コスモグラフ デイトナ ブラック/ダイヤモンド
+model_no: 116509G
+brand_name_model_name_model_no: ロレックス コスモグラフ デイトナ 116509G ブラック/ダイヤモンド メンズ
 price_jpy: 5632000
+category: watch

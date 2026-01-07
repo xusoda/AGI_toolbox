@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700996/
 item_id: gik-00-0700996
-brand_name_model_name_model_no: ロレックス 1908 52508 ブラック メンズ 時計 【新品】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス 1908 ブラック
+model_no: 52508
+brand_name_model_name_model_no: ロレックス 1908 52508 ブラック メンズ
 price_jpy: 4169000
+category: watch

@@ -1,6 +1,7 @@
 id: watchnian_supd_list_v1
 version: 1
 site: watchnian.com
+category: watch
 owner: user
 description: >
   Watchnian supd collection list page.
@@ -76,16 +77,12 @@ parse:
           base: "https://watchnian.com"
 
     brand_name_model_name_model_no:
-      # 从商品名称区域的第一行提取品牌名称
-      # 假设文本格式为：品牌名\n型号名\n型番
+      # 从商品标题拆出 品牌/型号名/型号编号
       selector: "dl > a > dd > div.block-thumbnail-t--goods-name > p"
       text: true
       transforms:
-        # 提取第一行（到第一个换行符或结束）
-        - type: regex_capture
-          pattern: "^([^\\n\\r\\t]+)"
-          group: 1
         - type: strip
+        - type: split_watch_title
     
     price_jpy:
       # 提取价格（税込）

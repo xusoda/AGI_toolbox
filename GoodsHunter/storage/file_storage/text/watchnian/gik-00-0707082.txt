@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707082/
+item_id: gik-00-0707082
+brand_name: ウブロ
+model_name: ウブロ クラシックフュージョン チタニウム レーシンググレー ブラック
+model_no: 542.NX.1171.RX
+brand_name_model_name_model_no: ウブロ クラシックフュージョン チタニウム レーシンググレー 542.NX.1171.RX ブラック メンズ
+price_jpy: 665500
+category: watch

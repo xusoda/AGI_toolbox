@@ -107,6 +107,7 @@ class Profile:
     parse: Optional[ParseConfig] = None  # 新格式：解析配置
     plugin: Optional[str] = None  # MVP不实现，仅预留
     site: Optional[str] = None  # 站点名称，用于创建图片保存目录
+    category: Optional[str] = None  # 商品类别（如：watch, jewelry, bag, clothing等）
 
 
 @dataclass

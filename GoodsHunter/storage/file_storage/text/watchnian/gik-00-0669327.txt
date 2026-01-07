@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0669327/
 item_id: gik-00-0669327
-brand_name_model_name_model_no: ロレックス エアキング 114200 ホワイト メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス エアキング ホワイト
+model_no: 114200
+brand_name_model_name_model_no: ロレックス エアキング 114200 ホワイト メンズ
 price_jpy: 910800
+category: watch

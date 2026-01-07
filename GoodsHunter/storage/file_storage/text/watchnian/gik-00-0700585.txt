@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700585/
 item_id: gik-00-0700585
-brand_name_model_name_model_no: オメガ シーマスター ダイバー300 コーアクシャル マスタークロノメーター 210.30.42.20.01.001 ブラック メンズ 時計 【中古】【wristwatch】
+brand_name: オメガ
+model_name: オメガ シーマスター ダイバー300 コーアクシャル マスタークロノメーター ブラック
+model_no: 210.30.42.20.01.001
+brand_name_model_name_model_no: オメガ シーマスター ダイバー300 コーアクシャル マスタークロノメーター 210.30.42.20.01.001 ブラック メンズ
 price_jpy: 690800
+category: watch

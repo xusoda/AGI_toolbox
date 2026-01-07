@@ -1,0 +1,318 @@
+新建一个流程：从抓取内容中，提取item到item表中，并记录其变更历史，并记录到item_change_history表中。
+整个流程相关的内容需要写在item_extract文件夹下。
+
+下面按你的新要求，把流程**收敛到只关注两类变化**：
+
+1. **价格变化（必须记录）**
+2. **售出状态变化（暂不实现判定逻辑，但预留数据结构与写入入口）**
+
+并且仍满足：**变化只能从 `crawler_log` 观察到**，且可能“新抓取但不变”。
+
+---
+
+2) 处理模式（推荐：增量清洗 + 游标）
+
+做一个“清洗任务”持续运行或定期运行，处理 crawler_log 中尚未清洗的记录。
+
+最简游标方式（推荐）
+
+新增一张轻量表（或用配置存储）：
+
+pipeline_state(key, value)
+例如：("items_sync_last_log_id", "123456")
+
+每次清洗：
+
+读取 last_log_id
+
+SELECT * FROM crawler_log WHERE id > last_log_id AND log_status='success' ORDER BY id LIMIT N
+
+批处理同步到 items + change_history
+
+成功后更新 last_log_id
+
+这样支持批量、流式，也支持崩溃恢复（最多重复处理少量 log，靠幂等兜底）。
+
+---
+
+### 1.2 `item_change_history`（变更历史表：仅记录 price / status）
+
+建议事件粒度：**每条记录只描述一个变化**（对查询与审计最清晰）。
+
+字段建议：
+
+* `id` BIGSERIAL
+* `dt` DATE NOT NULL                      -- 分区键（按月/按天）
+* `source_uid` TEXT NOT NULL
+* `change_time` TIMESTAMPTZ NOT NULL      -- 通常取 crawler_log.crawl_time 或 sold 判定时间
+* `change_type` TEXT NOT NULL             -- 仅允许：price / status
+* `old_value` TEXT NULL
+* `new_value` TEXT NULL
+* `currency` TEXT NULL                    -- price 事件用
+* `reason` TEXT NULL                      -- price: crawler_update; status: not_seen_for_N_days 等（预留）
+* `log_id` BIGINT NULL                    -- price 事件建议带 crawler_log.id；status 事件可空或带判定记录id（预留）
+* `item_version` INTEGER NULL
+* `event_key` TEXT NOT NULL               -- 幂等键（防重复写）
+
+约束/索引：
+
+* 分区：`PARTITION BY RANGE (dt)`（推荐按月）
+* `PRIMARY KEY (dt, id)`
+* `UNIQUE (dt, event_key)`（关键：重复处理不会产生重复 change）
+* INDEX `(source_uid, change_time desc)`
+* INDEX `(dt, change_type)`
+
+---
+
+## 2) 新流程：从 crawler_log 同步到 items，并记录“价格变化”
+
+### 输入
+
+* `crawler_log` 中成功抓取的记录（你已有 brand/model/price 等字段）
+* 注意：同一商品会重复抓到，且可能不变
+
+### 输出
+
+* `items` upsert（保证每个商品唯一）
+* 若价格变化：写一条 `item_change_history(change_type='price')`
+
+---
+
+## 3) 同步步骤（逐条 log）
+
+### Step A：从 crawler_log 形成“新快照”
+
+从 log 得到：
+
+* `source_uid = site + ':' + category + ':' + item_id`
+* `new_price`
+* `currency`
+* `crawl_time`, `dt`, `log_id`
+
+> 价格字段必须先规范化：去逗号/转 int；空值 → NULL。
+
+---
+
+### Step B：Upsert items（当前态），并拿到旧 price 进行比较
+
+#### 情况 1：items 不存在（新商品）
+
+* 插入 items：
+
+  * `price = new_price`
+  * `first_seen_dt = dt`, `last_seen_dt = dt`
+  * `last_crawl_time = crawl_time`, `last_log_id = log_id`
+  * `status='active'`
+  * `version=1`
+* **是否写 price history？**
+  建议：**不写**（这不是“价格变化”，只是初始值）。
+  如果你希望审计“初始价格”，可以写一条 `old_value=NULL -> new_value=price`，但会增加历史表体量。默认不写更干净。
+
+#### 情况 2：items 已存在（老商品）
+
+* 读取旧值 `old_price`（建议 `SELECT ... FOR UPDATE` 防并发）
+* 更新 items 的“时间类字段”（不论价格是否变化都更新）：
+
+  * `last_seen_dt=dt`
+  * `last_crawl_time=crawl_time`
+  * `last_log_id=log_id`
+
+然后判断价格变化：
+
+* 若 `new_price IS DISTINCT FROM old_price`（推荐用该语义，正确处理 NULL）
+
+  * 更新 items.price = new_price
+  * 更新：
+
+    * `price_last_changed_at = crawl_time`
+    * `price_last_changed_dt = dt`
+    * `version = version + 1`
+  * 插入 `item_change_history` 一条（price 事件）
+
+* 若价格未变化：
+
+  * **只更新 last_seen_dt/last_crawl_time/last_log_id**
+  * **不插入** history
+
+---
+
+## 4) price 事件如何写入 item_change_history（幂等关键）
+
+写入字段（示例）：
+
+* `dt = crawler_log.dt`
+* `change_time = crawler_log.crawl_time`
+* `change_type = 'price'`
+* `old_value = old_price::text`
+* `new_value = new_price::text`
+* `currency = items.currency`
+* `reason = 'crawler_update'`
+* `log_id = crawler_log.id`
+* `item_version = items.version`
+
+### event_key 生成建议（用于去重）
+
+**只要保证“同一条 log + 同一商品 + 同一类型变化”只写一次即可：**
+
+* `event_key = sha256(source_uid + ':price:' + log_id)`
+  （最简单、最稳定；重复处理同一 log 不会重复写）
+
+如果你担心同一 log 中 price 被解析两次不同值（极少见），可加 new_value：
+
+* `sha256(source_uid + ':price:' + log_id + ':' + new_price)`
+
+并加唯一约束：`UNIQUE(dt, event_key)`。
+
+---
+
+## 5) 预留：售出状态变化（不实现判定逻辑，但预留写入入口）
+
+你现在不做“如何触发 sold”的逻辑，但需要预留：
+
+### items 侧预留字段
+
+* `status`（active/sold）
+* `sold_dt`
+* `sold_reason`
+
+### item_change_history 侧预留写法（未来）
+
+当未来某个判定任务决定 sold：
+
+* items：
+
+  * `status: active -> sold`
+  * `sold_dt = <判定日>`
+  * `version = version + 1`
+* history 插入一条：
+
+  * `change_type='status'`
+  * `old_value='active'`
+  * `new_value='sold'`
+  * `reason = 'not_seen_for_N_days'`（或其它）
+  * `log_id` 可为空（因为不来自 crawler_log），或指向“判定任务记录”的 id（你后续可以增加 `sold_job_run_id`）
+
+**event_key（status）建议：**
+
+* `sha256(source_uid + ':status:' + sold_dt + ':sold')`
+  保证重复跑判定任务不会重复写。
+
+---
+
+## 6) 这套简化流程仍然能覆盖批量/流式调度问题吗？
+
+可以，关键点在于：
+
+* `items.source_uid UNIQUE` 使 upsert 幂等
+* “无变化抓取”只更新 last_seen，不写 history（避免噪音与爆表）
+* `item_change_history` 用 `event_key` 唯一约束防重复写（应对重试与至少一次投递）
+* 并发下用 `SELECT ... FOR UPDATE` 或在 upsert/更新中确保读写一致（避免同一时刻两条 log 交错导致重复变化记录）
+
+---
+
+
+
+
+要建的数据表如下：
+crawler_item表：（记录去重的item表，用户APP查询主表）
+
+唯一键：source_uid
+
+推荐：source_uid = site + ':' + category + ':' + item_id
+
+字段建议：
+
+id BIGSERIAL PK
+
+source_uid TEXT NOT NULL UNIQUE
+
+site TEXT NOT NULL
+
+category TEXT NOT NULL
+
+item_id TEXT NOT NULL
+
+展示字段（最新值）：
+
+brand_name TEXT NULL
+
+model_name TEXT NULL
+
+model_no TEXT NULL
+
+currency TEXT NOT NULL DEFAULT 'JPY'
+
+price INTEGER NULL
+
+图片引用（MinIO keys）：
+
+image_sha256 TEXT NULL
+
+image_original_key TEXT NULL
+
+image_thumb_300_key TEXT NULL
+
+image_thumb_600_key TEXT NULL
+
+状态字段（关键）：
+
+status TEXT NOT NULL DEFAULT 'active'
+
+建议值：active（在售/可见）、sold（已售/下架）、unknown（未判定）
+
+first_seen_dt DATE NOT NULL
+
+last_seen_dt DATE NOT NULL
+
+sold_dt DATE NULL -- 判定为已售的日期（业务口径）
+
+sold_reason TEXT NULL -- 例如 not_seen_for_N_days / 404 / redirected 等
+
+last_crawl_time TIMESTAMPTZ NOT NULL
+
+last_log_id BIGINT NULL -- 指向最新 crawler_log，便于追溯
+
+索引建议（为 APP 检索）：
+
+(site, category, status)
+
+(brand_name)
+
+(model_no)
+
+(price)
+
+(last_seen_dt desc)
+
+说明：APP 列表页通常会：按 status=active + brand/serial + price range + 排序（newest/price）。这些索引能支撑百万级。
+--------------------------------
+
+
+; item_change_history表：（记录item的变更历史）
+; CREATE TABLE IF NOT EXISTS item_change_history (
+;   id            BIGSERIAL,
+;   dt            DATE NOT NULL,
+;   source_uid     TEXT NOT NULL,
+
+;   change_time   TIMESTAMPTZ NOT NULL DEFAULT now(),
+;   change_type   TEXT NOT NULL,        -- price/status/image/attributes...
+;   field_name    TEXT NOT NULL,
+
+;   old_value     TEXT NULL,
+;   new_value     TEXT NULL,
+;   currency      TEXT NULL,
+
+;   reason        TEXT NULL,
+;   crawl_time    TIMESTAMPTZ NULL,
+;   log_id        BIGINT NULL,
+;   item_version  INTEGER NULL,
+
+;   PRIMARY KEY (dt, id)
+; ) PARTITION BY RANGE (dt);
+
+; CREATE INDEX IF NOT EXISTS idx_item_chg_uid_time
+;   ON item_change_history (source_uid, change_time DESC);
+
+; CREATE INDEX IF NOT EXISTS idx_item_chg_dt_type
+;   ON item_change_history (dt, change_type);
+

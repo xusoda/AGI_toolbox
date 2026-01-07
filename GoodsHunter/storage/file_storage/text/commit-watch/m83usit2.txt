@@ -4,3 +4,4 @@ model_no: 124300
 brand_name: ロレックス
 model_name: オイスターパーペチュアル41
 price_jpy: 1430000
+category: watch

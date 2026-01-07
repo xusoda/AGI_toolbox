@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700621/
 item_id: gik-00-0700621
-brand_name_model_name_model_no: ブライトリング スーパーオーシャン ヘリテージ B20 オートマティック 42 UB2010161C1S1 ブルー メンズ 時計 【中古】【wristwatch】
+brand_name: ブライトリング
+model_name: ブライトリング スーパーオーシャン ヘリテージ B20 オートマティック 42 ブルー
+model_no: UB2010161C1S1
+brand_name_model_name_model_no: ブライトリング スーパーオーシャン ヘリテージ B20 オートマティック 42 UB2010161C1S1 ブルー メンズ
 price_jpy: 680900
+category: watch

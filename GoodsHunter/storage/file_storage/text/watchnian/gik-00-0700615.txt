@@ -1,4 +1,7 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700615/
 item_id: gik-00-0700615
-brand_name_model_name_model_no: エルメス Hウォッチ HH1.210 ブルー レディース 時計 【中古】【wristwatch】
+brand_name: エルメス
+model_name: エルメス H
+brand_name_model_name_model_no: エルメス H
 price_jpy: 167200
+category: watch

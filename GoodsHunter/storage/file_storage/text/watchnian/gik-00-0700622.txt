@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700622/
 item_id: gik-00-0700622
-brand_name_model_name_model_no: ロレックス エアキング 14010 ブラック メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス エアキング ブラック
+model_no: 14010
+brand_name_model_name_model_no: ロレックス エアキング 14010 ブラック メンズ
 price_jpy: 682000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0701101/
+item_id: gik-00-0701101
+brand_name: ロレックス
+model_name: ロレックス エクスプローラー 40 ブラック
+model_no: 224270
+brand_name_model_name_model_no: ロレックス エクスプローラー 40 224270 ブラック メンズ
+price_jpy: 1457500
+category: watch

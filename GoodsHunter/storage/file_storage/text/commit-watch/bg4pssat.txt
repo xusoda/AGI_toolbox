@@ -4,3 +4,4 @@ model_no: 16523
 brand_name: ロレックス
 model_name: デイトナ エルプリメロ
 price_jpy: 4675000
+category: watch

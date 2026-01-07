@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700605/
 item_id: gik-00-0700605
-brand_name_model_name_model_no: ロレックス デイトジャスト 16200 ホワイト メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス デイトジャスト ホワイト
+model_no: 16200
+brand_name_model_name_model_no: ロレックス デイトジャスト 16200 ホワイト メンズ
 price_jpy: 1041700
+category: watch

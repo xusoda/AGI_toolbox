@@ -3,4 +3,4 @@ item_id: qkfhims7
 model_no: 126500LN
 brand_name: ロレックス
 model_name: デイトナ
-price_jpy: 5225000
+category: watch

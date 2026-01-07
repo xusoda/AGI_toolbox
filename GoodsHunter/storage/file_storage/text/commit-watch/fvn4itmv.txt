@@ -4,3 +4,4 @@ model_no: 16750
 brand_name: ロレックス
 model_name: GMTマスター
 price_jpy: 1980000
+category: watch

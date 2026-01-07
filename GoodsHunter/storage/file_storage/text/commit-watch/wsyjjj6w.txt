@@ -4,3 +4,4 @@ model_no: 8928BR/5W/844
 brand_name: ブレゲ
 model_name: クイーンオブネイプルズ
 price_jpy: 2398000
+category: watch

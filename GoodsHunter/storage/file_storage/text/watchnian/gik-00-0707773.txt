@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0707773/
 item_id: gik-00-0707773
-brand_name_model_name_model_no: チューダー / チュードル レンジャー 79950 ブラック メンズ 時計 【中古】【wristwatch】
+brand_name: チューダー
+model_name: チューダー / チュードル レンジャー ブラック
+model_no: 79950
+brand_name_model_name_model_no: チューダー / チュードル レンジャー 79950 ブラック メンズ
 price_jpy: 398200
+category: watch

@@ -4,3 +4,4 @@ model_no: 16623NGS
 brand_name: ロレックス
 model_name: ヨットマスター40
 price_jpy: 2475000
+category: watch

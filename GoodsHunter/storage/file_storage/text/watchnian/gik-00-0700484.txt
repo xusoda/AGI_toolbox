@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0700484/
+item_id: gik-00-0700484
+brand_name: オリエントスター
+model_name: オリエントスター ダイバー1964 2ndエディション グリーン
+model_no: F6N4-UAMO
+brand_name_model_name_model_no: オリエントスター ダイバー1964 2ndエディション F6N4-UAMO グリーン メンズ
+price_jpy: 88000
+category: watch

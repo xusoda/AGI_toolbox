@@ -1,6 +1,7 @@
 id: commit_watch_onsale_list_v1
 version: 1
 site: commit-watch.co.jp
+category: watch
 owner: user
 description: >
   Commit Ginza onsale collection list page.

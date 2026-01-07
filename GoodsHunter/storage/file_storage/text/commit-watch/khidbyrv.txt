@@ -4,3 +4,4 @@ model_no: 26240ST.OO.1320ST.03
 brand_name: オーデマピゲ
 model_name: ロイヤルオーク クロノグラフ ...
 price_jpy: 7678000
+category: watch

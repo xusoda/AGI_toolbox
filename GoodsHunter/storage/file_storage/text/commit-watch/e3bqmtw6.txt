@@ -4,3 +4,4 @@ model_no: 570
 brand_name: パテックフィリップ
 model_name: カラトラバ
 price_jpy: 4994000
+category: watch

@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700625/
 item_id: gik-00-0700625
-brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバー5 WBN2110.BA0639 ブラック メンズ 時計 【中古】【wristwatch】
+brand_name: タグ
+model_name: タグ ホイヤー カレラ キャリバー5 ブラック
+model_no: WBN2110.BA0639
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバー5 WBN2110.BA0639 ブラック メンズ
 price_jpy: 317900
+category: watch

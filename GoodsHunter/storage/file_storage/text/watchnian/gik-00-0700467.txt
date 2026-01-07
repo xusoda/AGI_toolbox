@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700467/
 item_id: gik-00-0700467
-brand_name_model_name_model_no: ロレックス デイトジャスト 79174NGS ホワイトシェル/サファイア レディース 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス デイトジャスト ホワイトシェル/サファイア
+model_no: 79174NGS
+brand_name_model_name_model_no: ロレックス デイトジャスト 79174NGS ホワイトシェル/サファイア レディース
 price_jpy: 1186900
+category: watch

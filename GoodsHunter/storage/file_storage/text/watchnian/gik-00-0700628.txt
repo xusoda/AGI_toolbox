@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700628/
 item_id: gik-00-0700628
-brand_name_model_name_model_no: オメガ シーマスター 300 マスターコーアクシャル 233.30.41.21.01.001 ブラック メンズ 時計 【中古】【wristwatch】
+brand_name: オメガ
+model_name: オメガ シーマスター 300 マスターコーアクシャル ブラック
+model_no: 233.30.41.21.01.001
+brand_name_model_name_model_no: オメガ シーマスター 300 マスターコーアクシャル 233.30.41.21.01.001 ブラック メンズ
 price_jpy: 610500
+category: watch

@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700877/
 item_id: gik-00-0700877
-brand_name_model_name_model_no: ショパール ハッピーダイヤモンド 20/5017-23 ホワイト レディース 時計 【中古】【wristwatch】
+brand_name: ショパール
+model_name: ショパール ハッピーダイヤモンド ホワイト
+model_no: 20/5017-23
+brand_name_model_name_model_no: ショパール ハッピーダイヤモンド 20/5017-23 ホワイト レディース
 price_jpy: 484000
+category: watch

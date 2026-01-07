@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0669999/
 item_id: gik-00-0669999
-brand_name_model_name_model_no: シャネル プルミエール トリプルブレスレット H3749 ブラック レディース 時計 【中古】【wristwatch】
+brand_name: シャネル
+model_name: シャネル プルミエール トリプルブレスレット ブラック
+model_no: H3749
+brand_name_model_name_model_no: シャネル プルミエール トリプルブレスレット H3749 ブラック レディース
 price_jpy: 376200
+category: watch

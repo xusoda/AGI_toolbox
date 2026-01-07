@@ -4,3 +4,4 @@ model_no: 126900
 brand_name: ロレックス
 model_name: エアキング
 price_jpy: 1265000
+category: watch

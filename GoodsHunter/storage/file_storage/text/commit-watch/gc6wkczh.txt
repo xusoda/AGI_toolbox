@@ -4,3 +4,4 @@ model_no: 126710GRNR
 brand_name: ロレックス
 model_name: GMTマスターII
 price_jpy: 3135000
+category: watch

@@ -4,3 +4,4 @@ model_no: 16013
 brand_name: ロレックス
 model_name: デイトジャスト
 price_jpy: 2585000
+category: watch

@@ -4,3 +4,4 @@ model_no: 19018N
 brand_name: ロレックス
 model_name: オイスタークォーツ デイデイト36
 price_jpy: 3245000
+category: watch

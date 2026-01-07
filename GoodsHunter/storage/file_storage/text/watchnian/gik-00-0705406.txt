@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0705406/
+item_id: gik-00-0705406
+brand_name: ロレックス
+model_name: ロレックス オイスターパーペチュアル デイト シルバー
+model_no: 69240
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル デイト 69240 シルバー レディース
+price_jpy: 577500
+category: watch

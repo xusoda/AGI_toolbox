@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700885/
 item_id: gik-00-0700885
-brand_name_model_name_model_no: カルティエ カリブル ドゥ カルティエ クロノグラフ W7100045 シルバー メンズ 時計 【中古】【wristwatch】
+brand_name: カルティエ
+model_name: カルティエ カリブル ドゥ カルティエ クロノグラフ シルバー
+model_no: W7100045
+brand_name_model_name_model_no: カルティエ カリブル ドゥ カルティエ クロノグラフ W7100045 シルバー メンズ
 price_jpy: 701800
+category: watch

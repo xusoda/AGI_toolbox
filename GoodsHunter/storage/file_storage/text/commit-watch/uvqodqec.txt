@@ -3,3 +3,5 @@ item_id: uvqodqec
 model_no: 126720VTNR
 brand_name: ロレックス
 model_name: GMTマスターII
+price_jpy: 3058000
+category: watch

@@ -4,3 +4,4 @@ model_no: 126000
 brand_name: ロレックス
 model_name: オイスターパーペチュアル36
 price_jpy: 2420000
+category: watch

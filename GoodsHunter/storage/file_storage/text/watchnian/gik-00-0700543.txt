@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700543/
 item_id: gik-00-0700543
-brand_name_model_name_model_no: チューダー / チュードル ブラックベイ 58 79030B ブルー メンズ 時計 【中古】【wristwatch】
+brand_name: チューダー
+model_name: チューダー / チュードル ブラックベイ 58 ブルー
+model_no: 79030B
+brand_name_model_name_model_no: チューダー / チュードル ブラックベイ 58 79030B ブルー メンズ
 price_jpy: 456500
+category: watch

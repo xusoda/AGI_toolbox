@@ -3,3 +3,4 @@ item_id: 3o95c6fm
 model_no: 310.32.42.50.02.001
 brand_name: オメガ
 model_name: スピードマスター 記念モデル ...
+category: watch

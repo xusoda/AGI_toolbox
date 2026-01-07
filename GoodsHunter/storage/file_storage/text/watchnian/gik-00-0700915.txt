@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700915/
 item_id: gik-00-0700915
-brand_name_model_name_model_no: グランドセイコー エレガンスコレクション スプリングドライブ キャリバー9R 20th SBGA499 レッド メンズ 時計 【中古】【wristwatch】
+brand_name: グランドセイコー
+model_name: グランドセイコー エレガンスコレクション スプリングドライブ キャリバー9R 20th レッド
+model_no: SBGA499
+brand_name_model_name_model_no: グランドセイコー エレガンスコレクション スプリングドライブ キャリバー9R 20th SBGA499 レッド メンズ
 price_jpy: 883300
+category: watch

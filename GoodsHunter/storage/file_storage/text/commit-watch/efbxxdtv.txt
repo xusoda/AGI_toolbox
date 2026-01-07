@@ -4,3 +4,4 @@ model_no: 116500LN
 brand_name: ロレックス
 model_name: デイトナ
 price_jpy: 4378000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0691403/
+item_id: gik-00-0691403
+brand_name: ロレックス
+model_name: ロレックス デイデイト シルバー/ダイヤモンド
+model_no: 18239A
+brand_name_model_name_model_no: ロレックス デイデイト 18239A シルバー/ダイヤモンド メンズ
+price_jpy: 2915000
+category: watch

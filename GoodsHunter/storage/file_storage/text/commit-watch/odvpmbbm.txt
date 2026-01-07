@@ -4,3 +4,4 @@ model_no: 5500
 brand_name: ロレックス
 model_name: エクスプローラー
 price_jpy: 3168000
+category: watch

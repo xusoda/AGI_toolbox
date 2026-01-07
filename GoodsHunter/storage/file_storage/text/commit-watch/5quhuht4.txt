@@ -3,3 +3,4 @@ item_id: 5quhuht4
 model_no: 6239
 brand_name: ロレックス
 model_name: デイトナ
+category: watch

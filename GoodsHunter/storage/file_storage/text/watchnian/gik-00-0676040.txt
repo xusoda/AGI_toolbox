@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0676040/
+item_id: gik-00-0676040
+brand_name: ブレゲ
+model_name: ブレゲ クイーン オブ ネイプルズ ブルーシェル
+model_no: 8967ST/V8/J50
+brand_name_model_name_model_no: ブレゲ クイーン オブ ネイプルズ 8967ST/V8/J50 ブルーシェル レディース
+price_jpy: 1452000
+category: watch

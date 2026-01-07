@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700459/
 item_id: gik-00-0700459
-brand_name_model_name_model_no: ロレックス デイトジャスト 126283RBR シルバー/ダイヤモンド メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス デイトジャスト シルバー/ダイヤモンド
+model_no: 126283RBR
+brand_name_model_name_model_no: ロレックス デイトジャスト 126283RBR シルバー/ダイヤモンド メンズ
 price_jpy: 3157000
+category: watch

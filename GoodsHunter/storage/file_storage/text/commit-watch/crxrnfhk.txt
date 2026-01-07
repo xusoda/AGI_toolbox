@@ -4,3 +4,4 @@ model_no: 116515LN
 brand_name: ロレックス
 model_name: デイトナ
 price_jpy: 7370000
+category: watch

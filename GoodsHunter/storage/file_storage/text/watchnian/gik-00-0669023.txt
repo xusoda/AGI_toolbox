@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0669023/
 item_id: gik-00-0669023
-brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 41 124300 ターコイズブルー セレブレーションモチーフ メンズ 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス オイスターパーペチュアル 41 ターコイズブルー セレブレーションモチーフ
+model_no: 124300
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 41 124300 ターコイズブルー セレブレーションモチーフ メンズ
 price_jpy: 3377000
+category: watch

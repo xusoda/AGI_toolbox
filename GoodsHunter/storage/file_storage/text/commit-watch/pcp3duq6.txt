@@ -4,3 +4,4 @@ model_no: 116718LN
 brand_name: ロレックス
 model_name: GMTマスターII
 price_jpy: 5995000
+category: watch

@@ -4,3 +4,4 @@ model_no: 7700V/110A-B172
 brand_name: ヴァシュロンコンスタンタン
 model_name: オーヴァーシーズ ワールドタイム
 price_jpy: 3520000
+category: watch

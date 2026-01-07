@@ -4,3 +4,4 @@ model_no: 116520
 brand_name: ロレックス
 model_name: デイトナ
 price_jpy: 3498000
+category: watch

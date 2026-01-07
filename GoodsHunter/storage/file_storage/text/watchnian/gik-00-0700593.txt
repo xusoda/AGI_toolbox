@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0700593/
 item_id: gik-00-0700593
-brand_name_model_name_model_no: ロレックス オイスターパーペチュアル デイト 79160 ホワイト レディース 時計 【中古】【wristwatch】
+brand_name: ロレックス
+model_name: ロレックス オイスターパーペチュアル デイト ホワイト
+model_no: 79160
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル デイト 79160 ホワイト レディース
 price_jpy: 643500
+category: watch

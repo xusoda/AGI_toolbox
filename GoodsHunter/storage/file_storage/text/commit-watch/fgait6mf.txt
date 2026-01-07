@@ -4,3 +4,4 @@ model_no: 4520V/210A-B128
 brand_name: ヴァシュロンコンスタンタン
 model_name: オーヴァーシーズ オートマティック
 price_jpy: 4785000
+category: watch

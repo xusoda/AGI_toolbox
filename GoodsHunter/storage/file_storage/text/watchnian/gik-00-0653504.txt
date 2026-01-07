@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0653504/
+item_id: gik-00-0653504
+brand_name: ロレックス
+model_name: ロレックス デイトジャスト シャンパン
+model_no: 69173
+brand_name_model_name_model_no: ロレックス デイトジャスト 69173 シャンパン レディース
+price_jpy: 752400
+category: watch

@@ -4,3 +4,4 @@ model_no: 126234G
 brand_name: ロレックス
 model_name: デイトジャスト36
 price_jpy: 1980000
+category: watch

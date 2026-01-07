@@ -115,7 +115,12 @@ class ExtractEngine:
                 print(f"[ExtractEngine] 开始单条提取...")
                 for field_name, field_config in profile.parse.fields.items():
                     print(f"[ExtractEngine] 提取字段: {field_name}")
-                    value, error = self._extract_field_new_format(page, field_name, field_config)
+                    value, error, extra_fields = self._extract_field_new_format(page, field_name, field_config)
+                    if extra_fields:
+                        for k, v in extra_fields.items():
+                            if v is not None:
+                                data[k] = v
+                                print(f"[ExtractEngine]   ↳ 附加字段: {k} = {str(v)[:100]}")
                     if value is not None:
                         data[field_name] = value
                         print(f"[ExtractEngine]   ✓ 成功: {field_name} = {str(value)[:100]}")
@@ -124,6 +129,11 @@ class ExtractEngine:
                         print(f"[ExtractEngine]   ✗ 失败: {field_name} - {error.error}")
                     else:
                         print(f"[ExtractEngine]   - 未找到: {field_name}")
+                
+                # 如果 profile 有 category，添加到 data 中
+                if profile.category:
+                    data["category"] = profile.category
+                    print(f"[ExtractEngine] 添加 category: {profile.category}")
         
         # 支持旧格式（fields配置，兼容）
         elif profile.fields:
@@ -267,7 +277,12 @@ class ExtractEngine:
                 
                 for field_name, field_config in parse_config.fields.items():
                     print(f"[ExtractList]  提取字段: {field_name} ({extracted_count+1}/{total_fields})")
-                    value, error = self._extract_field_from_element(item_elem, field_config)
+                    value, error, extra_fields = self._extract_field_from_element(item_elem, field_config)
+                    if extra_fields:
+                        for k, v in extra_fields.items():
+                            if v is not None:
+                                item_data[k] = v
+                                print(f"[ExtractList]    ↳ 附加字段: {k} = {str(v)[:50]}")
                     if value is not None:
                         item_data[field_name] = value
                         extracted_count += 1
@@ -282,6 +297,11 @@ class ExtractEngine:
                 print(f"[ExtractList]  项 {item_idx+1} 提取结果: {extracted_count}/{total_fields} 个字段成功")
                 if item_errors:
                     print(f"[ExtractList]    错误详情: {', '.join(item_errors)}")
+                
+                # 如果 profile 有 category，添加到 item_data 中
+                if profile.category:
+                    item_data["category"] = profile.category
+                    print(f"[ExtractList]  添加 category: {profile.category}")
                 
                 # 至少提取到一个字段才添加（可以根据需要调整这个条件）
                 if item_data:
@@ -342,19 +362,19 @@ class ExtractEngine:
             traceback.print_exc()
             return []
 
-    def _extract_field_new_format(self, page: Page, field_name: str, field_config) -> tuple[Optional[Any], Optional[FieldError]]:
+    def _extract_field_new_format(self, page: Page, field_name: str, field_config) -> tuple[Optional[Any], Optional[FieldError], Optional[Dict[str, Any]]]:
         """使用新格式提取字段"""
         try:
             tree = html.fromstring(page.html)
-            value, error = self._extract_field_from_element(tree, field_config)
-            return value, error
+            value, error, extra_fields = self._extract_field_from_element(tree, field_config)
+            return value, error, extra_fields
         except Exception as e:
             return None, FieldError(
                 field=field_name,
                 error=f"解析HTML失败: {str(e)}",
-            )
+            ), None
 
-    def _extract_field_from_element(self, root_elem, field_config) -> tuple[Optional[Any], Optional[FieldError]]:
+    def _extract_field_from_element(self, root_elem, field_config) -> tuple[Optional[Any], Optional[FieldError], Optional[Dict[str, Any]]]:
         """从元素中提取字段值"""
         try:
             # 优先使用selector_candidates，如果没有则使用selector
@@ -369,7 +389,7 @@ class ExtractEngine:
                 return None, FieldError(
                     field="unknown",
                     error="未指定selector或selector_candidates",
-                )
+                ), None
             
             elements = []
             last_error = None
@@ -420,14 +440,15 @@ class ExtractEngine:
                 return None, FieldError(
                     field="unknown",
                     error=f"所有selector均失败，最后一个错误: {str(last_error)}",
-                )
+                ), None
             
             if not elements:
                 print(f"[ExtractField]    未找到元素")
-                return None, None  # 未找到，但不报错（可能是可选的）
+                return None, None, None  # 未找到，但不报错（可能是可选的）
             
             # 提取值
             values = []
+            extra_fields_result = None
             for elem_idx, elem in enumerate(elements):
                 value = None
                 print(f"[ExtractField]    处理元素 {elem_idx+1}/{len(elements)}")
@@ -467,6 +488,10 @@ class ExtractEngine:
                         print(f"[ExtractField]      应用 {len(field_config.transforms)} 个transforms")
                         original_value = value
                         value = TransformProcessor.apply_transforms(value, field_config.transforms)
+                        if isinstance(value, dict) and "__extra_fields__" in value:
+                            if extra_fields_result is None:
+                                extra_fields_result = value.get("__extra_fields__") or None
+                            value = value.get("__value__")
                         print(f"[ExtractField]        转换后: {str(value)[:100] if value else None}")
                     # 即使transforms返回None，也记录原始值（用于调试）
                     # 但只有当最终值不为None时才添加到values
@@ -477,13 +502,13 @@ class ExtractEngine:
             
             if not values:
                 print(f"[ExtractField]    所有元素都未提取到值")
-                return None, None
+                return None, None, None
             
             # 对于列表提取，每个item应该只返回第一个匹配的值
             # 这样可以确保每个item只有一个url、一个image等
             result = values[0]
             print(f"[ExtractField]    最终结果: {str(result)[:100] if result else None} (从{len(values)}个匹配值中选择第一个)")
-            return result, None
+            return result, None, extra_fields_result
         
         except Exception as e:
             print(f"[ExtractField]    异常: {str(e)}")
@@ -492,5 +517,5 @@ class ExtractEngine:
             return None, FieldError(
                 field="unknown",
                 error=f"提取字段失败: {str(e)}",
-            )
+            ), None
 

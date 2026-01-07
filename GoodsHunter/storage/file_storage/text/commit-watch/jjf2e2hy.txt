@@ -3,3 +3,4 @@ item_id: jjf2e2hy
 model_no: 126334
 brand_name: ロレックス
 model_name: デイトジャスト41
+category: watch

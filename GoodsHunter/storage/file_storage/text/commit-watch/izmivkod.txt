@@ -4,3 +4,4 @@ model_no: 5124G-011
 brand_name: パテックフィリップ
 model_name: ゴンドーロ
 price_jpy: 3388000
+category: watch

@@ -14,6 +14,7 @@ class TransformProcessor:
     
     # 配置缓存
     _config_cache: Optional[Dict[str, Any]] = None
+    _watch_dict_cache: Optional[Dict[str, Any]] = None
     
     @staticmethod
     def _load_config() -> Dict[str, Any]:
@@ -89,9 +90,28 @@ class TransformProcessor:
             return TransformProcessor.to_int(value)
         elif transform_type == "pick_best_srcset":
             return TransformProcessor.pick_best_srcset(value)
+        elif transform_type == "split_watch_title":
+            return TransformProcessor.split_watch_title(value, config)
         else:
             # 未知的transform类型，返回原值
             return value
+
+    @staticmethod
+    def _load_watch_dict(dict_path: Optional[str] = None) -> Dict[str, Any]:
+        """加载腕表字典"""
+        if TransformProcessor._watch_dict_cache is not None and not dict_path:
+            return TransformProcessor._watch_dict_cache
+        
+        path = dict_path
+        if not path:
+            path = Path(__file__).parent / "dictionary" / "watch.yaml"
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                TransformProcessor._watch_dict_cache = yaml.safe_load(f) or {}
+        except Exception as e:
+            print(f"[TransformProcessor] 加载腕表字典失败: {e}")
+            TransformProcessor._watch_dict_cache = {}
+        return TransformProcessor._watch_dict_cache
 
     @staticmethod
     def url_join(value: Any, config: dict) -> Optional[str]:
@@ -217,6 +237,133 @@ class TransformProcessor:
         # 选择宽度最大的
         candidates.sort(key=lambda x: x[0], reverse=True)
         return candidates[0][1]
+
+    @staticmethod
+    def split_watch_title(value: Any, config: dict) -> Any:
+        """
+        将标题拆分为品牌、型号、型号编号
+        
+        返回格式：
+        {
+            "__value__": 原始清洗后的标题,
+            "__extra_fields__": {
+                "brand_name": ...,
+                "model_name": ...,
+                "model_no": ...
+            }
+        }
+        """
+        if not isinstance(value, str):
+            return value
+        
+        raw_value = value.strip()
+        if not raw_value:
+            return value
+
+        # 清洗文本：移除【...】、替换全角空格并裁掉“腕時計/時計/ウォッチ”后的尾部
+        cleaned = re.sub(r"【[^】]*】", " ", raw_value)
+        cleaned = cleaned.replace("　", " ")
+        cleaned = re.split(r"(腕時計|ウォッチ|時計)", cleaned, maxsplit=1)[0]
+        cleaned = re.sub(r"\s+", " ", cleaned).strip()
+
+        # 拆分为token，去掉常见的性别/后缀词
+        tokens = [t for t in cleaned.split(" ") if t]
+        suffix_tokens = set(config.get("suffix_tokens", ["メンズ", "レディース", "ユニセックス", "男女兼用", "ボーイズ", "ガールズ"]))
+        while tokens and tokens[-1] in suffix_tokens:
+            tokens.pop()
+        if not tokens:
+            return {"__value__": cleaned, "__extra_fields__": {}}
+
+        original_tokens = tokens.copy()
+        fallback_brand = original_tokens[0]
+
+        # 加载字典
+        watch_dict = TransformProcessor._load_watch_dict(config.get("dictionary_path"))
+
+        def looks_like_model_no(token: str) -> bool:
+            if not token or len(token) < 3:
+                return False
+            if not re.search(r"\d", token):
+                return False
+            if re.fullmatch(r"[0-9]{1,2}", token):
+                return False
+            return re.fullmatch(r"[A-Za-z0-9./-]+", token) is not None
+
+        # 品牌匹配（优先匹配最长别名）
+        brand_name = None
+        consume_brand = 0
+        alias_candidates = []
+        for brand, data in (watch_dict or {}).items():
+            aliases = data.get("aliases", []) if isinstance(data, dict) else []
+            alias_candidates.append((brand, brand))
+            for alias in aliases:
+                alias_candidates.append((alias, brand))
+        alias_candidates.sort(key=lambda x: len(x[0]), reverse=True)
+
+        for alias, canonical_brand in alias_candidates:
+            alias_tokens = [t for t in alias.split(" ") if t]
+            if alias_tokens and tokens[: len(alias_tokens)] == alias_tokens:
+                brand_name = canonical_brand
+                consume_brand = len(alias_tokens)
+                break
+            if cleaned.startswith(alias):
+                brand_name = canonical_brand
+                consume_brand = max(1, len(alias_tokens))
+                break
+        if consume_brand:
+            tokens = tokens[consume_brand:]
+        if not brand_name:
+            brand_name = fallback_brand
+
+        # 型号名匹配（使用品牌下的model_name别名）
+        model_name = None
+        consume_model = 0
+        brand_data = watch_dict.get(brand_name, {}) if isinstance(watch_dict, dict) else {}
+        model_dict = brand_data.get("model_name", {}) if isinstance(brand_data, dict) else {}
+        remaining_text = " ".join(tokens)
+        if isinstance(model_dict, dict):
+            model_candidates = []
+            for canonical_model, info in model_dict.items():
+                aliases = info.get("aliases", []) if isinstance(info, dict) else []
+                model_candidates.append((canonical_model, canonical_model))
+                for alias in aliases:
+                    model_candidates.append((alias, canonical_model))
+            model_candidates.sort(key=lambda x: len(x[0]), reverse=True)
+
+            for alias, canonical_model in model_candidates:
+                if remaining_text.startswith(alias) or f" {alias} " in f" {remaining_text} ":
+                    model_name = canonical_model
+                    alias_tokens = [t for t in alias.split(" ") if t]
+                    if alias_tokens and tokens[: len(alias_tokens)] == alias_tokens:
+                        consume_model = len(alias_tokens)
+                    break
+        if consume_model:
+            tokens = tokens[consume_model:]
+
+        # 型号编号匹配（从尾部寻找疑似型号编号的token）
+        model_no = None
+        for idx in range(len(tokens) - 1, -1, -1):
+            token = tokens[idx]
+            if looks_like_model_no(token):
+                model_no = token
+                tokens.pop(idx)
+                break
+
+        if not model_name and tokens:
+            model_name = " ".join(tokens).strip() or None
+
+        extras = {}
+        if brand_name:
+            extras["brand_name"] = brand_name
+        if model_name:
+            extras["model_name"] = model_name
+        if model_no:
+            extras["model_no"] = model_no
+
+        return {
+            "__value__": cleaned,
+            "__extra_fields__": extras
+        }
 
     @staticmethod
     def get_image_data(image_url: str, page_resources: Optional[Dict[str, bytes]] = None) -> Optional[bytes]:
