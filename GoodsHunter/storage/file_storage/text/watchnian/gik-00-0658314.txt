@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0658314/
+item_id: gik-00-0658314
+brand_name_model_name_model_no: カルティエ タンクフランセーズ SM　 W51008Q3 シルバー レディース 時計 【中古】【wristwatch】
+price_jpy: 416900

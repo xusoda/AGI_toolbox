@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0670115/
+item_id: gik-00-0670115
+brand_name_model_name_model_no: ロレックス デイトジャスト 179171G ピンクコンピュータ/ダイヤモンド レディース 時計 【中古】【wristwatch】
+price_jpy: 1518000

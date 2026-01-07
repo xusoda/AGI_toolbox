@@ -1,4 +1,9 @@
 # 爬虫配置文件
+paths:
+  # profiles目录的相对路径（相对于crawler目录）
+  # 当从外层目录执行脚本时，代码会自动将相对路径解析为基于脚本所在目录的绝对路径
+  profiles: "profiles"  # 默认值，指向 crawler/profiles 目录
+
 image:
   # 图片保存的基础目录
   base_dir: /Users/xushuda/WorkSpace/GoodsHunter/storage/file_storage/image

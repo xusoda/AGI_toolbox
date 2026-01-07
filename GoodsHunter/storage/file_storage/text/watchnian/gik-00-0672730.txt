@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0672730/
+item_id: gik-00-0672730
+brand_name_model_name_model_no: ベル＆ロス BR 05 GMT スカイブルー BR05G-PB-ST/SST ブルー メンズ 時計 【中古】【wristwatch】
+price_jpy: 489500

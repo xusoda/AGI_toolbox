@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0703956/
+item_id: gik-00-0703956
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 67180 シルバー レディース 時計 【中古】【wristwatch】
+price_jpy: 451000

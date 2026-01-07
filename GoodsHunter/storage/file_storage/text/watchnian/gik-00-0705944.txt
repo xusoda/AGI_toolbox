@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0705944/
 item_id: gik-00-0705944
 brand_name_model_name_model_no: ロレックス エアキング 14000 ホワイト メンズ 時計 【中古】【wristwatch】
-price_jpy: 785400
+price_jpy: 788700

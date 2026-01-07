@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708047/
+item_id: gik-00-0708047
+brand_name_model_name_model_no: カルティエ タンク フランセーズ SM W51007Q4 シルバー レディース 時計 【中古】【wristwatch】
+price_jpy: 542300

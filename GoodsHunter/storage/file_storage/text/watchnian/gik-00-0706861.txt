@@ -1,4 +1,4 @@
 product_url: https://watchnian.com/shop/g/gik-00-0706861/
 item_id: gik-00-0706861
 brand_name_model_name_model_no: ロレックス デイトジャスト 16234 シルバー メンズ 時計 【中古】【wristwatch】
-price_jpy: 1151700
+price_jpy: 1157200

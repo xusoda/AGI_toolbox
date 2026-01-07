@@ -9,15 +9,15 @@ defaults:
   threshold: 0.9  # 默认：90%
 
 profiles:
-  # commit_watch profile的测试URL
-  # commit_watch_onsale_list_v1:
-  #   urls:
-  #     - https://commit-watch.co.jp/collections/onsale
-  #   # 字段级别的检查标准（覆盖默认配置）
-  #   fields:
-  #     price_jpy:
-  #       type: 1  # 数字
-  #       threshold: 0.7  # 70%
+  commit_watch profile的测试URL
+  commit_watch_onsale_list_v1:
+    urls:
+      - https://commit-watch.co.jp/collections/onsale
+    # 字段级别的检查标准（覆盖默认配置）
+    fields:
+      price_jpy:
+        type: 1  # 数字
+        threshold: 0.7  # 70%
   
   # watchnian profile的测试URL
   watchnian_supd_list_v1:

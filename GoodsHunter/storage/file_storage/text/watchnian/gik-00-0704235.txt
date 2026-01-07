@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0704235/
+item_id: gik-00-0704235
+brand_name_model_name_model_no: カルティエ マスト タンク M W1014054 ホワイト ユニセックス 時計 【中古】【wristwatch】
+price_jpy: 333300

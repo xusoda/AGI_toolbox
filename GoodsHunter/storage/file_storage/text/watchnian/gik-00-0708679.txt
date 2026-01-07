@@ -1,0 +1,4 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708679/
+item_id: gik-00-0708679
+brand_name_model_name_model_no: シャネル プルミエール M H0001 ブラック レディース 時計 【中古】【wristwatch】
+price_jpy: 234300
