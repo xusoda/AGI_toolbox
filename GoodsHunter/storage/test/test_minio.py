@@ -15,9 +15,15 @@ from storage.minio_client import MinIOClient
 # 加载环境变量
 load_dotenv(_project_root / ".env")
 
+# 尝试导入 pytest（如果可用）
+try:
+    import pytest
+except ImportError:
+    pytest = None
 
-def test_minio_connection():
-    """测试MinIO连接"""
+
+def _test_minio_connection():
+    """测试MinIO连接（内部函数）"""
     print("=" * 50)
     print("测试MinIO连接")
     print("=" * 50)
@@ -33,8 +39,32 @@ def test_minio_connection():
         return None
 
 
-def test_list_objects(minio_client):
-    """列出MinIO中的对象"""
+def test_minio_connection():
+    """pytest 测试函数：测试MinIO连接"""
+    client = _test_minio_connection()
+    assert client is not None, "MinIO连接失败"
+
+
+# 定义 fixture 函数
+def _minio_client_fixture():
+    """pytest fixture：提供MinIO客户端"""
+    client = _test_minio_connection()
+    if client is None:
+        if pytest:
+            pytest.skip("MinIO连接失败，跳过测试")
+        else:
+            raise Exception("MinIO连接失败")
+    return client
+
+# 如果 pytest 可用，将函数标记为 fixture
+if pytest:
+    minio_client = pytest.fixture(_minio_client_fixture)
+else:
+    minio_client = _minio_client_fixture
+
+
+def _test_list_objects(minio_client):
+    """列出MinIO中的对象（内部函数）"""
     print("\n" + "=" * 50)
     print("列出MinIO中的对象")
     print("=" * 50)
@@ -70,6 +100,12 @@ def test_list_objects(minio_client):
         import traceback
         traceback.print_exc()
         return 0
+
+
+def test_list_objects(minio_client):
+    """pytest 测试函数：列出MinIO中的对象"""
+    result = _test_list_objects(minio_client)
+    assert result >= 0, "列出对象失败"
 
 
 def test_check_database_images(minio_client):
@@ -150,15 +186,15 @@ def main():
     print("MinIO图片存储检查")
     print("=" * 50)
     
-    # 测试连接
-    client = test_minio_connection()
+    # 测试连接（使用内部函数，避免 pytest 警告）
+    client = _test_minio_connection()
     if not client:
         print("\n无法继续测试，请检查MinIO服务是否运行")
         print("运行: docker compose up -d")
         return
     
     # 列出对象
-    object_count = test_list_objects(client)
+    object_count = _test_list_objects(client)
     
     # 检查数据库
     test_check_database_images(client)

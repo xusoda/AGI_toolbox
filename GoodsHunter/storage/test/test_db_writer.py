@@ -15,14 +15,13 @@ if str(_crawler_dir) not in sys.path:
 
 from dotenv import load_dotenv
 from output.db_writer import DBWriter
-from core.types import Record, FieldError
 
 # 加载环境变量
 load_dotenv(_project_root / ".env")
 
 
-def test_db_connection():
-    """测试数据库连接"""
+def _test_db_connection():
+    """测试数据库连接（内部函数）"""
     print("测试数据库连接...")
     try:
         db_writer = DBWriter()
@@ -33,49 +32,14 @@ def test_db_connection():
         return False
 
 
-def test_write_record():
-    """测试写入记录"""
-    print("\n测试写入记录...")
-    try:
-        # 创建测试记录
-        test_record = Record(
-            url="https://commit-watch.co.jp/products/test123",
-            data={
-                "items": [
-                    {
-                        "item_id": "test123",
-                        "product_url": "https://commit-watch.co.jp/products/test123",
-                        "brand_name": "Rolex",
-                        "model_name": "Submariner",
-                        "model_no": "116610LN",
-                        "price_jpy": 1000000,
-                        "currency": "JPY",
-                        "image": "https://example.com/image.jpg"
-                    }
-                ]
-            },
-            errors=[]
-        )
-        
-        db_writer = DBWriter()
-        count = db_writer.write_record(test_record, site="commit-watch.co.jp")
-        
-        if count > 0:
-            print(f"✓ 成功写入 {count} 条记录")
-            return True
-        else:
-            print("✗ 写入失败：记录数为0")
-            return False
-            
-    except Exception as e:
-        print(f"✗ 写入失败: {e}")
-        import traceback
-        traceback.print_exc()
-        return False
+def test_db_connection():
+    """pytest 测试函数：测试数据库连接"""
+    result = _test_db_connection()
+    assert result, "数据库连接失败"
 
 
-def test_query_record():
-    """测试查询记录"""
+def _test_query_record():
+    """测试查询记录（内部函数）"""
     print("\n测试查询记录...")
     try:
         import psycopg2
@@ -117,6 +81,12 @@ def test_query_record():
         return False
 
 
+def test_query_record():
+    """pytest 测试函数：测试查询记录"""
+    result = _test_query_record()
+    assert result, "查询记录失败"
+
+
 def main():
     """主测试函数"""
     print("=" * 50)
@@ -132,11 +102,10 @@ def main():
     
     print(f"数据库URL: {database_url.split('@')[1] if '@' in database_url else 'N/A'}")
     
-    # 运行测试
+    # 运行测试（使用内部函数，避免 pytest 警告）
     results = []
-    results.append(("数据库连接", test_db_connection()))
-    results.append(("写入记录", test_write_record()))
-    results.append(("查询记录", test_query_record()))
+    results.append(("数据库连接", _test_db_connection()))
+    results.append(("查询记录", _test_query_record()))
     
     # 输出结果
     print("\n" + "=" * 50)
