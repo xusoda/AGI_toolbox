@@ -67,6 +67,7 @@ async def list_items(
     status: Optional[str] = Query("active", description="商品状态"),
     sort: str = Query("last_seen_desc", description="排序方式：last_seen_desc/price_asc/price_desc"),
     lang: Optional[str] = Query("en", description="语言代码（en/zh/ja），默认 en"),
+    category: Optional[str] = Query(None, description="商品类别"),
     db: Session = Depends(get_db)
 ):
     """
@@ -77,13 +78,15 @@ async def list_items(
     - **status**: 商品状态（active/sold/removed），默认 active
     - **sort**: 排序方式（last_seen_desc/price_asc/price_desc），默认 last_seen_desc
     - **lang**: 语言代码（en/zh/ja），默认 en
+    - **category**: 商品类别（watch/bag/jewelry/clothing/camera），可选
     """
     items, total = get_items(
         db=db,
         page=page,
         page_size=page_size,
         status=status,
-        sort=sort
+        sort=sort,
+        category=category
     )
 
     # 初始化翻译映射器

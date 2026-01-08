@@ -55,6 +55,14 @@
     "sold_date": "售出日期",
     "sold_reason": "售出原因",
     "product_url": "商品链接"
+  },
+  "category": {
+    "all": "全部",
+    "watch": "手表",
+    "bag": "包",
+    "jewelry": "珠宝/首饰",
+    "clothing": "衣服",
+    "camera": "相机"
   }
 }
 

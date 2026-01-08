@@ -55,6 +55,14 @@
     "sold_date": "売却日",
     "sold_reason": "売却理由",
     "product_url": "商品URL"
+  },
+  "category": {
+    "all": "すべて",
+    "watch": "時計",
+    "bag": "バッグ",
+    "jewelry": "ジュエリー/アクセサリー",
+    "clothing": "衣類",
+    "camera": "カメラ"
   }
 }
 

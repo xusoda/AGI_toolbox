@@ -1,27 +1,37 @@
 .language-selector {
   display: flex;
-  gap: 8px;
   align-items: center;
 }
 
-.language-selector button {
-  padding: 6px 12px;
+.language-select {
+  padding: 6px 28px 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
   border: 1px solid #ddd;
-  background: white;
-  cursor: pointer;
   border-radius: 4px;
-  font-size: 14px;
+  background-color: white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23333' d='M5 7L1 3h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 10px;
+  color: #666;
+  cursor: pointer;
   transition: all 0.2s;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 70px;
+  box-sizing: border-box;
 }
 
-.language-selector button:hover {
-  background: #f5f5f5;
+.language-select:hover {
   border-color: #999;
+  background-color: #f9f9f9;
 }
 
-.language-selector button.active {
-  background: #007bff;
-  color: white;
+.language-select:focus {
+  outline: none;
   border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }
 

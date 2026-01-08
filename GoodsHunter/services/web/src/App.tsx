@@ -21,8 +21,10 @@ function App() {
       <div className="app-container">
         <header className="app-header">
           <div className="app-header-content">
-            <h1>GoodsHunter</h1>
-            <LanguageSelector />
+            <h1 className="app-title">GoodsHunter</h1>
+            <div className="app-header-language">
+              <LanguageSelector />
+            </div>
           </div>
         </header>
         <main className="app-main">

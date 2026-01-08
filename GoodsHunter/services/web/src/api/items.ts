@@ -10,6 +10,7 @@ export async function getItems(params: ItemsListParams = {}): Promise<ItemsListR
   if (params.status) searchParams.append('status', params.status)
   if (params.sort) searchParams.append('sort', params.sort)
   if (params.lang) searchParams.append('lang', params.lang)
+  if (params.category) searchParams.append('category', params.category)
   
   const query = searchParams.toString()
   const endpoint = `/items${query ? `?${query}` : ''}`

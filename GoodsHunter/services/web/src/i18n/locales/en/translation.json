@@ -55,6 +55,14 @@
     "sold_date": "Sold Date",
     "sold_reason": "Sold Reason",
     "product_url": "Product URL"
+  },
+  "category": {
+    "all": "All",
+    "watch": "Watch",
+    "bag": "Bag",
+    "jewelry": "Jewelry",
+    "clothing": "Clothing",
+    "camera": "Camera"
   }
 }
 

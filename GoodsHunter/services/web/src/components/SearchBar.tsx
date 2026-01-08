@@ -6,9 +6,10 @@ import './SearchBar.css'
 interface SearchBarProps {
   onSearch: (query: string) => void
   initialQuery?: string
+  onClear?: () => void
 }
 
-export default function SearchBar({ onSearch, initialQuery = '' }: SearchBarProps) {
+export default function SearchBar({ onSearch, initialQuery = '', onClear }: SearchBarProps) {
   const { t } = useTranslation()
   const [query, setQuery] = useState(initialQuery)
   const [suggestions, setSuggestions] = useState<string[]>([])
@@ -16,6 +17,11 @@ export default function SearchBar({ onSearch, initialQuery = '' }: SearchBarProp
   const [loading, setLoading] = useState(false)
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   const suggestionsRef = useRef<HTMLDivElement>(null)
+
+  // 同步外部 initialQuery 的变化
+  useEffect(() => {
+    setQuery(initialQuery)
+  }, [initialQuery])
 
   // 点击外部关闭建议列表
   useEffect(() => {
@@ -90,17 +96,53 @@ export default function SearchBar({ onSearch, initialQuery = '' }: SearchBarProp
     }
   }
 
+  const handleClear = () => {
+    setQuery('')
+    setSuggestions([])
+    setShowSuggestions(false)
+    onSearch('')
+    if (onClear) {
+      onClear()
+    }
+  }
+
+  const showClearButton = query.trim().length > 0
+
   return (
     <div className="search-bar-container" ref={suggestionsRef}>
       <form className="search-bar" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="search-input"
-          placeholder={t('search.placeholder', '搜索商品...')}
-          value={query}
-          onChange={handleInputChange}
-          onFocus={handleInputFocus}
-        />
+        <div className="search-input-wrapper">
+          <input
+            type="text"
+            className="search-input"
+            placeholder={t('search.placeholder', '搜索商品...')}
+            value={query}
+            onChange={handleInputChange}
+            onFocus={handleInputFocus}
+          />
+          {showClearButton && (
+            <button
+              type="button"
+              className="search-clear-button"
+              onClick={handleClear}
+              aria-label={t('search.clear', '清除搜索')}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          )}
+        </div>
         <button type="submit" className="search-button" aria-label={t('search.search', '搜索')}>
           <svg
             width="20"

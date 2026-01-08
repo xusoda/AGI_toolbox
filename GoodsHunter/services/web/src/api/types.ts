@@ -56,6 +56,7 @@ export interface ItemsListParams {
   status?: string
   sort?: 'last_seen_desc' | 'price_asc' | 'price_desc'
   lang?: string  // 语言代码（en/zh/ja）
+  category?: string  // 商品类别（watch/bag/jewelry/clothing/camera）
 }
 
 // 搜索相关类型

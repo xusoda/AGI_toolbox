@@ -10,28 +10,27 @@ export function LanguageSelector() {
     localStorage.setItem('preferred_language', lang);
   };
 
-  const currentLang = i18n.language;
+  const currentLang = i18n.language || 'en';
+
+  const languages = [
+    { value: 'en', label: 'EN' },
+    { value: 'zh', label: '中文' },
+    { value: 'ja', label: '日本語' },
+  ];
 
   return (
     <div className="language-selector">
-      <button
-        className={currentLang === 'en' ? 'active' : ''}
-        onClick={() => changeLanguage('en')}
+      <select
+        value={currentLang}
+        onChange={(e) => changeLanguage(e.target.value)}
+        className="language-select"
       >
-        English
-      </button>
-      <button
-        className={currentLang === 'zh' ? 'active' : ''}
-        onClick={() => changeLanguage('zh')}
-      >
-        中文
-      </button>
-      <button
-        className={currentLang === 'ja' ? 'active' : ''}
-        onClick={() => changeLanguage('ja')}
-      >
-        日本語
-      </button>
+        {languages.map((lang) => (
+          <option key={lang.value} value={lang.value}>
+            {lang.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }

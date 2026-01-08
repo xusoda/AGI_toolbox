@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import { getItems } from '../api/items'
 import { searchProducts } from '../api/search'
 import type { ItemListItem, ItemsListParams, SearchParams, SearchItemResult } from '../api/types'
@@ -7,10 +8,12 @@ import ItemCard from '../components/ItemCard'
 import PaginationBar from '../components/PaginationBar'
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import SearchBar from '../components/SearchBar'
+import { CategorySelector } from '../components/CategorySelector'
 import './ItemsListPage.css'
 
 export default function ItemsListPage() {
   const { i18n, t } = useTranslation()
+  const location = useLocation()
   const [items, setItems] = useState<ItemListItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -23,6 +26,19 @@ export default function ItemsListPage() {
   const [sortField, setSortField] = useState<'price' | 'last_seen_dt' | 'created_at'>('last_seen_dt')
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
 
+  // 从 URL 参数获取 category 和 page
+  const searchParams = new URLSearchParams(location.search)
+  const category = searchParams.get('category') || undefined
+
+  useEffect(() => {
+    // 从 URL 参数更新 page
+    const urlPage = parseInt(new URLSearchParams(location.search).get('page') || '1')
+    if (urlPage !== page && urlPage > 0) {
+      setPage(urlPage)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search])
+
   useEffect(() => {
     if (isSearchMode && searchQuery) {
       loadSearchResults()
@@ -30,7 +46,7 @@ export default function ItemsListPage() {
       loadItems()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, sort, i18n.language, isSearchMode, searchQuery, sortField, sortOrder])
+  }, [page, sort, i18n.language, isSearchMode, searchQuery, sortField, sortOrder, category])
 
   const loadItems = async () => {
     setLoading(true)
@@ -42,6 +58,7 @@ export default function ItemsListPage() {
         status: 'active',
         sort,
         lang: i18n.language,  // 传递当前语言
+        category,  // 传递 category
       }
       const response = await getItems(params)
       setItems(response.items)
@@ -71,6 +88,7 @@ export default function ItemsListPage() {
         sort_order: sortOrder,
         status: 'active',
         lang: i18n.language,
+        category,  // 传递 category
       }
       const response = await searchProducts(params)
       
@@ -113,6 +131,10 @@ export default function ItemsListPage() {
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
+    // 更新 URL 参数
+    const newSearchParams = new URLSearchParams(location.search)
+    newSearchParams.set('page', newPage.toString())
+    window.history.pushState({}, '', `${location.pathname}?${newSearchParams.toString()}`)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -121,22 +143,24 @@ export default function ItemsListPage() {
     if (isSearchMode) {
       return (
         <>
-          <label>
-            {t('app.sort_by', '排序')}：
+          <label className="sort-label">
+            <span className="sort-label-text">{t('app.sort_by', '排序')}：</span>
             <select 
               value={sortField} 
               onChange={(e) => setSortField(e.target.value as 'price' | 'last_seen_dt' | 'created_at')}
+              className="sort-select"
             >
               <option value="last_seen_dt">{t('app.sort_last_seen', '最后发现时间')}</option>
               <option value="price">{t('app.sort_price', '价格')}</option>
               <option value="created_at">{t('app.sort_created', '创建时间')}</option>
             </select>
           </label>
-          <label>
-            {t('app.sort_order', '顺序')}：
+          <label className="sort-label">
+            <span className="sort-label-text">{t('app.sort_order', '顺序')}：</span>
             <select 
               value={sortOrder} 
               onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+              className="sort-select"
             >
               <option value="desc">{t('app.sort_desc', '降序')}</option>
               <option value="asc">{t('app.sort_asc', '升序')}</option>
@@ -146,11 +170,12 @@ export default function ItemsListPage() {
       )
     } else {
       return (
-        <label>
-          {t('app.sort_by', '排序')}：
+        <label className="sort-label">
+          <span className="sort-label-text">{t('app.sort_by', '排序')}：</span>
           <select 
             value={sort} 
             onChange={(e) => setSort(e.target.value as ItemsListParams['sort'])}
+            className="sort-select"
           >
             <option value="last_seen_desc">{t('app.sort_last_seen_desc', '最后发现时间（降序）')}</option>
             <option value="price_asc">{t('app.sort_price_asc', '价格（升序）')}</option>
@@ -164,22 +189,23 @@ export default function ItemsListPage() {
   return (
     <div className="items-list-page">
       <header className="page-header">
-        <h1>{t('app.title', '商品列表')}</h1>
+        <div className="page-header-top">
+          <div className="category-sort-row">
+            <div className="category-selector-wrapper">
+              <CategorySelector />
+            </div>
+            <div className="sort-controls">
+              {getSortOptions()}
+            </div>
+          </div>
+        </div>
         <div className="header-controls">
           <div className="search-container">
-            <SearchBar onSearch={handleSearch} initialQuery={searchQuery} />
-            {isSearchMode && (
-              <button 
-                className="clear-search-button"
-                onClick={handleClearSearch}
-                aria-label={t('search.clear', '清除搜索')}
-              >
-                {t('search.clear', '清除')}
-              </button>
-            )}
-          </div>
-          <div className="sort-controls">
-            {getSortOptions()}
+            <SearchBar 
+              onSearch={handleSearch} 
+              initialQuery={searchQuery}
+              onClear={handleClearSearch}
+            />
           </div>
         </div>
       </header>

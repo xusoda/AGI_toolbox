@@ -59,8 +59,14 @@ button {
 .app-header {
   background: #fff;
   border-bottom: 1px solid #e0e0e0;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  .app-header {
+    padding: 1rem 2rem;
+  }
 }
 
 .app-header-content {
@@ -69,12 +75,26 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  position: relative;
 }
 
-.app-header h1 {
+.app-header-language {
+  flex-shrink: 0;
+}
+
+.app-title {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
   color: #333;
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .app-title {
+    font-size: 1.5rem;
+  }
 }
 
 .app-main {

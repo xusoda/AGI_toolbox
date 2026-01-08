@@ -10,7 +10,8 @@ def get_items(
     page: int = 1,
     page_size: int = 20,
     status: Optional[str] = "active",
-    sort: str = "last_seen_desc"
+    sort: str = "last_seen_desc",
+    category: Optional[str] = None
 ) -> Tuple[List[CrawlerItem], int]:
     """
     获取商品列表（分页）
@@ -21,6 +22,7 @@ def get_items(
         page_size: 每页数量
         status: 商品状态（active/sold/removed），None 表示不过滤
         sort: 排序方式（last_seen_desc/price_asc/price_desc）
+        category: 商品类别，None 表示不过滤
     
     Returns:
         (商品列表, 总数)
@@ -30,6 +32,10 @@ def get_items(
     # 状态过滤
     if status:
         query = query.filter(CrawlerItem.status == status)
+    
+    # 类别过滤
+    if category:
+        query = query.filter(CrawlerItem.category == category)
     
     # 排序
     if sort == "price_asc":
