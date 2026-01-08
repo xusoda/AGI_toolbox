@@ -3,13 +3,16 @@
 export interface ItemListItem {
   id: number
   brand_name: string | null
+  brand_name_translated: string | null  // 翻译后的品牌名
   model_name: string | null
+  model_name_translated: string | null  // 翻译后的型号名
   model_no: string | null
   currency: string
   price: number | null
   image_thumb_url: string | null
   last_seen_dt: string
   status: string
+  product_id: number | null
 }
 
 export interface ItemDetail {
@@ -19,7 +22,9 @@ export interface ItemDetail {
   category: string
   item_id: string
   brand_name: string | null
+  brand_name_translated: string | null  // 翻译后的品牌名
   model_name: string | null
+  model_name_translated: string | null  // 翻译后的型号名
   model_no: string | null
   currency: string
   price: number | null
@@ -35,6 +40,7 @@ export interface ItemDetail {
   last_crawl_time: string
   created_at: string
   updated_at: string
+  product_id: number | null
 }
 
 export interface ItemsListResponse {
@@ -49,5 +55,6 @@ export interface ItemsListParams {
   page_size?: number
   status?: string
   sort?: 'last_seen_desc' | 'price_asc' | 'price_desc'
+  lang?: string  // 语言代码（en/zh/ja）
 }
 

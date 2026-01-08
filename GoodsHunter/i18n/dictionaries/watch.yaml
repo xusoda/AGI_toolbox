@@ -1,0 +1,247 @@
+Grand Seiko:
+  aliases: ["グランドセイコー", "GS", "グラセイ"]
+  model_name:
+    Heritage Collection:
+      aliases: ["ヘリテージコレクション", "Heritage", "ヘリテージ"]
+      model_no: ["SBGX265", "SBGA211", "SBGA465", "SBGR317", "SBGW323", "SBGR075"]
+    Evolution 9 Collection:
+      aliases: ["エボリューション9コレクション", "Evolution 9", "エボリューション9", "エボ9"]
+      model_no: ["SLGB005", "SLGA009", "SLGA025", "SLGH025"]
+    Sport Collection:
+      aliases: ["スポーツコレクション", "Sport", "スポーツ"]
+      model_no: ["SBGM247", "SBGE309"]
+    Elegance Collection:
+      aliases: ["エレガンスコレクション", "Elegance", "エレガンス"]
+      model_no: ["SBGM221", "STGK023"]
+    Masterpiece Collection:
+      aliases: ["Masterpiece", "マスターピース"]
+      model_no: []
+
+Rolex:
+  aliases: ["ロレックス", "ROLEX"]
+  model_name:
+    Daytona:
+      aliases: ["デイトナ", "コスモグラフ デイトナ", "Cosmograph Daytona"]
+      model_no: ["16518", "116588TBR", "116515LNA"]
+    Datejust:
+      aliases: ["デイトジャスト", "Datejust"]
+      model_no: ["79173G", "179174G", "126300", "126234", "126301", "16234G"]
+    Oyster Perpetual:
+      aliases: ["オイスターパーペチュアル", "Oyster Perpetual"]
+      model_no: ["134300"]
+    Explorer:
+      aliases: ["エクスプローラー", "Explorer", "エクスプローラーI", "Explorer I"]
+      model_no: ["214270"]
+    GMT-Master II:
+      aliases: ["GMTマスター", "GMTマスターII", "ＧＭＴマスター", "GMT-Master", "GMT-Master II"]
+      model_no: ["116759SA", "116758SARU"]
+    Sky-Dweller:
+      aliases: ["スカイドゥエラー", "Sky-Dweller"]
+      model_no: ["336238"]
+    Day-Date:
+      aliases: ["デイデイト", "Day-Date"]
+      model_no: ["1803/8"]
+    Cellini:
+      aliases: ["チェリーニ", "Cellini"]
+      model_no: ["6621/8", "5115"]
+
+Omega:
+  aliases: ["オメガ", "OMEGA"]
+  model_name:
+    Speedmaster:
+      aliases: ["スピードマスター", "Speedmaster"]
+      model_no: []
+    Seamaster:
+      aliases: ["シーマスター", "Seamaster"]
+      model_no: []
+    Constellation:
+      aliases: ["コンステレーション", "Constellation"]
+      model_no: []
+    De Ville:
+      aliases: ["デ・ヴィル", "De Ville", "DeVille"]
+      model_no: []
+    Railmaster:
+      aliases: ["レイルマスター", "Railmaster"]
+      model_no: []
+
+Audemars Piguet:
+  aliases: ["オーデマ ピゲ", "オーデマ・ピゲ", "爱彼", "AP"]
+  model_name:
+    Royal Oak:
+      aliases: ["ロイヤル オーク", "ロイヤルオーク", "Royal Oak", "皇家橡树"]
+      model_no: []
+    "Royal Oak Offshore":
+      aliases: ["ロイヤル オーク オフショア", "Royal Oak Offshore", "皇家橡树离岸型", "离岸型"]
+      model_no: []
+    Millenary:
+      aliases: ["ミレネリー", "Millenary", "千禧"]
+      model_no: []
+    "Jules Audemars":
+      aliases: ["ジュール オーデマ", "Jules Audemars", "经典系列"]
+      model_no: []
+    Code:
+      aliases: ["コード", "Code", "代码系列"]
+      model_no: []
+
+"Vacheron Constantin":
+  aliases: ["ヴァシュロン・コンスタンタン", "ヴァシュロン コンスタンタン", "江诗丹顿", "VC"]
+  model_name:
+    Overseas:
+      aliases: ["オーヴァーシーズ", "オーバーシーズ", "Overseas", "纵横四海"]
+      model_no: []
+    Patrimony:
+      aliases: ["パトリモニー", "Patrimony", "传承系列"]
+      model_no: []
+    Fiftysix:
+      aliases: ["フィフティーシックス", "Fiftysix", "伍陆之型"]
+      model_no: []
+    Traditionnelle:
+      aliases: ["トラディショナル", "Traditionnelle", "传统系列"]
+      model_no: []
+    Historiques:
+      aliases: ["ヒストリーク", "Historiques", "历史名作"]
+      model_no: []
+    Malte:
+      aliases: ["マルタ", "Malte", "马耳他"]
+      model_no: []
+
+"Patek Philippe":
+  aliases: ["パテック フィリップ", "パテック・フィリップ", "百达翡丽", "PP"]
+  model_name:
+    Nautilus:
+      aliases: ["ノーチラス", "Nautilus", "鹦鹉螺", "金鹰"]
+      model_no: []
+    Aquanaut:
+      aliases: ["アクアノート", "Aquanaut", "金鹰系列"]
+      model_no: []
+    Calatrava:
+      aliases: ["カラトラバ", "Calatrava", "卡拉卓华"]
+      model_no: []
+    "Grand Complications":
+      aliases: ["グランド コンプリケーション", "Grand Complications", "超级复杂功能时计"]
+      model_no: []
+    "Gondolo":
+      aliases: ["ゴンドロ", "Gondolo", "贡多拉"]
+      model_no: []
+    "Twenty-4":
+      aliases: ["トゥエンティフォー", "Twenty-4", "Twenty~4"]
+      model_no: []
+
+Breguet:
+  aliases: ["ブレゲ", "宝玑"]
+  model_name:
+    Classique:
+      aliases: ["クラシック", "Classique", "经典系列"]
+      model_no: []
+    Marine:
+      aliases: ["マリーン", "Marine", "航海系列"]
+      model_no: []
+    Tradition:
+      aliases: ["トラディション", "Tradition", "传世系列"]
+      model_no: []
+    "Type XX":
+      aliases: ["タイプXX", "タイプ XX", "Type XX", "Type 20"]
+      model_no: []
+    Reine:
+      aliases: ["レーヌ", "Reine", "皇后系列"]
+      model_no: []
+    Héritage:
+      aliases: ["エリタージュ", "Héritage", "传承系列"]
+      model_no: []
+
+Piaget:
+  aliases: ["ピアジェ", "伯爵"]
+  model_name:
+    Altiplano:
+      aliases: ["アルティプラノ", "Altiplano", "超薄系列", "Altiplano系列"]
+      model_no: []
+    Polo:
+      aliases: ["ポロ", "Polo", "Polo系列"]
+      model_no: []
+    Limelight:
+      aliases: ["ライムライト", "Limelight", "Limelight系列"]
+      model_no: []
+    Possession:
+      aliases: ["ポゼッション", "Possession", "Possession系列"]
+      model_no: []
+    "Piaget Polo S":
+      aliases: ["ピアジェ ポロ S", "Piaget Polo S", "Polo S"]
+      model_no: []
+    "Dancer":
+      aliases: ["ダンサー", "Dancer", "Dancer系列"]
+      model_no: []
+
+Blancpain:
+  aliases: ["ブランパン", "宝珀", "BP"]
+  model_name:
+    "Fifty Fathoms":
+      aliases: ["フィフティ ファゾムス", "フィフティファゾムス", "Fifty Fathoms", "五十噚"]
+      model_no: []
+    Villeret:
+      aliases: ["ヴィルレ", "Villeret", "经典系列", "维勒雷"]
+      model_no: []
+    "L-evolution":
+      aliases: ["L-エヴォリューション", "L-エボリューション", "L-evolution", "L-evolution系列"]
+      model_no: []
+    Léman:
+      aliases: ["レマン", "Léman", "Leman", "莱芒系列"]
+      model_no: []
+    "Le Brassus":
+      aliases: ["ル ブラッス", "Le Brassus", "Le Brassus系列"]
+      model_no: []
+    "Air Command":
+      aliases: ["エア コマンド", "Air Command", "航空司令"]
+      model_no: []
+
+NOMOS:
+  aliases: ["ノモス", "ノモス・グラスヒュッテ", "NOMOS Glashütte"]
+  model_name:
+    Tangente:
+      aliases: ["タンジェント", "Tangente", "正切"]
+      model_no: []
+    Orion:
+      aliases: ["オリオン", "Orion", "猎户座"]
+      model_no: []
+    Ludwig:
+      aliases: ["ルートヴィヒ", "Ludwig", "路德维希"]
+      model_no: []
+    Metro:
+      aliases: ["メトロ", "Metro", "地铁"]
+      model_no: []
+    Ahoi:
+      aliases: ["アホイ", "Ahoi", "Ahoi系列"]
+      model_no: []
+    Club:
+      aliases: ["クラブ", "Club", "Club系列"]
+      model_no: []
+    Zürich:
+      aliases: ["チューリッヒ", "Zürich", "Zurich", "苏黎世"]
+      model_no: []
+    Tetra:
+      aliases: ["テトラ", "Tetra", "Tetra系列"]
+      model_no: []
+
+"A. Lange & Söhne":
+  aliases: ["A.ランゲ&ゾーネ", "A. ランゲ＆ゾーネ", "朗格", "Lange"]
+  model_name:
+    "Lange 1":
+      aliases: ["ランゲ1", "ランゲ 1", "Lange 1", "朗格1号"]
+      model_no: []
+    Saxonia:
+      aliases: ["サクソニア", "Saxonia", "萨克森"]
+      model_no: []
+    "1815":
+      aliases: ["1815", "1815系列"]
+      model_no: []
+    Zeitwerk:
+      aliases: ["ツァイトヴェルク", "Zeitwerk", "时间机械"]
+      model_no: []
+    "Richard Lange":
+      aliases: ["リヒャルト・ランゲ", "Richard Lange", "理查德·朗格"]
+      model_no: []
+    "Datograph":
+      aliases: ["データグラフ", "Datograph", "Datograph系列"]
+      model_no: []
+    "Double Split":
+      aliases: ["ダブル スプリット", "Double Split", "双追针"]
+      model_no: []

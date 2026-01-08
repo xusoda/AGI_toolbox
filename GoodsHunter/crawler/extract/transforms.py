@@ -104,7 +104,11 @@ class TransformProcessor:
         
         path = dict_path
         if not path:
-            path = Path(__file__).parent / "dictionary" / "watch.yaml"
+            # 新的字典路径：从 i18n 模块加载
+            # 兼容旧路径，如果新路径不存在则使用旧路径
+            new_path = Path(__file__).parent.parent.parent / "i18n" / "dictionaries" / "watch.yaml"
+            old_path = Path(__file__).parent / "dictionary" / "watch.yaml"
+            path = new_path if new_path.exists() else old_path
         try:
             with open(path, "r", encoding="utf-8") as f:
                 TransformProcessor._watch_dict_cache = yaml.safe_load(f) or {}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { getItems } from '../api/items'
 import type { ItemListItem, ItemsListParams } from '../api/types'
 import ItemCard from '../components/ItemCard'
@@ -7,6 +8,7 @@ import LoadingSkeleton from '../components/LoadingSkeleton'
 import './ItemsListPage.css'
 
 export default function ItemsListPage() {
+  const { i18n, t } = useTranslation()
   const [items, setItems] = useState<ItemListItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -17,7 +19,7 @@ export default function ItemsListPage() {
 
   useEffect(() => {
     loadItems()
-  }, [page, sort])
+  }, [page, sort, i18n.language])
 
   const loadItems = async () => {
     setLoading(true)
@@ -28,12 +30,13 @@ export default function ItemsListPage() {
         page_size: pageSize,
         status: 'active',
         sort,
+        lang: i18n.language,  // 传递当前语言
       }
       const response = await getItems(params)
       setItems(response.items)
       setTotal(response.total)
     } catch (err) {
-      setError(err instanceof Error ? err.message : '加载失败')
+      setError(err instanceof Error ? err.message : t('app.error'))
     } finally {
       setLoading(false)
     }
@@ -47,17 +50,17 @@ export default function ItemsListPage() {
   return (
     <div className="items-list-page">
       <header className="page-header">
-        <h1>商品列表</h1>
+        <h1>{t('app.title')}</h1>
         <div className="sort-controls">
           <label>
-            排序：
+            {t('app.sort_by')}：
             <select 
               value={sort} 
               onChange={(e) => setSort(e.target.value as ItemsListParams['sort'])}
             >
-              <option value="last_seen_desc">最新</option>
-              <option value="price_asc">价格从低到高</option>
-              <option value="price_desc">价格从高到低</option>
+              <option value="last_seen_desc">{t('app.sort_last_seen_desc')}</option>
+              <option value="price_asc">{t('app.sort_price_asc')}</option>
+              <option value="price_desc">{t('app.sort_price_desc')}</option>
             </select>
           </label>
         </div>
@@ -72,7 +75,7 @@ export default function ItemsListPage() {
       {loading ? (
         <LoadingSkeleton />
       ) : items.length === 0 ? (
-        <div className="empty-message">暂无商品</div>
+        <div className="empty-message">{t('app.no_items')}</div>
       ) : (
         <>
           <div className="items-grid">

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { getItemById } from '../api/items'
 import type { ItemDetail } from '../api/types'
 import './ItemDetailPage.css'
@@ -7,6 +8,7 @@ import './ItemDetailPage.css'
 export default function ItemDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { i18n, t } = useTranslation()
   const [item, setItem] = useState<ItemDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -16,28 +18,29 @@ export default function ItemDetailPage() {
     if (id) {
       loadItem(parseInt(id))
     }
-  }, [id])
+  }, [id, i18n.language])
 
   const loadItem = async (itemId: number) => {
     setLoading(true)
     setError(null)
     try {
-      const data = await getItemById(itemId)
+      const data = await getItemById(itemId, i18n.language)
       setItem(data)
     } catch (err) {
-      setError(err instanceof Error ? err.message : '加载失败')
+      setError(err instanceof Error ? err.message : t('app.error'))
     } finally {
       setLoading(false)
     }
   }
 
   const formatPrice = () => {
-    if (!item?.price) return '价格未定'
-    return `${item.currency} ${item.price.toLocaleString()}`
+    if (!item?.price) return t('item.price') + ': ' + t('app.loading')
+    const currencySymbol = t(`currency.${item.currency}`) || item.currency
+    return `${currencySymbol} ${item.price.toLocaleString()}`
   }
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('zh-CN')
+    return new Date(dateStr).toLocaleDateString(i18n.language === 'zh' ? 'zh-CN' : i18n.language === 'ja' ? 'ja-JP' : 'en-US')
   }
 
   const handleBack = () => {
@@ -53,7 +56,7 @@ export default function ItemDetailPage() {
   if (loading) {
     return (
       <div className="item-detail-page">
-        <div className="loading">加载中...</div>
+        <div className="loading">{t('app.loading')}</div>
       </div>
     )
   }
@@ -61,8 +64,8 @@ export default function ItemDetailPage() {
   if (error || !item) {
     return (
       <div className="item-detail-page">
-        <div className="error-message">{error || '商品不存在'}</div>
-        <button onClick={handleBack} className="back-button">返回</button>
+        <div className="error-message">{error || t('app.no_items')}</div>
+        <button onClick={handleBack} className="back-button">{t('app.back_to_list')}</button>
       </div>
     )
   }
@@ -71,11 +74,15 @@ export default function ItemDetailPage() {
     ? item.image_original_url 
     : (item.image_600_url || item.image_thumb_url)
 
+  // 使用翻译后的名称，如果没有则使用原始名称
+  const displayBrand = item.brand_name_translated || item.brand_name
+  const displayModel = item.model_name_translated || item.model_name
+
   return (
     <div className="item-detail-page">
       <header className="detail-header">
-        <button onClick={handleBack} className="back-button">← 返回</button>
-        <h1>{item.brand_name || '商品详情'}</h1>
+        <button onClick={handleBack} className="back-button">← {t('app.back_to_list')}</button>
+        <h1>{displayBrand || t('app.title')}</h1>
       </header>
 
       <div className="detail-content">
@@ -94,53 +101,55 @@ export default function ItemDetailPage() {
                   className="view-original-button"
                   onClick={() => setShowOriginal(true)}
                 >
-                  查看原图
+                  {t('app.loading')}
                 </button>
               )}
             </div>
           ) : (
-            <div className="image-placeholder">暂无图片</div>
+            <div className="image-placeholder">{t('app.loading')}</div>
           )}
         </div>
 
         <div className="detail-info-section">
           <div className="info-group">
-            <h2>基本信息</h2>
+            <h2>{t('item.brand')}</h2>
             <div className="info-item">
-              <span className="info-label">品牌：</span>
-              <span className="info-value">{item.brand_name || '-'}</span>
+              <span className="info-label">{t('item.brand')}：</span>
+              <span className="info-value">{displayBrand || '-'}</span>
             </div>
             <div className="info-item">
-              <span className="info-label">型号：</span>
-              <span className="info-value">{item.model_name || '-'}</span>
+              <span className="info-label">{t('item.model')}：</span>
+              <span className="info-value">{displayModel || '-'}</span>
             </div>
             <div className="info-item">
-              <span className="info-label">型号编号：</span>
+              <span className="info-label">{t('item.model_no')}：</span>
               <span className="info-value">{item.model_no || '-'}</span>
             </div>
             <div className="info-item">
-              <span className="info-label">价格：</span>
+              <span className="info-label">{t('item.price')}：</span>
               <span className="info-value price">{formatPrice()}</span>
             </div>
             <div className="info-item">
-              <span className="info-label">状态：</span>
-              <span className="info-value status">{item.status === 'active' ? '在售' : '已售'}</span>
+              <span className="info-label">{t('item.status')}：</span>
+              <span className="info-value status">
+                {item.status === 'active' ? t('app.active') : item.status === 'sold' ? t('app.sold') : t('app.removed')}
+              </span>
             </div>
           </div>
 
           <div className="info-group">
-            <h2>时间信息</h2>
+            <h2>{t('item.last_seen')}</h2>
             <div className="info-item">
-              <span className="info-label">首次发现：</span>
+              <span className="info-label">{t('item.first_seen')}：</span>
               <span className="info-value">{formatDate(item.first_seen_dt)}</span>
             </div>
             <div className="info-item">
-              <span className="info-label">最后更新：</span>
+              <span className="info-label">{t('item.last_seen')}：</span>
               <span className="info-value">{formatDate(item.last_seen_dt)}</span>
             </div>
             {item.sold_dt && (
               <div className="info-item">
-                <span className="info-label">售出日期：</span>
+                <span className="info-label">{t('item.sold_date')}：</span>
                 <span className="info-value">{formatDate(item.sold_dt)}</span>
               </div>
             )}
@@ -152,7 +161,7 @@ export default function ItemDetailPage() {
                 className="product-link-button"
                 onClick={handleOpenProduct}
               >
-                打开商品页面
+                {t('app.visit_product_page')}
               </button>
             </div>
           )}

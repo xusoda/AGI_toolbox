@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "GoodsHunter",
+    "welcome": "Welcome to GoodsHunter",
+    "change_language": "Change Language",
+    "loading": "Loading...",
+    "error": "Error",
+    "no_items": "No items found",
+    "page": "Page",
+    "of": "of",
+    "items_per_page": "Items per page",
+    "sort_by": "Sort by",
+    "filter_by_status": "Filter by status",
+    "all": "All",
+    "active": "Active",
+    "sold": "Sold",
+    "removed": "Removed",
+    "sort_last_seen_desc": "Latest",
+    "sort_price_asc": "Price: Low to High",
+    "sort_price_desc": "Price: High to Low",
+    "visit_product_page": "Visit Product Page",
+    "back_to_list": "Back to List"
+  },
+  "currency": {
+    "JPY": "¥",
+    "USD": "$",
+    "CNY": "¥"
+  },
+  "item": {
+    "brand": "Brand",
+    "model": "Model",
+    "model_no": "Model No.",
+    "price": "Price",
+    "status": "Status",
+    "last_seen": "Last Seen",
+    "first_seen": "First Seen",
+    "sold_date": "Sold Date",
+    "sold_reason": "Sold Reason",
+    "product_url": "Product URL"
+  }
+}
+

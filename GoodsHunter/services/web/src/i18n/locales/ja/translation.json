@@ -1,0 +1,42 @@
+{
+  "app": {
+    "title": "GoodsHunter",
+    "welcome": "GoodsHunterへようこそ",
+    "change_language": "言語を変更",
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "no_items": "商品が見つかりません",
+    "page": "ページ",
+    "of": "/",
+    "items_per_page": "1ページあたりのアイテム数",
+    "sort_by": "並び替え",
+    "filter_by_status": "ステータスでフィルター",
+    "all": "すべて",
+    "active": "販売中",
+    "sold": "売却済み",
+    "removed": "削除済み",
+    "sort_last_seen_desc": "最新",
+    "sort_price_asc": "価格：低→高",
+    "sort_price_desc": "価格：高→低",
+    "visit_product_page": "商品ページへ",
+    "back_to_list": "リストに戻る"
+  },
+  "currency": {
+    "JPY": "¥",
+    "USD": "$",
+    "CNY": "¥"
+  },
+  "item": {
+    "brand": "ブランド",
+    "model": "モデル",
+    "model_no": "モデル番号",
+    "price": "価格",
+    "status": "ステータス",
+    "last_seen": "最終確認",
+    "first_seen": "初回確認",
+    "sold_date": "売却日",
+    "sold_reason": "売却理由",
+    "product_url": "商品URL"
+  }
+}
+

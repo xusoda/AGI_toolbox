@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import type { ItemListItem } from '../api/types'
 import './ItemCard.css'
 
@@ -8,15 +9,21 @@ interface ItemCardProps {
 
 export default function ItemCard({ item }: ItemCardProps) {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleClick = () => {
     navigate(`/items/${item.id}`)
   }
 
   const formatPrice = () => {
-    if (!item.price) return '价格未定'
-    return `${item.currency} ${item.price.toLocaleString()}`
+    if (!item.price) return t('item.price') + ': ' + t('app.loading')
+    const currencySymbol = t(`currency.${item.currency}`) || item.currency
+    return `${currencySymbol} ${item.price.toLocaleString()}`
   }
+
+  // 使用翻译后的名称，如果没有则使用原始名称
+  const displayBrand = item.brand_name_translated || item.brand_name
+  const displayModel = item.model_name_translated || item.model_name
 
   return (
     <div className="item-card" onClick={handleClick}>
@@ -24,21 +31,21 @@ export default function ItemCard({ item }: ItemCardProps) {
         {item.image_thumb_url ? (
           <img 
             src={item.image_thumb_url} 
-            alt={item.model_name || '商品图片'}
+            alt={displayModel || t('item.model')}
             onError={(e) => {
               e.currentTarget.style.display = 'none'
             }}
           />
         ) : (
-          <div className="item-card-placeholder">暂无图片</div>
+          <div className="item-card-placeholder">{t('app.loading')}</div>
         )}
       </div>
       <div className="item-card-info">
-        {item.brand_name && (
-          <div className="item-card-brand">{item.brand_name}</div>
+        {displayBrand && (
+          <div className="item-card-brand">{displayBrand}</div>
         )}
-        {item.model_name && (
-          <div className="item-card-model">{item.model_name}</div>
+        {displayModel && (
+          <div className="item-card-model">{displayModel}</div>
         )}
         {item.model_no && (
           <div className="item-card-model-no">{item.model_no}</div>

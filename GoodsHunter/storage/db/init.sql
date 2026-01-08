@@ -130,6 +130,7 @@ CREATE TABLE IF NOT EXISTS crawler_item (
     
     -- 状态字段
     status TEXT NOT NULL DEFAULT 'active',
+    product_id BIGINT NULL,                    -- 关联的聚合商品ID，NULL表示未关联
     first_seen_dt DATE NOT NULL,
     last_seen_dt DATE NOT NULL,
     sold_dt DATE NULL,
@@ -150,23 +151,26 @@ CREATE TABLE IF NOT EXISTS crawler_item (
 );
 
 -- 创建索引（为 APP 检索）
-CREATE INDEX IF NOT EXISTS idx_crawler_item_site_category_status 
+CREATE INDEX IF NOT EXISTS idx_crawler_item_site_category_status
     ON crawler_item(site, category, status);
-CREATE INDEX IF NOT EXISTS idx_crawler_item_brand_name 
+CREATE INDEX IF NOT EXISTS idx_crawler_item_brand_name
     ON crawler_item(brand_name);
-CREATE INDEX IF NOT EXISTS idx_crawler_item_model_no 
+CREATE INDEX IF NOT EXISTS idx_crawler_item_model_no
     ON crawler_item(model_no);
-CREATE INDEX IF NOT EXISTS idx_crawler_item_price 
+CREATE INDEX IF NOT EXISTS idx_crawler_item_price
     ON crawler_item(price);
-CREATE INDEX IF NOT EXISTS idx_crawler_item_last_seen_dt 
+CREATE INDEX IF NOT EXISTS idx_crawler_item_last_seen_dt
     ON crawler_item(last_seen_dt DESC);
-CREATE INDEX IF NOT EXISTS idx_crawler_item_status 
+CREATE INDEX IF NOT EXISTS idx_crawler_item_status
     ON crawler_item(status);
+CREATE INDEX IF NOT EXISTS idx_crawler_item_product_id
+    ON crawler_item(product_id);
 
 COMMENT ON TABLE crawler_item IS '商品主表，存储从 crawler_log 提取的商品信息';
 COMMENT ON COLUMN crawler_item.source_uid IS '幂等去重键：{site}:{item_id}';
 COMMENT ON COLUMN crawler_item.product_url IS '原网站的商品URL';
 COMMENT ON COLUMN crawler_item.status IS '商品状态：active/sold/removed';
+COMMENT ON COLUMN crawler_item.product_id IS '关联的聚合商品ID，NULL表示未关联';
 
 -- ============================================================================
 -- 4. item_change_history 表（商品变更历史表）
@@ -201,4 +205,83 @@ COMMENT ON TABLE item_change_history IS '商品变更历史表，记录价格、
 COMMENT ON COLUMN item_change_history.dt IS '变更日期';
 COMMENT ON COLUMN item_change_history.change_type IS '变更类型：price/status 等';
 COMMENT ON COLUMN item_change_history.event_key IS '事件唯一键，用于去重（全局唯一）';
+
+-- ============================================================================
+-- 5. product 表（聚合商品表）
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS product (
+    id BIGSERIAL PRIMARY KEY,
+    category TEXT NOT NULL,                    -- 商品类别（手表/珠宝/包/衣服/相机等）
+    brand_name TEXT NOT NULL,                 -- 标准化品牌名（英文）
+    model_name TEXT NOT NULL,                 -- 标准化型号名（英文）
+    model_no TEXT NOT NULL,                  -- 标准化型号编号（英文）
+    
+    -- 时间戳
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+-- 创建唯一索引，确保同一商品不重复
+CREATE UNIQUE INDEX IF NOT EXISTS idx_product_unique 
+    ON product(category, brand_name, model_name, model_no);
+
+-- 创建其他索引
+CREATE INDEX IF NOT EXISTS idx_product_category ON product(category);
+CREATE INDEX IF NOT EXISTS idx_product_brand_name ON product(brand_name);
+CREATE INDEX IF NOT EXISTS idx_product_model_no ON product(model_no);
+
+COMMENT ON TABLE product IS '聚合商品表，存储标准化后的商品信息';
+COMMENT ON COLUMN product.brand_name IS '标准化品牌名（英文）';
+COMMENT ON COLUMN product.model_name IS '标准化型号名（英文）';
+COMMENT ON COLUMN product.model_no IS '标准化型号编号（英文）';
+
+-- ============================================================================
+-- 6. brand_translations 表（品牌翻译表）
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS brand_translations (
+    brand_name TEXT PRIMARY KEY,              -- 标准化品牌名（英文，作为主键）
+    translations JSONB NOT NULL,             -- 多语言翻译映射
+    
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE brand_translations IS '品牌翻译表，存储品牌的多语言翻译';
+COMMENT ON COLUMN brand_translations.translations IS 'JSON格式，如：{"en": "Rolex", "zh": "劳力士", "ja": "ロレックス"}';
+
+-- ============================================================================
+-- 7. model_translations 表（型号编号翻译表）
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS model_translations (
+    model_no TEXT PRIMARY KEY,               -- 型号编号（作为主键）
+    translations JSONB NOT NULL,             -- 多语言翻译映射
+    
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+COMMENT ON TABLE model_translations IS '型号翻译表，存储型号的多语言翻译';
+COMMENT ON COLUMN model_translations.translations IS 'JSON格式，如：{"en": "Daytona", "zh": "迪通拿", "ja": "デイトナ"}';
+
+-- ============================================================================
+-- 8. model_name_translations 表（型号名称翻译表）
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS model_name_translations (
+    brand_name TEXT NOT NULL,                 -- 品牌名（用于区分不同品牌的同名型号）
+    model_name TEXT NOT NULL,                 -- 标准化型号名（英文）
+    translations JSONB NOT NULL,             -- 多语言翻译映射
+    
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+    
+    PRIMARY KEY (brand_name, model_name)
+);
+
+COMMENT ON TABLE model_name_translations IS '型号名称翻译表，存储型号名称的多语言翻译';
+COMMENT ON COLUMN model_name_translations.translations IS 'JSON格式，如：{"en": "Heritage Collection", "zh": "传承系列", "ja": "ヘリテージコレクション"}';
+
 
