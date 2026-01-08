@@ -252,19 +252,19 @@ COMMENT ON TABLE brand_translations IS '品牌翻译表，存储品牌的多语�
 COMMENT ON COLUMN brand_translations.translations IS 'JSON格式，如：{"en": "Rolex", "zh": "劳力士", "ja": "ロレックス"}';
 
 -- ============================================================================
--- 7. model_translations 表（型号编号翻译表）
+-- 7. model_translations 表（型号编号翻译表，不需要翻译，暂时删除）
 -- ============================================================================
 
-CREATE TABLE IF NOT EXISTS model_translations (
-    model_no TEXT PRIMARY KEY,               -- 型号编号（作为主键）
-    translations JSONB NOT NULL,             -- 多语言翻译映射
+-- CREATE TABLE IF NOT EXISTS model_translations (
+--     model_no TEXT PRIMARY KEY,               -- 型号编号（作为主键）
+--     translations JSONB NOT NULL,             -- 多语言翻译映射
     
-    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
-);
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+-- );
 
-COMMENT ON TABLE model_translations IS '型号翻译表，存储型号的多语言翻译';
-COMMENT ON COLUMN model_translations.translations IS 'JSON格式，如：{"en": "Daytona", "zh": "迪通拿", "ja": "デイトナ"}';
+-- COMMENT ON TABLE model_translations IS '型号翻译表，存储型号的多语言翻译';
+-- COMMENT ON COLUMN model_translations.translations IS 'JSON格式，如：{"en": "Daytona", "zh": "迪通拿", "ja": "デイトナ"}';
 
 -- ============================================================================
 -- 8. model_name_translations 表（型号名称翻译表）
