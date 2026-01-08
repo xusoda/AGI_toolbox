@@ -37,7 +37,8 @@ def get_items(
     elif sort == "price_desc":
         query = query.order_by(desc(CrawlerItem.price))
     else:  # 默认 last_seen_desc
-        query = query.order_by(desc(CrawlerItem.last_seen_dt))
+        # 按 last_seen_dt 降序排序，如果 last_seen_dt 相同则按 id 降序排序
+        query = query.order_by(desc(CrawlerItem.last_seen_dt), desc(CrawlerItem.id))
     
     # 总数
     total = query.count()

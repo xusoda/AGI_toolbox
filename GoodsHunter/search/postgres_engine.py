@@ -186,24 +186,28 @@ class PostgresSearchEngine(SearchEngine):
                     sql_parts.append(f"ORDER BY price {order} NULLS LAST")
                 elif sort.field == "last_seen_dt":
                     order = "ASC" if sort.order == "asc" else "DESC"
-                    sql_parts.append(f"ORDER BY last_seen_dt {order}")
+                    # 如果 last_seen_dt 相同，降序时按 id 降序排序，升序时按 id 升序排序
+                    if order == "DESC":
+                        sql_parts.append(f"ORDER BY last_seen_dt {order}, id DESC")
+                    else:
+                        sql_parts.append(f"ORDER BY last_seen_dt {order}, id ASC")
                 elif sort.field == "created_at":
                     order = "ASC" if sort.order == "asc" else "DESC"
                     sql_parts.append(f"ORDER BY created_at {order}")
                 else:
                     # 默认按相关性排序（如果有搜索关键词）
                     if query and query.strip():
-                        sql_parts.append("ORDER BY last_seen_dt DESC")
+                        sql_parts.append("ORDER BY last_seen_dt DESC, id DESC")
                     else:
-                        sql_parts.append("ORDER BY last_seen_dt DESC")
+                        sql_parts.append("ORDER BY last_seen_dt DESC, id DESC")
             else:
                 # 默认排序
                 if query and query.strip():
                     # 有搜索关键词时，可以按相关性排序
                     # 这里简化处理，按最后发现时间倒序
-                    sql_parts.append("ORDER BY last_seen_dt DESC")
+                    sql_parts.append("ORDER BY last_seen_dt DESC, id DESC")
                 else:
-                    sql_parts.append("ORDER BY last_seen_dt DESC")
+                    sql_parts.append("ORDER BY last_seen_dt DESC, id DESC")
             
             # 获取总数
             count_sql = "SELECT COUNT(*) as total FROM (" + " ".join(sql_parts) + ") as subquery"
