@@ -407,3 +407,164 @@ Citizen:
     Promaster:
       aliases: ["プロマスター", "Promaster"]
       model_no: ["NY0085-86E", "BN0150-28E"]
+      
+TAG Heuer:
+  aliases: ["タグ・ホイヤー", "タグホイヤー", "TAG Heuer", "泰格豪雅"]
+  model_name:
+    Carrera:
+      aliases: ["カレラ", "Carrera", "カレラ コレクション", "卡莱拉"]
+      model_no: [
+        "CAR2112.BA0687", "CAR221B.FC6483", "CAR2A1Z.FT6044", 
+        "CAR5A8Y.FC6479", "CBN2A1N.BA0643", "WBN2012.BA0640"
+      ]  # 主流 Carrera 自动计时 & 三针款 :contentReference[oaicite:0]{index=0}
+    Monaco:
+      aliases: ["モナコ", "Monaco", "モナコ コレクション", "摩纳哥"]
+      model_no: [
+        "CAW2110.FC6177", "CAW2114.FC6177", "CAW218E.FC6565", 
+        "CBL2184.FT6236", "CBL2183.FT6236"
+      ]  # Monaco Calibre 12 & 特别版本 :contentReference[oaicite:1]{index=1}
+    Aquaracer:
+      aliases: ["アクアレーサー", "Aquaracer", "アクアレーサー コレクション", "竞潜者"]
+      model_no: [
+        "WBP1110.BA0627", "WBP208C.BF0631", "WBP208B.FT6201",
+        "WBP201B.BA0632", "WBP208D.BF0631", "WBP201A.BA0632"
+      ]  # 包括 300M & Professional 系列 :contentReference[oaicite:2]{index=2}
+    Formula 1:
+      aliases: ["フォーミュラ1", "Formula 1", "フォーミュラ・ワン", "F1 系列"]
+      model_no: [
+        "CAZ101AH.BA0842", "CAZ1111.BA0875", "WBK1312.BA0256",
+        "CAZ2010.BA0876", "CAZ2012.BA0876"
+      ]  # F1 石英/自动款 :contentReference[oaicite:3]{index=3}
+    Link:
+      aliases: ["リンク", "Link", "リンク コレクション"]
+      model_no: [
+        "WBC2111.BA0603", "WBC1314.BA0603", "WBC1112.BA0603"
+      ]
+    Autavia:
+      aliases: ["オータヴィア", "Autavia", "オータヴィア コレクション", "奥塔维亚"]
+      model_no: [
+        "WBE5114.FC8266", "WBE5194.FC8268"
+      ]
+    Connected:
+      aliases: ["コネクテッド", "Connected", "コネクテッド ウォッチ"]
+      model_no: [
+        "SBR8A10.BT6263", "SBR8A80.BT6231"
+      ]
+
+IWC:
+  aliases: ["インターナショナル・ウォッチ・カンパニー", "IWC", "万国表", "IWC シャフハウゼン"]
+  model_name:
+    Pilot’s Watches:
+      aliases: ["パイロット・ウォッチ", "Pilot’s Watches", "パイロットウォッチ", "飞行员系列"]
+      model_no: [
+        "IW501001", "IW501015", "IW329303", "IW329301",
+        "IW388102", "IW388101", "IW388113", "IW378002"
+      ]  # Big Pilot & Chronograph 主流型号 :contentReference[oaicite:4]{index=4}
+    Portugieser:
+      aliases: ["ポルトギーゼ", "Portugieser", "ポルトギーゼ コレクション", "葡萄牙系列"]
+      model_no: [
+        "IW501701", "IW505701", "IW503701", "IW503702",
+        "IW503703", "IW503704", "IW500705", "IW371446", "IW371605"
+      ]  # 自动/万年历/计时经典 :contentReference[oaicite:5]{index=5}
+    Aquatimer:
+      aliases: ["アクアタイマー", "Aquatimer", "アクアタイマー コレクション", "竞潜水表"]
+      model_no: [
+        "IW328801", "IW328802", "IW328803", "IW379405",
+        "IW379406", "IW376806"
+      ]  # 水下运动表主力 :contentReference[oaicite:6]{index=6}
+    Ingenieur:
+      aliases: ["インヂュニア", "Ingenieur", "インジェニュア", "工程师系列"]
+      model_no: [
+        "IW328902", "IW324901"
+      ]  # 代表型号 :contentReference[oaicite:7]{index=7}
+    Portofino:
+      aliases: ["ポートフィノ", "Portofino", "ポートフィノ コレクション"]
+      model_no: [
+        "IW356523", "IW356323", "IW356527", "IW459403", "IW459805"
+      ]  # 经典正装表 :contentReference[oaicite:8]{index=8}
+    Da Vinci:
+      aliases: ["ダ・ヴィンチ", "Da Vinci", "ダヴィンチ コレクション", "达芬奇"]
+      model_no: [
+        "IW376601"
+      ]
+
+Breitling:
+  aliases: ["ブライトリング", "Breitling", "百年灵"]
+  model_name:
+    Navitimer:
+      aliases: ["ナビタイマー", "Navitimer", "ナビタイマー コレクション"]
+      model_no: ["AB012012.BB02.443A","A13324121B1X2","PNA4131A1A1P1"]
+    Superocean:
+      aliases: ["スーパーオーシャン", "Superocean", "スーパーオーシャン コレクション"]
+      model_no: ["A17366211C1S1","M275C-1OCA","A10370161B1A1"]
+    Chronomat:
+      aliases: ["クロノマット", "Chronomat", "クロノマット コレクション"]
+      model_no: ["AB0134101C1A1","UB0134101B1A1","AB0134101G1P1"]
+
+Jaeger-LeCoultre:
+  aliases: ["ジャガー・ルクルト", "JLC", "積家"]
+  model_name:
+    Reverso:
+      aliases: ["レベルソ", "Reverso", "レベルソ コレクション"]
+      model_no: ["Q2788570","Q397848J","Q3848422"]
+    Master Control:
+      aliases: ["マスター・コントロール", "Master Control", "マスター コントロール"]
+      model_no: ["Q1548571","Q412848J"]
+    Polaris:
+      aliases: ["ポラリス", "Polaris", "ポラリス コレクション"]
+      model_no: ["Q9068671","Q9028480"]
+    Rendez-Vous:
+      aliases: ["ランデヴー", "Rendez-Vous", "ランデブー コレクション"]
+      model_no: ["Q3448570","Q3578480"]
+
+Zenith:
+  aliases: ["ゼニス", "Zenith", "ゼニス 時計"]
+  model_name:
+    El Primero:
+      aliases: ["エル・プリメロ", "El Primero", "エルプリメロ コレクション"]
+      model_no: ["03.2040.400/69.C494","03.3100.3600/69.M3100"]
+    Chronomaster:
+      aliases: ["クロノマスター", "Chronomaster", "クロノマスター コレクション"]
+      model_no: ["03.3201.3600/69.M3200","03.2150.400/69.C713"]
+    Defy:
+      aliases: ["デファイ", "Defy", "デファイ コレクション"]
+      model_no: ["95.9000.9004/01.R582","87.9100.9004/01.R582"]
+
+Cartier:
+  aliases: ["カルティエ", "Cartier", "卡地亚"]
+  model_name:
+    Santos:
+      aliases: ["サントス", "Santos", "サントス ドゥ カルティエ"]
+      model_no: ["WSSA0009","W2SA0006","WSSA0016"]
+    Tank:
+      aliases: ["タンク", "Tank", "タンク シリーズ"]
+      model_no: ["W5200028","WSTA0057","W5330003"]
+    Ballon Bleu:
+      aliases: ["バロン ブルー", "Ballon Bleu", "バロンブルー"]
+      model_no: ["W69012Z4","W4BB0024","W6920071"]
+
+Hublot:
+  aliases: ["ウブロ", "Hublot", "宇舶"]
+  model_name:
+    Big Bang:
+      aliases: ["ビッグ バン", "Big Bang", "ビッグバン"]
+      model_no: ["441.NX.1171.RX","301.SX.1170.RX"]
+    Classic Fusion:
+      aliases: ["クラシック フュージョン", "Classic Fusion", "クラシックフュージョン"]
+      model_no: ["542.NX.1171.LR","511.NX.1171.RX"]
+    Spirit of Big Bang:
+      aliases: ["スピリット オブ ビッグ バン", "Spirit of Big Bang"]
+      model_no: ["642.NX.0170.RX","601.CI.0170.RX"]
+
+Longines:
+  aliases: ["ロンジン", "Longines", "浪琴"]
+  model_name:
+    Master Collection:
+      aliases: ["マスター コレクション", "Master Collection"]
+      model_no: ["L2.673.4.78.3","L2.759.4.78.3"]
+    HydroConquest:
+      aliases: ["ハイドロコンクエスト", "HydroConquest"]
+      model_no: ["L3.742.4.56.6","L3.781.4.56.6"]
+    Conquest:
+      aliases: ["コンキスト", "Conquest"]
+      model_no: ["L3.759.4.96.6","L3.759.4.53.6"]
