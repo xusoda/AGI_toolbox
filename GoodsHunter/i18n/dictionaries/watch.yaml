@@ -21,29 +21,32 @@ Rolex:
   aliases: ["ロレックス", "ROLEX","劳力士"]
   model_name:
     Daytona:
-      aliases: ["デイトナ", "コスモグラフ デイトナ", "Cosmograph Daytona"]
-      model_no: ["16518", "116588TBR", "116515LNA"]
+      aliases: ["デイトナ", "コスモグラフ デイトナ", "Cosmograph Daytona","迪通拿"]
+      model_no: ["16518", "116588TBR", "116515LNA","6265","6263","6241","6239"]
     Datejust:
-      aliases: ["デイトジャスト", "Datejust"]
+      aliases: ["デイトジャスト", "Datejust","日志"]
       model_no: ["79173G", "179174G", "126300", "126234", "126301", "16234G"]
     Oyster Perpetual:
-      aliases: ["オイスターパーペチュアル", "Oyster Perpetual"]
+      aliases: ["オイスターパーペチュアル", "Oyster Perpetual","蚝式恒动"]
       model_no: ["134300"]
     Explorer:
-      aliases: ["エクスプローラー", "Explorer", "エクスプローラーI", "Explorer I"]
+      aliases: ["エクスプローラー", "Explorer", "エクスプローラーI", "Explorer I","探险家"]
       model_no: ["214270"]
     GMT-Master II:
-      aliases: ["GMTマスター", "GMTマスターII", "ＧＭＴマスター", "GMT-Master", "GMT-Master II"]
+      aliases: ["GMTマスター", "GMTマスターII", "ＧＭＴマスター", "GMT-Master", "GMT-Master II","格林尼治II"]
       model_no: ["116759SA", "116758SARU"]
     Sky-Dweller:
       aliases: ["スカイドゥエラー", "Sky-Dweller"]
       model_no: ["336238"]
     Day-Date:
-      aliases: ["デイデイト", "Day-Date"]
+      aliases: ["デイデイト", "Day-Date","星期日历"]
       model_no: ["1803/8"]
     Cellini:
-      aliases: ["チェリーニ", "Cellini"]
+      aliases: ["チェリーニ", "Cellini","切利尼"]
       model_no: ["6621/8", "5115"]
+    Submariner:
+      aliases: ["サブマリナー", "Submariner","潜航者","サブマリーナー","サブマリーナー デイト"]
+      model_no: ["116610LN","116610LV","116610LVM","116610LV","116610LVM","116610LVM"]
 
 Omega:
   aliases: ["オメガ", "OMEGA","欧米茄"]
