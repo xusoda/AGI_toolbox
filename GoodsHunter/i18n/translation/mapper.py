@@ -4,6 +4,7 @@ import os
 from typing import Optional, Dict, Any
 from .loader import DictionaryLoader
 from .language_detector import LanguageDetector
+from .normalizer import Normalizer
 
 try:
     import psycopg2
@@ -101,6 +102,24 @@ class TranslationMapper:
                 for alias in aliases:
                     if any('\u3040' <= char <= '\u309F' or '\u30A0' <= char <= '\u30FF' for char in alias):
                         return alias
+            
+            # 使用规范化匹配查找品牌（忽略标点符号）
+            brand_for_matching = Normalizer.normalize_for_matching(brand_name).lower()
+            for canonical_brand, aliases in aliases_map.items():
+                canonical_for_matching = Normalizer.normalize_for_matching(canonical_brand).lower()
+                if canonical_for_matching == brand_for_matching:
+                    # 找到标准品牌，返回其日文别名
+                    for alias in aliases:
+                        if any('\u3040' <= char <= '\u309F' or '\u30A0' <= char <= '\u30FF' for char in alias):
+                            return alias
+                # 检查别名
+                for alias in aliases:
+                    alias_for_matching = Normalizer.normalize_for_matching(alias).lower()
+                    if alias_for_matching == brand_for_matching:
+                        # 找到匹配的别名，返回其日文别名（如果存在）
+                        for a in aliases:
+                            if any('\u3040' <= char <= '\u309F' or '\u30A0' <= char <= '\u30FF' for char in a):
+                                return a
         
         # 如果都找不到，返回原始值
         return brand_name
@@ -177,6 +196,24 @@ class TranslationMapper:
                 for alias in aliases:
                     if any('\u3040' <= char <= '\u309F' or '\u30A0' <= char <= '\u30FF' for char in alias):
                         return alias
+            
+            # 使用规范化匹配查找型号（忽略标点符号）
+            model_for_matching = Normalizer.normalize_for_matching(model_name).lower()
+            for canonical_model, aliases in aliases_map.items():
+                canonical_for_matching = Normalizer.normalize_for_matching(canonical_model).lower()
+                if canonical_for_matching == model_for_matching:
+                    # 找到标准型号，返回其日文别名
+                    for alias in aliases:
+                        if any('\u3040' <= char <= '\u309F' or '\u30A0' <= char <= '\u30FF' for char in alias):
+                            return alias
+                # 检查别名
+                for alias in aliases:
+                    alias_for_matching = Normalizer.normalize_for_matching(alias).lower()
+                    if alias_for_matching == model_for_matching:
+                        # 找到匹配的别名，返回其日文别名（如果存在）
+                        for a in aliases:
+                            if any('\u3040' <= char <= '\u309F' or '\u30A0' <= char <= '\u30FF' for char in a):
+                                return a
         
         # 如果都找不到，返回原始值
         return model_name

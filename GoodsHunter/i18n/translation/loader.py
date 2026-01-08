@@ -3,6 +3,8 @@ import yaml
 from pathlib import Path
 from typing import Dict, Any, Optional, List
 from functools import lru_cache
+# 延迟导入 Normalizer 以避免循环导入
+# from .normalizer import Normalizer
 
 
 class DictionaryLoader:
@@ -122,6 +124,19 @@ class DictionaryLoader:
                 if a.lower().strip() == alias_normalized:
                     return brand_name
         
+        # 使用规范化匹配（忽略标点符号）
+        # 延迟导入以避免循环导入
+        from .normalizer import Normalizer
+        alias_for_matching = Normalizer.normalize_for_matching(alias).lower()
+        for brand_name, aliases in aliases_map.items():
+            brand_for_matching = Normalizer.normalize_for_matching(brand_name).lower()
+            if brand_for_matching == alias_for_matching:
+                return brand_name
+            for a in aliases:
+                alias_for_matching_candidate = Normalizer.normalize_for_matching(a).lower()
+                if alias_for_matching_candidate == alias_for_matching:
+                    return brand_name
+        
         return None
     
     @classmethod
@@ -156,6 +171,19 @@ class DictionaryLoader:
                 return model_name
             for a in aliases:
                 if a.lower().strip() == alias_normalized:
+                    return model_name
+        
+        # 使用规范化匹配（忽略标点符号）
+        # 延迟导入以避免循环导入
+        from .normalizer import Normalizer
+        alias_for_matching = Normalizer.normalize_for_matching(alias).lower()
+        for model_name, aliases in aliases_map.items():
+            model_for_matching = Normalizer.normalize_for_matching(model_name).lower()
+            if model_for_matching == alias_for_matching:
+                return model_name
+            for a in aliases:
+                alias_for_matching_candidate = Normalizer.normalize_for_matching(a).lower()
+                if alias_for_matching_candidate == alias_for_matching:
                     return model_name
         
         return None

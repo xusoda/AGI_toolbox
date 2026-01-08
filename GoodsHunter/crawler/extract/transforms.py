@@ -4,9 +4,62 @@ import os
 import time
 import requests
 import yaml
+import sys
 from pathlib import Path
 from typing import Any, Optional, Dict
 from urllib.parse import urljoin, urlparse
+
+# 导入 i18n 模块的 Normalizer
+# 从 crawler/extract/transforms.py 到 GoodsHunter 根目录
+_goodshunter_root = Path(__file__).parent.parent.parent
+if str(_goodshunter_root) not in sys.path:
+    sys.path.insert(0, str(_goodshunter_root))
+try:
+    from i18n.translation.normalizer import Normalizer
+except ImportError:
+    # 如果导入失败，定义一个简单的规范化函数作为后备
+    import html
+    import unicodedata
+    
+    class Normalizer:
+        @staticmethod
+        def normalize_for_matching(text: str) -> str:
+            """规范化文本用于匹配，移除空格、逗号、点等标点符号，统一特殊符号的不同版本"""
+            if not text:
+                return ""
+            
+            # HTML实体解码
+            normalized = html.unescape(text)
+            
+            # Unicode标准化（NFKC）
+            normalized = unicodedata.normalize('NFKC', normalized)
+            
+            # 特殊符号映射
+            symbol_mappings = {
+                '\uFF06': '&',  # 全角 & (＆)
+                '\u214B': '&',  # 转置符号 (&)
+                '\u2013': '-',  # 短破折号 (–)
+                '\u2014': '-',  # 长破折号 (—)
+                '\u2015': '-',  # 水平线 (―)
+                '\u2212': '-',  # 减号 (−)
+                '\uFF0D': '-',  # 全角减号 (－)
+                '\u2018': "'",  # 左单引号 (')
+                '\u2019': "'",  # 右单引号 (')
+                '\u201C': '"',  # 左双引号 (")
+                '\u201D': '"',  # 右双引号 (")
+                '\uFF02': '"',  # 全角双引号 (")
+                '\uFF07': "'",  # 全角单引号 (')
+                '\u00A0': ' ',  # 不间断空格
+                '\u3000': ' ',  # 表意文字空格（全角空格）
+            }
+            
+            for old_char, new_char in symbol_mappings.items():
+                normalized = normalized.replace(old_char, new_char)
+            
+            # 移除标点符号和空格
+            normalized = re.sub(r'[\s,\.・。、，\u00B7\u2022\u2027\u2219]', '', normalized)
+            
+            return normalized
 
 
 class TransformProcessor:
@@ -304,6 +357,7 @@ class TransformProcessor:
                 alias_candidates.append((alias, brand))
         alias_candidates.sort(key=lambda x: len(x[0]), reverse=True)
 
+        # 先尝试精确匹配
         for alias, canonical_brand in alias_candidates:
             alias_tokens = [t for t in alias.split(" ") if t]
             if alias_tokens and tokens[: len(alias_tokens)] == alias_tokens:
@@ -314,6 +368,20 @@ class TransformProcessor:
                 brand_name = canonical_brand
                 consume_brand = max(1, len(alias_tokens))
                 break
+        
+        # 如果精确匹配失败，使用规范化匹配（忽略标点符号）
+        if not brand_name:
+            cleaned_normalized = Normalizer.normalize_for_matching(cleaned).lower()
+            for alias, canonical_brand in alias_candidates:
+                alias_normalized = Normalizer.normalize_for_matching(alias).lower()
+                # 检查规范化后的文本是否以规范化后的别名开头
+                if cleaned_normalized.startswith(alias_normalized):
+                    brand_name = canonical_brand
+                    # 尝试估算消耗的token数量
+                    alias_tokens = [t for t in alias.split(" ") if t]
+                    consume_brand = max(1, len(alias_tokens))
+                    break
+        
         if consume_brand:
             tokens = tokens[consume_brand:]
         if not brand_name:
@@ -334,6 +402,7 @@ class TransformProcessor:
                     model_candidates.append((alias, canonical_model))
             model_candidates.sort(key=lambda x: len(x[0]), reverse=True)
 
+            # 先尝试精确匹配
             for alias, canonical_model in model_candidates:
                 if remaining_text.startswith(alias) or f" {alias} " in f" {remaining_text} ":
                     model_name = canonical_model
@@ -341,6 +410,22 @@ class TransformProcessor:
                     if alias_tokens and tokens[: len(alias_tokens)] == alias_tokens:
                         consume_model = len(alias_tokens)
                     break
+            
+            # 如果精确匹配失败，使用规范化匹配（忽略标点符号）
+            if not model_name:
+                remaining_text_normalized = Normalizer.normalize_for_matching(remaining_text).lower()
+                for alias, canonical_model in model_candidates:
+                    alias_normalized = Normalizer.normalize_for_matching(alias).lower()
+                    # 检查规范化后的文本是否包含规范化后的别名
+                    if remaining_text_normalized.startswith(alias_normalized) or alias_normalized in remaining_text_normalized:
+                        model_name = canonical_model
+                        # 尝试估算消耗的token数量
+                        alias_tokens = [t for t in alias.split(" ") if t]
+                        if alias_tokens and tokens[: len(alias_tokens)] == alias_tokens:
+                            consume_model = len(alias_tokens)
+                        else:
+                            consume_model = max(1, len(alias_tokens))
+                        break
         if consume_model:
             tokens = tokens[consume_model:]
 

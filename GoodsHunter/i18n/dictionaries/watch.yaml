@@ -1,5 +1,5 @@
 Grand Seiko:
-  aliases: ["グランドセイコー", "GS", "グラセイ"]
+  aliases: ["グランドセイコー", "GS", "グラセイ","精工"]
   model_name:
     Heritage Collection:
       aliases: ["ヘリテージコレクション", "Heritage", "ヘリテージ"]
@@ -18,7 +18,7 @@ Grand Seiko:
       model_no: []
 
 Rolex:
-  aliases: ["ロレックス", "ROLEX"]
+  aliases: ["ロレックス", "ROLEX","劳力士"]
   model_name:
     Daytona:
       aliases: ["デイトナ", "コスモグラフ デイトナ", "Cosmograph Daytona"]
@@ -46,7 +46,7 @@ Rolex:
       model_no: ["6621/8", "5115"]
 
 Omega:
-  aliases: ["オメガ", "OMEGA"]
+  aliases: ["オメガ", "OMEGA","欧米茄"]
   model_name:
     Speedmaster:
       aliases: ["スピードマスター", "Speedmaster"]
@@ -65,7 +65,7 @@ Omega:
       model_no: []
 
 Audemars Piguet:
-  aliases: ["オーデマ ピゲ", "オーデマ・ピゲ", "爱彼", "AP"]
+  aliases: ["オーデマ ピゲ", "オーデマ・ピゲ", "爱彼", "AP","オーデマピゲ"]
   model_name:
     Royal Oak:
       aliases: ["ロイヤル オーク", "ロイヤルオーク", "Royal Oak", "皇家橡树"]
@@ -84,7 +84,7 @@ Audemars Piguet:
       model_no: []
 
 "Vacheron Constantin":
-  aliases: ["ヴァシュロン・コンスタンタン", "ヴァシュロン コンスタンタン", "江诗丹顿", "VC"]
+  aliases: ["ヴァシュロン・コンスタンタン", "ヴァシュロン コンスタンタン", "江诗丹顿", "VC","ヴァシュロンコンスタンタン"]
   model_name:
     Overseas:
       aliases: ["オーヴァーシーズ", "オーバーシーズ", "Overseas", "纵横四海"]
@@ -222,10 +222,10 @@ NOMOS:
       model_no: []
 
 "A. Lange & Söhne":
-  aliases: ["A.ランゲ&ゾーネ", "A. ランゲ＆ゾーネ", "朗格", "Lange"]
+  aliases: ["A.ランゲ&ゾーネ", "A. ランゲ＆ゾーネ", "朗格", "Lange","A.ランゲ＆ゾーネ"]
   model_name:
     "Lange 1":
-      aliases: ["ランゲ1", "ランゲ 1", "Lange 1", "朗格1号"]
+      aliases: ["ランゲ1", "ランゲ 1", "Lange 1", "朗格1号","ランゲ1 ムーンフェイズ"]
       model_no: []
     Saxonia:
       aliases: ["サクソニア", "Saxonia", "萨克森"]
