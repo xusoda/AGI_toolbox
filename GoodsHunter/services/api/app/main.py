@@ -3,7 +3,7 @@ import logging
 import sys
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import items
+from app.routers import items, search
 
 # 配置日志
 logging.basicConfig(
@@ -41,6 +41,7 @@ app.add_middleware(
 
 # 注册路由
 app.include_router(items.router, prefix="/api", tags=["items"])
+app.include_router(search.router, prefix="/api", tags=["search"])
 
 
 @app.get("/")

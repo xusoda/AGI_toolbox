@@ -21,6 +21,7 @@ GoodsHunter 是一个商品信息抓取、处理和展示系统，采用分层�
 - [项目根目录 `.cursorrules`](../../.cursorrules)
 
 ## 其他注意事项：
-不要使用docker-compose，目前都是docker compose命令了。
-在sandox等场景调用python命令之前，请使用source GoodsHunter/../.venv/bin/activate(即父层级的uv环境)
-代码要尽量可以复用，尽量不要在不同的地方写相同/类似功能的代码。在进行这类行为前需要征求用户同意，或者用户主动指使
+    不要使用docker-compose，目前都是docker compose命令了。
+    在sandox等场景调用python命令之前，请使用source GoodsHunter/../.venv/bin/activate(即父层级的uv环境)
+    代码要尽量可以复用，尽量不要在不同的地方写相同/类似功能的代码。在进行这类行为前需要征求用户同意，或者用户主动指使
+    整个项目的启动命令位于：`GoodsHunter/manual_operation_bash/start_all.sh` 如果对启动项做出了调整，需要修改/变更的话，请在启动命令做出相应的调整。

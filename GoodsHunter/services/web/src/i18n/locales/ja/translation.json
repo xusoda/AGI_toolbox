@@ -18,8 +18,23 @@
     "sort_last_seen_desc": "最新",
     "sort_price_asc": "価格：低→高",
     "sort_price_desc": "価格：高→低",
+    "sort_last_seen": "最終確認日時",
+    "sort_price": "価格",
+    "sort_created": "作成日時",
+    "sort_desc": "降順",
+    "sort_asc": "昇順",
+    "sort_order": "順序",
     "visit_product_page": "商品ページへ",
     "back_to_list": "リストに戻る"
+  },
+  "search": {
+    "placeholder": "商品を検索...",
+    "search": "検索",
+    "clear": "クリア",
+    "loading": "読み込み中...",
+    "results_for": "検索結果",
+    "items": "件",
+    "no_results": "結果が見つかりません"
   },
   "currency": {
     "JPY": "¥",

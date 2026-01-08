@@ -58,3 +58,49 @@ export interface ItemsListParams {
   lang?: string  // 语言代码（en/zh/ja）
 }
 
+// 搜索相关类型
+export interface SearchItemResult {
+  id: number
+  brand_name: string | null
+  model_name: string | null
+  model_no: string | null
+  price: number | null
+  currency: string
+  site: string
+  category: string
+  status: string
+  last_seen_dt: string | null
+  image_thumb_300_key: string | null
+  product_url: string | null
+  created_at: string | null
+  image_thumb_url: string | null
+  brand_name_translated: string | null
+  model_name_translated: string | null
+}
+
+export interface SearchResponse {
+  total: number
+  page: number
+  page_size: number
+  items: SearchItemResult[]
+}
+
+export interface SuggestResponse {
+  suggestions: string[]
+}
+
+export interface SearchParams {
+  q: string  // 搜索关键词（必需）
+  page?: number
+  page_size?: number
+  sort_field?: 'price' | 'last_seen_dt' | 'created_at'
+  sort_order?: 'asc' | 'desc'
+  status?: string
+  site?: string
+  category?: string
+  brand_name?: string
+  min_price?: number
+  max_price?: number
+  currency?: string
+  lang?: string
+}

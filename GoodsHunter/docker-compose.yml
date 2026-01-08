@@ -67,6 +67,7 @@ services:
       - ./services/api:/app
       - ./storage:/app/../storage
       - ./i18n:/app/../i18n
+      - ./search:/app/../search
     networks:
       - goodshunter-network
 

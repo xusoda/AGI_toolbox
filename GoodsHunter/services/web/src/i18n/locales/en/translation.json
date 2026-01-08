@@ -18,8 +18,23 @@
     "sort_last_seen_desc": "Latest",
     "sort_price_asc": "Price: Low to High",
     "sort_price_desc": "Price: High to Low",
+    "sort_last_seen": "Last Seen",
+    "sort_price": "Price",
+    "sort_created": "Created",
+    "sort_desc": "Descending",
+    "sort_asc": "Ascending",
+    "sort_order": "Order",
     "visit_product_page": "Visit Product Page",
     "back_to_list": "Back to List"
+  },
+  "search": {
+    "placeholder": "Search products...",
+    "search": "Search",
+    "clear": "Clear",
+    "loading": "Loading...",
+    "results_for": "Search results for",
+    "items": "results",
+    "no_results": "No results found"
   },
   "currency": {
     "JPY": "¥",
