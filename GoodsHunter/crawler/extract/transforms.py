@@ -348,6 +348,7 @@ class TransformProcessor:
 
         # 品牌匹配（优先匹配最长别名）
         brand_name = None
+        matched_brand_alias = None  # 保存匹配到的原始别名
         consume_brand = 0
         alias_candidates = []
         for brand, data in (watch_dict or {}).items():
@@ -361,11 +362,15 @@ class TransformProcessor:
         for alias, canonical_brand in alias_candidates:
             alias_tokens = [t for t in alias.split(" ") if t]
             if alias_tokens and tokens[: len(alias_tokens)] == alias_tokens:
-                brand_name = canonical_brand
+                # 匹配成功，保存原始匹配到的别名，而不是标准名称
+                matched_brand_alias = " ".join(tokens[: len(alias_tokens)])
+                brand_name = matched_brand_alias
                 consume_brand = len(alias_tokens)
                 break
             if cleaned.startswith(alias):
-                brand_name = canonical_brand
+                # 匹配成功，保存原始匹配到的别名
+                matched_brand_alias = alias
+                brand_name = matched_brand_alias
                 consume_brand = max(1, len(alias_tokens))
                 break
         
@@ -376,7 +381,30 @@ class TransformProcessor:
                 alias_normalized = Normalizer.normalize_for_matching(alias).lower()
                 # 检查规范化后的文本是否以规范化后的别名开头
                 if cleaned_normalized.startswith(alias_normalized):
-                    brand_name = canonical_brand
+                    # 从原始cleaned文本中提取匹配的部分
+                    # 如果cleaned以alias开头，直接使用alias
+                    if cleaned.startswith(alias):
+                        matched_brand_alias = alias
+                    else:
+                        # 规范化匹配成功，但从tokens中提取对应数量的token作为匹配到的品牌名
+                        # 这样可以保留原始文本的格式
+                        alias_tokens = [t for t in alias.split(" ") if t]
+                        if alias_tokens and len(tokens) >= len(alias_tokens):
+                            matched_brand_alias = " ".join(tokens[: len(alias_tokens)])
+                        else:
+                            # 如果无法从tokens提取，尝试从cleaned开头提取与alias字符长度相近的部分
+                            # 由于规范化可能移除标点，我们提取稍长一些的文本以确保包含完整品牌名
+                            char_length = len(alias)
+                            # 从cleaned开头提取，考虑可能的标点符号
+                            extracted = cleaned[:min(char_length + 10, len(cleaned))].strip()
+                            # 尝试找到合理的截断点（在空格或标点处）
+                            for sep in [' ', '　', '・', '.', ',']:
+                                idx = extracted.find(sep, char_length - 5)
+                                if idx > 0:
+                                    extracted = extracted[:idx].strip()
+                                    break
+                            matched_brand_alias = extracted if extracted else alias
+                    brand_name = matched_brand_alias
                     # 尝试估算消耗的token数量
                     alias_tokens = [t for t in alias.split(" ") if t]
                     consume_brand = max(1, len(alias_tokens))
@@ -389,8 +417,23 @@ class TransformProcessor:
 
         # 型号名匹配（使用品牌下的model_name别名）
         model_name = None
+        matched_model_alias = None  # 保存匹配到的原始别名
         consume_model = 0
-        brand_data = watch_dict.get(brand_name, {}) if isinstance(watch_dict, dict) else {}
+        # 注意：这里brand_name可能是匹配到的别名，需要找到对应的标准品牌名用于查找model_dict
+        # 如果brand_name是匹配到的别名，需要从字典中反向查找标准品牌名
+        canonical_brand_for_model_search = None
+        if isinstance(watch_dict, dict):
+            for brand, data in watch_dict.items():
+                if brand == brand_name:
+                    canonical_brand_for_model_search = brand
+                    break
+                if isinstance(data, dict):
+                    aliases = data.get("aliases", [])
+                    if brand_name in aliases or brand_name == brand:
+                        canonical_brand_for_model_search = brand
+                        break
+        
+        brand_data = watch_dict.get(canonical_brand_for_model_search or brand_name, {}) if isinstance(watch_dict, dict) else {}
         model_dict = brand_data.get("model_name", {}) if isinstance(brand_data, dict) else {}
         remaining_text = " ".join(tokens)
         if isinstance(model_dict, dict):
@@ -404,12 +447,27 @@ class TransformProcessor:
 
             # 先尝试精确匹配
             for alias, canonical_model in model_candidates:
-                if remaining_text.startswith(alias) or f" {alias} " in f" {remaining_text} ":
-                    model_name = canonical_model
-                    alias_tokens = [t for t in alias.split(" ") if t]
-                    if alias_tokens and tokens[: len(alias_tokens)] == alias_tokens:
-                        consume_model = len(alias_tokens)
+                alias_tokens = [t for t in alias.split(" ") if t]
+                if remaining_text.startswith(alias):
+                    # 匹配成功，保存原始匹配到的别名（从原始文本中提取）
+                    matched_model_alias = alias
+                    model_name = matched_model_alias
+                    consume_model = len(alias_tokens) if alias_tokens else 1
                     break
+                elif alias_tokens and len(tokens) >= len(alias_tokens) and tokens[: len(alias_tokens)] == alias_tokens:
+                    # token序列匹配，从tokens中提取
+                    matched_model_alias = " ".join(tokens[: len(alias_tokens)])
+                    model_name = matched_model_alias
+                    consume_model = len(alias_tokens)
+                    break
+                elif f" {alias} " in f" {remaining_text} ":
+                    # 在文本中间找到匹配，从remaining_text中提取
+                    start_idx = remaining_text.find(alias)
+                    if start_idx >= 0:
+                        matched_model_alias = alias
+                        model_name = matched_model_alias
+                        consume_model = len(alias_tokens) if alias_tokens else 1
+                        break
             
             # 如果精确匹配失败，使用规范化匹配（忽略标点符号）
             if not model_name:
@@ -418,7 +476,26 @@ class TransformProcessor:
                     alias_normalized = Normalizer.normalize_for_matching(alias).lower()
                     # 检查规范化后的文本是否包含规范化后的别名
                     if remaining_text_normalized.startswith(alias_normalized) or alias_normalized in remaining_text_normalized:
-                        model_name = canonical_model
+                        # 从原始remaining_text中提取匹配的部分
+                        if remaining_text.startswith(alias):
+                            matched_model_alias = alias
+                        else:
+                            # 规范化匹配成功，从tokens中提取对应数量的token作为匹配到的型号名
+                            alias_tokens = [t for t in alias.split(" ") if t]
+                            if alias_tokens and len(tokens) >= len(alias_tokens):
+                                matched_model_alias = " ".join(tokens[: len(alias_tokens)])
+                            else:
+                                # 如果无法从tokens提取，尝试从remaining_text开头提取
+                                char_length = len(alias)
+                                extracted = remaining_text[:min(char_length + 10, len(remaining_text))].strip()
+                                # 尝试找到合理的截断点
+                                for sep in [' ', '　', '・', '.', ',']:
+                                    idx = extracted.find(sep, char_length - 5)
+                                    if idx > 0:
+                                        extracted = extracted[:idx].strip()
+                                        break
+                                matched_model_alias = extracted if extracted else alias
+                        model_name = matched_model_alias
                         # 尝试估算消耗的token数量
                         alias_tokens = [t for t in alias.split(" ") if t]
                         if alias_tokens and tokens[: len(alias_tokens)] == alias_tokens:
