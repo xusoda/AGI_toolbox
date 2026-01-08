@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707767/
+item_id: gik-00-0707767
+brand_name: TAG Heuer
+model_name: Carrera
+model_no: WBN2411.BA0621
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバー9 WBN2411.BA0621 ブルー レディース
+price_jpy: 288200
+category: watch

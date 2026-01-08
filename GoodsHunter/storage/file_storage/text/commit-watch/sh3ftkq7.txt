@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/sh3ftkq7
+item_id: sh3ftkq7
+model_no: 126710BLNR
+brand_name: ロレックス
+model_name: GMTマスターII
+price_jpy: 3256000
+category: watch

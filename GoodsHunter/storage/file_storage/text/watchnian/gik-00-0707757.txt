@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707757/
+item_id: gik-00-0707757
+brand_name: TAG Heuer
+model_name: Monaco
+model_no: WAW131E.FC6420
+brand_name_model_name_model_no: タグ ホイヤー モナコ クォーツ WAW131E.FC6420 ブラウン/ダイヤモンド レディース
+price_jpy: 355300
+category: watch

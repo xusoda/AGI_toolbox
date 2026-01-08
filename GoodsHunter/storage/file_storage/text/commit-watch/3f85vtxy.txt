@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/3f85vtxy
+item_id: 3f85vtxy
+model_no: 126610LV
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 2420000
+category: watch

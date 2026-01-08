@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709384/
+item_id: gik-00-0709384
+brand_name: Rolex
+model_name: サブマリーナ デイト ブルー
+model_no: 116613LB
+brand_name_model_name_model_no: ロレックス サブマリーナ デイト 116613LB ブルー メンズ
+price_jpy: 2585000
+category: watch

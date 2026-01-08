@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706731/
+item_id: gik-00-0706731
+brand_name: Bell & Ross
+model_name: BR-X5 アイスブルースチール アイスブルー
+model_no: BRX5R-IB-ST/SST
+brand_name_model_name_model_no: ベル＆ロス BR-X5 アイスブルースチール BRX5R-IB-ST/SST アイスブルー メンズ
+price_jpy: 650100
+category: watch

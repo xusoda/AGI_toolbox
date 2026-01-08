@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707729/
+item_id: gik-00-0707729
+brand_name: Tudor
+model_name: / チュードル 1926 シルバー
+model_no: 91650
+brand_name_model_name_model_no: チューダー / チュードル 1926 91650 シルバー メンズ
+price_jpy: 244200
+category: watch

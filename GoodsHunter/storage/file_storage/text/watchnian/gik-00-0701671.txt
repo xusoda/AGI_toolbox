@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0701671/
+item_id: gik-00-0701671
+brand_name: Rolex
+model_name: Cellini
+model_no: 4243/9BIC
+brand_name_model_name_model_no: ロレックス チェリーニ ダナオス 4243/9BIC ブラック/ピンク レディース
+price_jpy: 1346400
+category: watch

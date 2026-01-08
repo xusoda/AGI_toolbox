@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709073/
+item_id: gik-00-0709073
+brand_name: Longines
+model_name: コンクエスト ヘリテージ シルバー
+model_no: L1.649.4.72.2
+brand_name_model_name_model_no: ロンジン コンクエスト ヘリテージ L1.649.4.72.2 シルバー メンズ
+price_jpy: 293700
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707852/
+item_id: gik-00-0707852
+brand_name: Omega
+model_name: Speedmaster
+model_no: 329.30.44.51.01.003
+brand_name_model_name_model_no: オメガ スピードマスター スーパーレーシング 329.30.44.51.01.003 ブラック メンズ
+price_jpy: 1336500
+category: watch

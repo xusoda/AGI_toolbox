@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706029/
+item_id: gik-00-0706029
+brand_name: Omega
+model_name: Seamaster
+model_no: 231.10.43.52.06.001
+brand_name_model_name_model_no: オメガ シーマスター アクアテラ コーアクシャル GMT クロノグラフ 231.10.43.52.06.001 グレー/ブラック メンズ
+price_jpy: 671000
+category: watch

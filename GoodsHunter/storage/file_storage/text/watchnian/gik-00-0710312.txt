@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0710312/
+item_id: gik-00-0710312
+brand_name: Rolex
+model_name: GMT-Master II
+model_no: 126710BLNR
+brand_name_model_name_model_no: ロレックス GMTマスター II 126710BLNR ブラック メンズ
+price_jpy: 3228500
+category: watch

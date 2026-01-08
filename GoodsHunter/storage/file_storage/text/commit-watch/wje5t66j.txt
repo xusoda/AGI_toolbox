@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/wje5t66j
+item_id: wje5t66j
+model_no: 126000
+brand_name: ロレックス
+model_name: オイスターパーペチュアル36
+price_jpy: 2365000
+category: watch

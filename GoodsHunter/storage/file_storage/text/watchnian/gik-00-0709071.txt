@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709071/
+item_id: gik-00-0709071
+brand_name: Longines
+model_name: パイロット マジェテック グレー
+model_no: L2.838.4.53.9
+brand_name_model_name_model_no: ロンジン パイロット マジェテック L2.838.4.53.9 グレー メンズ
+price_jpy: 430100
+category: watch

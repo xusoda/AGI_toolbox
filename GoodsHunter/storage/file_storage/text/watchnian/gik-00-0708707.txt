@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708707/
+item_id: gik-00-0708707
+brand_name: Rolex
+model_name: Oyster Perpetual
+model_no: 15210
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル デイト 15210 ブルー メンズ
+price_jpy: 621500
+category: watch

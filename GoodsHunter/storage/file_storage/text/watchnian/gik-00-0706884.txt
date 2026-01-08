@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706884/
+item_id: gik-00-0706884
+brand_name: セイコー
+model_name: セイコー 銀河鉄道999 45th ブラック
+model_no: 8T63-01N0
+brand_name_model_name_model_no: セイコー 銀河鉄道999 45th 8T63-01N0 ブラック メンズ
+price_jpy: 58300
+category: watch

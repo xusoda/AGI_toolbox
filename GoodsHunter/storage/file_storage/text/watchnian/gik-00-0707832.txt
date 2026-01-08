@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707832/
+item_id: gik-00-0707832
+brand_name: Breitling
+model_name: Navitimer
+model_no: A17326211C1P2
+brand_name_model_name_model_no: ブライトリング ナビタイマー オートマチック 41 A17326211C1P2 ブルー メンズ
+price_jpy: 474100
+category: watch

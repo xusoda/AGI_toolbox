@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0684465/
+item_id: gik-00-0684465
+brand_name: Rolex
+model_name: ヨットマスター 40 インテンスブラック
+model_no: 126655
+brand_name_model_name_model_no: ロレックス ヨットマスター 40 126655 インテンスブラック メンズ
+price_jpy: 4697000
+category: watch

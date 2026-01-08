@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0681510/
+item_id: gik-00-0681510
+brand_name: シャネル
+model_name: シャネル プルミエール XL ブラック
+model_no: H0001
+brand_name_model_name_model_no: シャネル プルミエール XL H0001 ブラック レディース
+price_jpy: 223300
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707777/
+item_id: gik-00-0707777
+brand_name: Hermès
+model_name: H
+brand_name_model_name_model_no: エルメス H
+price_jpy: 176000
+category: watch

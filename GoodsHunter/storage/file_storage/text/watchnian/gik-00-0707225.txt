@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707225/
+item_id: gik-00-0707225
+brand_name: ハミルトン
+model_name: ハミルトン ジャズマスター オープンハート 42mm ブラック
+model_no: H32705131
+brand_name_model_name_model_no: ハミルトン ジャズマスター オープンハート 42mm H32705131 ブラック メンズ
+price_jpy: 71500
+category: watch

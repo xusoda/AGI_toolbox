@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707782/
+item_id: gik-00-0707782
+brand_name: TAG Heuer
+model_name: Formula 1
+model_no: CAZ201H.BA0876
+brand_name_model_name_model_no: タグ ホイヤー フォーミュラ1 キャリバー16 クロノグラフ CAZ201H.BA0876 グリーン メンズ
+price_jpy: 434500
+category: watch

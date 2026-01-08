@@ -15,8 +15,8 @@ match:
 fetch:
   engine: playwright
   goto:
-    wait_until: networkidle
-    timeout_ms: 45000
+    wait_until: load
+    timeout_ms: 60000
   wait_for:
     # 列表页中商品链接通常包含 /products/
     - selector: "main a[href*='/products/']"

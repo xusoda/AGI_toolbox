@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0705760/
+item_id: gik-00-0705760
+brand_name: Rolex
+model_name: サブマリーナ ブラック
+model_no: 14060
+brand_name_model_name_model_no: ロレックス サブマリーナ 14060 ブラック メンズ
+price_jpy: 1665400
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708709/
+item_id: gik-00-0708709
+brand_name: Grand Seiko
+model_name: Elegance Collection
+model_no: SBGX319
+brand_name_model_name_model_no: グランドセイコー エレガンスコレクション クォーツ SBGX319 シルバー メンズ
+price_jpy: 314600
+category: watch

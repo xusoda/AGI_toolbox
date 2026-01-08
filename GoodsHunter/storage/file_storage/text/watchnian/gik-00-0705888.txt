@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0705888/
+item_id: gik-00-0705888
+brand_name: Rolex
+model_name: Datejust
+model_no: 16200
+brand_name_model_name_model_no: ロレックス デイトジャスト 16200 ブラック メンズ
+price_jpy: 1037300
+category: watch

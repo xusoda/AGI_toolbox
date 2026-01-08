@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0703280/
+item_id: gik-00-0703280
+brand_name: Rolex
+model_name: ミルガウス ホワイト
+model_no: 116400
+brand_name_model_name_model_no: ロレックス ミルガウス 116400 ホワイト メンズ
+price_jpy: 1584000
+category: watch

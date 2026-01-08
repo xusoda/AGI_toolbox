@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/v5zk723t
+item_id: v5zk723t
+model_no: 126500LN
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 6083000
+category: watch

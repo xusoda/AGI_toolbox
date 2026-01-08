@@ -89,7 +89,18 @@ class PlaywrightFetcher:
                 goto_options["wait_until"] = config.wait_until
                 goto_options["timeout"] = config.timeout_ms
 
-            response = await page.goto(url, **goto_options)
+            try:
+                response = await page.goto(url, **goto_options)
+            except Exception as e:
+                # 如果 goto 超时，检查页面是否已经加载了部分内容
+                # 如果页面已经有内容，继续执行；否则抛出异常
+                current_url = page.url
+                if current_url and current_url != "about:blank":
+                    print(f"[PlaywrightFetcher] 警告: page.goto 超时，但页面已导航到 {current_url}，继续执行")
+                    response = None
+                else:
+                    # 页面完全没有加载，抛出异常
+                    raise
 
             # 等待特定元素（wait_for 配置）
             if config.wait_for:

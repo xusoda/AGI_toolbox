@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0704987/
+item_id: gik-00-0704987
+brand_name: TAG Heuer
+model_name: Carrera
+model_no: CAR2014.BA0799
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバー1887 クロノグラフ 43 mm CAR2014.BA0799 ブラック メンズ
+price_jpy: 243100
+category: watch

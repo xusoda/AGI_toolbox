@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707819/
+item_id: gik-00-0707819
+brand_name: Tudor
+model_name: Black Bay
+model_no: 79830RB
+brand_name_model_name_model_no: チューダー / チュードル ブラックベイ GMT 79830RB ブラック メンズ
+price_jpy: 512600
+category: watch

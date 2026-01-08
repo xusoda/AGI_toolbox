@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707824/
+item_id: gik-00-0707824
+brand_name: Tudor
+model_name: Black Bay
+model_no: 7941A1A0RU
+brand_name_model_name_model_no: チューダー / チュードル ブラックベイ 7941A1A0RU ブラック メンズ
+price_jpy: 537900
+category: watch

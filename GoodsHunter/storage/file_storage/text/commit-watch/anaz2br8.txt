@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/anaz2br8
+item_id: anaz2br8
+model_no: 126622
+brand_name: ロレックス
+model_name: ヨットマスター40
+price_jpy: 2618000
+category: watch

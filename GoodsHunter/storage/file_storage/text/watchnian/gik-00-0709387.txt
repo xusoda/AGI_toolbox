@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709387/
+item_id: gik-00-0709387
+brand_name: Rolex
+model_name: Oyster Perpetual
+model_no: 276200
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 28 276200 ブライトブルー レディース
+price_jpy: 969100
+category: watch

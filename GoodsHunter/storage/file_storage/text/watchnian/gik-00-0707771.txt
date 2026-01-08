@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707771/
+item_id: gik-00-0707771
+brand_name: Grand Seiko
+model_name: クォーツ ホワイト
+model_no: SBGX067
+brand_name_model_name_model_no: グランドセイコー クォーツ SBGX067 ホワイト メンズ
+price_jpy: 316800
+category: watch

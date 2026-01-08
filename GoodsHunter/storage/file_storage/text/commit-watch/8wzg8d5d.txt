@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/8wzg8d5d
+item_id: 8wzg8d5d
+model_no: 5167/1A-001
+brand_name: パテックフィリップ
+model_name: アクアノート エクストララージ
+price_jpy: 10450000
+category: watch

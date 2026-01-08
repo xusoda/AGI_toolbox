@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/qyrcizc6
+item_id: qyrcizc6
+model_no: 126613LB
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 2805000
+category: watch

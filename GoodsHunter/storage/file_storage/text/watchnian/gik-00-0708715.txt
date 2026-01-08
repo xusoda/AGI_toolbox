@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708715/
+item_id: gik-00-0708715
+brand_name: Rolex
+model_name: Oyster Perpetual
+model_no: 76080
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 76080 ブラック レディース
+price_jpy: 429000
+category: watch

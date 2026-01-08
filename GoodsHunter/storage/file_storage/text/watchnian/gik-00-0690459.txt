@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0690459/
+item_id: gik-00-0690459
+brand_name: Rolex
+model_name: Datejust
+model_no: 278274
+brand_name_model_name_model_no: ロレックス デイトジャスト 31 278274 アズーロブルー フローラルモチーフ/ダイヤモンド ユニセックス
+price_jpy: 2145000
+category: watch

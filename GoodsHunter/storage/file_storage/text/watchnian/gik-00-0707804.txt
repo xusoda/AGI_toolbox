@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707804/
+item_id: gik-00-0707804
+brand_name: IWC
+model_name: Portugieser
+model_no: IW371604
+brand_name_model_name_model_no: IWC ポルトギーゼ クロノグラフ IW371604 シルバー メンズ
+price_jpy: 907500
+category: watch

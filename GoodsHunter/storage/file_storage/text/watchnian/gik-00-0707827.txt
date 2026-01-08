@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707827/
+item_id: gik-00-0707827
+brand_name: Breitling
+model_name: Superocean
+model_no: AB2010121L1S1
+brand_name_model_name_model_no: ブライトリング スーパーオーシャン ヘリテージ B20 オートマチック 42 AB2010121L1S1 グリーン メンズ
+price_jpy: 468600
+category: watch

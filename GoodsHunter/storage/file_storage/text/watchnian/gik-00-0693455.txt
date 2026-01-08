@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0693455/
+item_id: gik-00-0693455
+brand_name: Hublot
+model_name: Classic Fusion
+model_no: 511.NX.7071.LR
+brand_name_model_name_model_no: ウブロ クラシックフュージョン チタニウム レーシンググレー 511.NX.7071.LR グレー メンズ
+price_jpy: 624800
+category: watch

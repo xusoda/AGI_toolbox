@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708612/
+item_id: gik-00-0708612
+brand_name: Grand Seiko
+model_name: Sport Collection
+model_no: SBGE001
+brand_name_model_name_model_no: グランドセイコー スポーツコレクション スプリングドライブ GMT SBGE001 ブラック メンズ
+price_jpy: 511500
+category: watch

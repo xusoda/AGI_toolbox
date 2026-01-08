@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0699474/
+item_id: gik-00-0699474
+brand_name: Rolex
+model_name: ヨットマスター 40 ブラック
+model_no: 116655
+brand_name_model_name_model_no: ロレックス ヨットマスター 40 116655 ブラック メンズ
+price_jpy: 4532000
+category: watch

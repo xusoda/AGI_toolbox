@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708682/
+item_id: gik-00-0708682
+brand_name: Rolex
+model_name: Oyster Perpetual
+model_no: 77080
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 77080 ピンク ユニセックス
+price_jpy: 612700
+category: watch

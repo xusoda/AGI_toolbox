@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/9ahj2noe
+item_id: 9ahj2noe
+model_no: 126713GRNR
+brand_name: ロレックス
+model_name: GMTマスターII
+price_jpy: 3333000
+category: watch

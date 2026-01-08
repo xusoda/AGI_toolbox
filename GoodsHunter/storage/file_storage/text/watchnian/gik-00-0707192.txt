@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707192/
+item_id: gik-00-0707192
+brand_name: ティファニー
+model_name: ティファニー アトラス ジェント シルバー
+model_no: Z1000.70.12A21A71A
+brand_name_model_name_model_no: ティファニー アトラス ジェント Z1000.70.12A21A71A シルバー メンズ
+price_jpy: 112200
+category: watch

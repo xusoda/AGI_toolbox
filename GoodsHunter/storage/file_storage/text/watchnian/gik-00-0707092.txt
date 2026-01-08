@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707092/
+item_id: gik-00-0707092
+brand_name: Cartier
+model_name: パシャ C メリディアン ブラック
+model_no: W31049M7
+brand_name_model_name_model_no: カルティエ パシャ C メリディアン W31049M7 ブラック メンズ
+price_jpy: 292600
+category: watch

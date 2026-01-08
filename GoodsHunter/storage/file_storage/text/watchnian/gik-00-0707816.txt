@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707816/
+item_id: gik-00-0707816
+brand_name: シャネル
+model_name: シャネル J12-20 キャリバー12.1 38MM ホワイト/ダイヤモンド
+model_no: H6476
+brand_name_model_name_model_no: シャネル J12-20 キャリバー12.1 38MM H6476 ホワイト/ダイヤモンド メンズ
+price_jpy: 663300
+category: watch

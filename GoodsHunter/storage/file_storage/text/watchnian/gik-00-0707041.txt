@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707041/
+item_id: gik-00-0707041
+brand_name: Panerai
+model_name: Luminor
+model_no: PAM01056
+brand_name_model_name_model_no: パネライ ルミノール 1950 3デイズ オートマティック GMT マヘンドラ・シン・ドーニ PAM01056 グリーン メンズ
+price_jpy: 1513600
+category: watch

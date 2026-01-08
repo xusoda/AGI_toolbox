@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0678610/
+item_id: gik-00-0678610
+brand_name: Blancpain
+model_name: Fifty Fathoms
+model_no: 5015-1130-52A
+brand_name_model_name_model_no: ブランパン フィフティ ファゾムス 5015-1130-52A ブラック メンズ
+price_jpy: 1296900
+category: watch

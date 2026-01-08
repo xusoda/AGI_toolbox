@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707755/
+item_id: gik-00-0707755
+brand_name: Omega
+model_name: Speedmaster
+model_no: 3513.20
+brand_name_model_name_model_no: オメガ スピードマスター デイト オリンピックコレクション 3513.20 ホワイト メンズ
+price_jpy: 396000
+category: watch

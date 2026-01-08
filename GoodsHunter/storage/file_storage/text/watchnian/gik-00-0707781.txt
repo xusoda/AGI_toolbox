@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707781/
+item_id: gik-00-0707781
+brand_name: Grand Seiko
+model_name: Heritage Collection
+model_no: SBGP013
+brand_name_model_name_model_no: グランドセイコー ヘリテージコレクション 9Fクォーツ SBGP013 ネイビー メンズ
+price_jpy: 359700
+category: watch

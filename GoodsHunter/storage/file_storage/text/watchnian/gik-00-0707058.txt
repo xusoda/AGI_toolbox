@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707058/
+item_id: gik-00-0707058
+brand_name: Omega
+model_name: Speedmaster
+model_no: 3211.30
+brand_name_model_name_model_no: オメガ スピードマスター デイト 3211.30 シルバー メンズ
+price_jpy: 368500
+category: watch

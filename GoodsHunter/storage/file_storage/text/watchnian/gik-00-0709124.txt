@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709124/
+item_id: gik-00-0709124
+brand_name: ブルガリ
+model_name: ブルガリ セルペンティ シングルスパイラル ブラウン/ダイヤモンド
+model_no: SPP26G
+brand_name_model_name_model_no: ブルガリ セルペンティ シングルスパイラル SPP26G ブラウン/ダイヤモンド レディース
+price_jpy: 7975000
+category: watch

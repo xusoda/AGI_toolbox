@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/342p4e8a
+item_id: 342p4e8a
+model_no: Q3918420
+brand_name: ジャガールクルト
+model_name: レベルソ トリビュート デュオ
+price_jpy: 1870000
+category: watch

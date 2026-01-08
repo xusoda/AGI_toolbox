@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706927/
+item_id: gik-00-0706927
+brand_name: Omega
+model_name: Seamaster
+model_no: 2511.31
+brand_name_model_name_model_no: オメガ シーマスター 120 クォーツ 2511.31 シルバー メンズ
+price_jpy: 146300
+category: watch

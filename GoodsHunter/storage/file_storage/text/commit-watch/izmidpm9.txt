@@ -3,5 +3,4 @@ item_id: izmidpm9
 model_no: 114060
 brand_name: ロレックス
 model_name: サブマリーナー ノンデイト
-price_jpy: 1683000
 category: watch

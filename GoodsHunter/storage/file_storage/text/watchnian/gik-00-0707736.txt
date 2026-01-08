@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707736/
+item_id: gik-00-0707736
+brand_name: TAG Heuer
+model_name: Carrera
+model_no: WBN201A.BA0640
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバー7 ツインタイム デイト WBN201A.BA0640 ブルー メンズ
+price_jpy: 387200
+category: watch

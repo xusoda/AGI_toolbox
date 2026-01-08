@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707758/
+item_id: gik-00-0707758
+brand_name: Omega
+model_name: Seamaster
+model_no: 2534.50
+brand_name_model_name_model_no: オメガ シーマスター 300 GMT 50th 2534.50 ブラック メンズ
+price_jpy: 433400
+category: watch

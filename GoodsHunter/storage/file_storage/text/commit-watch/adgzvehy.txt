@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/adgzvehy
+item_id: adgzvehy
+model_no: 116680
+brand_name: ロレックス
+model_name: ヨットマスターII
+price_jpy: 2838000
+category: watch
