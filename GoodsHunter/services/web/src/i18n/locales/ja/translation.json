@@ -25,7 +25,10 @@
     "sort_asc": "昇順",
     "sort_order": "順序",
     "visit_product_page": "商品ページへ",
-    "back_to_list": "リストに戻る"
+    "back_to_list": "リストに戻る",
+    "view_original_image": "元の画像を表示",
+    "back_to_thumbnail": "サムネイルに戻る",
+    "image_load_failed": "画像の読み込みに失敗しました"
   },
   "search": {
     "placeholder": "商品を検索...",

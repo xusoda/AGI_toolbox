@@ -25,7 +25,10 @@
     "sort_asc": "升序",
     "sort_order": "顺序",
     "visit_product_page": "访问商品页面",
-    "back_to_list": "返回列表"
+    "back_to_list": "返回列表",
+    "view_original_image": "查看原图",
+    "back_to_thumbnail": "返回缩略图",
+    "image_load_failed": "图片加载失败"
   },
   "search": {
     "placeholder": "搜索商品...",

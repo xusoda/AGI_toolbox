@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { getItemById } from '../api/items'
@@ -9,29 +9,87 @@ export default function ItemDetailPage() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { i18n, t } = useTranslation()
+  const tRef = useRef(t)
+  tRef.current = t // 始终保持最新的 t 函数
+  
   const [item, setItem] = useState<ItemDetail | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [showOriginal, setShowOriginal] = useState(false)
+  const [imageLoading, setImageLoading] = useState(true)
+  const [imageError, setImageError] = useState(false)
 
   useEffect(() => {
-    if (id) {
-      loadItem(parseInt(id))
+    if (!id) {
+      setLoading(false)
+      setError(tRef.current('app.no_items'))
+      setItem(null)
+      return
+    }
+
+    const itemId = parseInt(id)
+    if (isNaN(itemId)) {
+      setLoading(false)
+      setError(tRef.current('app.error') + ': 无效的商品ID')
+      setItem(null)
+      return
+    }
+
+    let isCancelled = false
+    
+    const loadItem = async () => {
+      setLoading(true)
+      setError(null)
+      
+      // 设置超时，确保 loading 状态不会一直显示
+      const timeoutId = setTimeout(() => {
+        if (!isCancelled) {
+          setLoading(false)
+          setError(tRef.current('app.error') + ': 请求超时，请稍后重试')
+        }
+      }, 30000) // 30 秒超时
+      
+      try {
+        const data = await getItemById(itemId, i18n.language)
+        
+        if (isCancelled) {
+          clearTimeout(timeoutId)
+          return
+        }
+        
+        clearTimeout(timeoutId)
+        
+        // 确保数据有效
+        if (data && data.id) {
+          setItem(data)
+          setLoading(false)
+          setError(null)
+        } else {
+          setLoading(false)
+          setError(tRef.current('app.error') + ': 无效的商品数据')
+          setItem(null)
+        }
+      } catch (err) {
+        if (isCancelled) {
+          clearTimeout(timeoutId)
+          return
+        }
+        
+        clearTimeout(timeoutId)
+        const errorMessage = err instanceof Error ? err.message : tRef.current('app.error')
+        setError(errorMessage)
+        setLoading(false)
+        setItem(null)
+      }
+    }
+
+    loadItem()
+
+    // 清理函数
+    return () => {
+      isCancelled = true
     }
   }, [id, i18n.language])
-
-  const loadItem = async (itemId: number) => {
-    setLoading(true)
-    setError(null)
-    try {
-      const data = await getItemById(itemId, i18n.language)
-      setItem(data)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : t('app.error'))
-    } finally {
-      setLoading(false)
-    }
-  }
 
   const formatPrice = () => {
     if (!item?.price) return t('item.price') + ': ' + t('app.loading')
@@ -53,6 +111,32 @@ export default function ItemDetailPage() {
     }
   }
 
+  // 当 item 加载完成时，重置图片加载状态
+  // 注意：这个 useEffect 必须在所有条件返回之前，遵守 React Hooks 规则
+  useEffect(() => {
+    if (item && item.id) {
+      setImageLoading(true)
+      setImageError(false)
+    }
+  }, [item?.id])
+
+  const handleImageLoad = () => {
+    setImageLoading(false)
+    setImageError(false)
+  }
+
+  const handleImageError = () => {
+    setImageLoading(false)
+    setImageError(true)
+  }
+
+  const handleToggleImage = () => {
+    setImageLoading(true)
+    setImageError(false)
+    setShowOriginal(!showOriginal)
+  }
+
+  // 条件返回必须在所有 Hooks 之后
   if (loading) {
     return (
       <div className="item-detail-page">
@@ -61,7 +145,7 @@ export default function ItemDetailPage() {
     )
   }
 
-  if (error || !item) {
+  if (!item) {
     return (
       <div className="item-detail-page">
         <div className="error-message">{error || t('app.no_items')}</div>
@@ -89,19 +173,41 @@ export default function ItemDetailPage() {
         <div className="detail-image-section">
           {displayImage ? (
             <div className="image-container">
-              <img 
-                src={displayImage} 
-                alt={item.model_name || '商品图片'}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
-              />
-              {item.image_original_url && !showOriginal && (
+              {imageLoading && (
+                <div className="image-loading-overlay">
+                  <div className="image-loading-text">{t('app.loading')}</div>
+                </div>
+              )}
+              {imageError ? (
+                <div className="image-error-placeholder">
+                  <div className="image-error-text">{t('app.error')}: {t('app.image_load_failed')}</div>
+                  {item.image_original_url && showOriginal && (
+                    <button 
+                      className="back-to-thumbnail-button"
+                      onClick={() => {
+                        setShowOriginal(false)
+                        setImageError(false)
+                      }}
+                    >
+                      {t('app.back_to_thumbnail')}
+                    </button>
+                  )}
+                </div>
+              ) : (
+                <img 
+                  src={displayImage} 
+                  alt={item.model_name || '商品图片'}
+                  onLoad={handleImageLoad}
+                  onError={handleImageError}
+                  style={{ display: imageLoading ? 'none' : 'block' }}
+                />
+              )}
+              {!imageError && item.image_original_url && (
                 <button 
                   className="view-original-button"
-                  onClick={() => setShowOriginal(true)}
+                  onClick={handleToggleImage}
                 >
-                  {t('app.loading')}
+                  {showOriginal ? t('app.back_to_thumbnail') : t('app.view_original_image')}
                 </button>
               )}
             </div>

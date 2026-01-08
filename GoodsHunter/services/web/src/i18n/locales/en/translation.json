@@ -25,7 +25,10 @@
     "sort_asc": "Ascending",
     "sort_order": "Order",
     "visit_product_page": "Visit Product Page",
-    "back_to_list": "Back to List"
+    "back_to_list": "Back to List",
+    "view_original_image": "View Original Image",
+    "back_to_thumbnail": "Back to Thumbnail",
+    "image_load_failed": "Image load failed"
   },
   "search": {
     "placeholder": "Search products...",
