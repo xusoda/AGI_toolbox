@@ -23,3 +23,4 @@ GoodsHunter 是一个商品信息抓取、处理和展示系统，采用分层�
 ## 其他注意事项：
 不要使用docker-compose，目前都是docker compose命令了。
 在sandox等场景调用python命令之前，请使用source GoodsHunter/../.venv/bin/activate(即父层级的uv环境)
+代码要尽量可以复用，尽量不要在不同的地方写相同/类似功能的代码。在进行这类行为前需要征求用户同意，或者用户主动指使

@@ -237,7 +237,7 @@ NOMOS:
       aliases: ["1815", "1815系列"]
       model_no: []
     Zeitwerk:
-      aliases: ["ツァイトヴェルク", "Zeitwerk", "时间机械"]
+      aliases: ["ツァイトヴェルク", "Zeitwerk", "猫头鹰"]
       model_no: []
     "Richard Lange":
       aliases: ["リヒャルト・ランゲ", "Richard Lange", "理查德·朗格"]
@@ -248,3 +248,162 @@ NOMOS:
     "Double Split":
       aliases: ["ダブル スプリット", "Double Split", "双追针"]
       model_no: []
+  
+Tudor:
+  aliases: ["チューダー", "Tudor", "帝舵"]
+  model_name:
+    Black Bay:
+      aliases: ["ブラックベイ", "Black Bay", "ブラック ベイ", "黑湾"]
+      model_no: ["79230N", "79220R", "79540-0001", "79250BA"]
+    Pelagos:
+      aliases: ["ペラゴス", "Pelagos", "ペラゴス コレクション"]
+      model_no: ["25600TN", "25600TB", "25600TN-0001"]
+    Ranger:
+      aliases: ["レンジャー", "Ranger", "レンジャー コレクション"]
+      model_no: ["79950", "79910"]
+
+Panerai:
+  aliases: ["パネライ", "Panerai", "沛纳海"]
+  model_name:
+    Luminor:
+      aliases: ["ルミノール", "Luminor", "ルミノール コレクション"]
+      model_no: ["PAM00111", "PAM01312", "PAM01392"]
+    Radiomir:
+      aliases: ["ラジオミール", "Radiomir", "ラジオミール コレクション"]
+      model_no: ["PAM00687", "PAM00753"]
+    Submersible:
+      aliases: ["サブマーシブル", "Submersible", "サブマーシブル コレクション"]
+      model_no: ["PAM01616", "PAM01305"]
+
+Richard Mille:
+  aliases: ["リシャール・ミル", "Richard Mille", "理查德米尔"]
+  model_name:
+    RM 011:
+      aliases: ["RM 011", "アールエム011"]
+      model_no: ["RM 011-FM", "RM 011-03"]
+    RM 035:
+      aliases: ["RM 035", "アールエム035"]
+      model_no: ["RM 035-01", "RM 035-02"]
+    RM 07-01:
+      aliases: ["RM 07-01", "アールエム07-01"]
+      model_no: ["RM 07-01"]
+
+Rado:
+  aliases: ["ラドー", "Rado", "雷达"]
+  model_name:
+    Captain Cook:
+      aliases: ["キャプテン クック", "Captain Cook"]
+      model_no: ["R32504315", "R32127152", "R32279202"]
+    True:
+      aliases: ["トゥルー", "True"]
+      model_no: ["TS5123927", "TS5243720"]
+
+Chopard:
+  aliases: ["ショパール", "Chopard", "萧邦"]
+  model_name:
+    Happy Sport:
+      aliases: ["ハッピースポーツ", "Happy Sport"]
+      model_no: ["278573-3001", "278509-3002"]
+    Mille Miglia:
+      aliases: ["ミッレ ミリア", "Mille Miglia"]
+      model_no: ["168589-3001", "168997-3003"]
+    L.U.C:
+      aliases: ["エル・ユー・シー", "L.U.C"]
+      model_no: ["LUC 1860", "LUC XP"]
+
+Oris:
+  aliases: ["オリス", "Oris", "豪利时"]
+  model_name:
+    Aquis:
+      aliases: ["アクイス", "Aquis"]
+      model_no: ["01 733 7730 4157-07 8 24 05PEB", "01 743 7730 4157-07 8 24 05PEB"]
+    Big Crown:
+      aliases: ["ビッグ クラウン", "Big Crown"]
+      model_no: ["01 754 7741 4063-07 8 22 05PEB", "01 752 7696 4064-07 5 20 66FC"]
+
+Bell & Ross:
+  aliases: ["ベル＆ロス", "Bell & Ross", "贝尔与罗斯"]
+  model_name:
+    BR 01:
+      aliases: ["BR 01", "ビーブイ 01"]
+      model_no: ["BR01-92", "BR01-94"]
+    BR 03:
+      aliases: ["BR 03"]
+      model_no: ["BR03-92", "BR03-94"]
+
+Girard-Perregaux:
+  aliases: ["ジラール・ペルゴ", "Girard‑Perregaux", "芝柏"]
+  model_name:
+    Laureato:
+      aliases: ["ロレアート", "Laureato"]
+      model_no: ["81010-11-431-11A", "81020-11-431-11A"]
+    "1966":
+      aliases: ["1966"]
+      model_no: ["49555-11-131-BB60"]
+
+Ulysse Nardin:
+  aliases: ["ユリス・ナルダン", "Ulysse Nardin", "雅典"]
+  model_name:
+    Marine:
+      aliases: ["マリーン", "Marine"]
+      model_no: ["1183-310LE-3A-175/1A", "1186-126LE-3A-175/1A"]
+    Diver:
+      aliases: ["ダイバー", "Diver"]
+      model_no: ["8163-175LE-3A-175/1A"]
+
+Montblanc:
+  aliases: ["モンブラン", "Montblanc", "万宝龙"]
+  model_name:
+    "1858":
+      aliases: ["1858"]
+      model_no: ["117834", "117835"]
+    Star:
+      aliases: ["スター", "Star"]
+      model_no: ["113852", "113830"]
+
+Frédérique Constant:
+  aliases: ["フレデリック・コンスタント", "Frederique Constant", "康斯登"]
+  model_name:
+    Classics:
+      aliases: ["クラシックス", "Classics"]
+      model_no: ["FC-303S5B6", "FC-310MC4P6"]
+    Highlife:
+      aliases: ["ハイライフ", "Highlife"]
+      model_no: ["FC-303N4NH6B", "FC-810MC4NH6B"]
+
+SevenFriday:
+  aliases: ["セブンフライデー", "SevenFriday", "天天星期五"]
+  model_name:
+    M Series:
+      aliases: ["M シリーズ", "M Series"]
+      model_no: ["M1/01", "M2/03"]
+    S Series:
+      aliases: ["S シリーズ", "S Series"]
+      model_no: ["S1/01", "S3/01"]
+
+Hermès:
+  aliases: ["エルメス", "Hermès", "爱马仕"]
+  model_name:
+    Arceau:
+      aliases: ["アーシェ", "Arceau"]
+      model_no: ["AR4.910", "AR6.940"]
+    H08:
+      aliases: ["H08"]
+      model_no: ["H08.510.320/WW"]
+
+Rado:
+  aliases: ["ラドー", "Rado", "雷达"]
+  model_name:
+    True Square:
+      aliases: ["トゥルー スクエア", "True Square"]
+      model_no: ["TS5123927", "TS5243720"]
+
+Citizen:
+  aliases: ["シチズン", "Citizen", "西铁城"]
+  model_name:
+    Eco-Drive:
+      aliases: ["エコ・ドライブ", "Eco-Drive", "光动能"]
+      model_no: ["BM7100-59E", "CA4210-59L"]
+    Promaster:
+      aliases: ["プロマスター", "Promaster"]
+      model_no: ["NY0085-86E", "BN0150-28E"]
