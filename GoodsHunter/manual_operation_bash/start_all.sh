@@ -102,9 +102,46 @@ cleanup_services() {
     echo -e "${GREEN}✓ 服务清理完成${NC}"
 }
 
+# 获取本地 IP 地址
+get_local_ip() {
+    # 尝试多种方法获取本地 IP
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS
+        ip=$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/dev/null || echo "")
+        if [ -z "$ip" ]; then
+            # 如果上述方法失败，尝试使用 route 命令
+            ip=$(route get default 2>/dev/null | grep interface | awk '{print $2}' | xargs ifconfig 2>/dev/null | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -n1)
+        fi
+    else
+        # Linux
+        ip=$(hostname -I 2>/dev/null | awk '{print $1}' || ip route get 1.1.1.1 2>/dev/null | grep -oP 'src \K\S+' || echo "")
+    fi
+    
+    # 如果还是获取不到，尝试使用 ifconfig
+    if [ -z "$ip" ]; then
+        ip=$(ifconfig 2>/dev/null | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n1)
+    fi
+    
+    echo "$ip"
+}
+
 # 启动 Docker Compose 服务
 start_docker_services() {
     echo -e "${BLUE}启动 Docker Compose 服务 (PostgreSQL, MinIO, API)...${NC}"
+
+    # 获取本地 IP 地址
+    LOCAL_IP=$(get_local_ip)
+    
+    # 设置环境变量，让 Docker Compose 使用本地 IP 而不是 localhost
+    if [ -n "$LOCAL_IP" ]; then
+        export MINIO_EXTERNAL_ENDPOINT="http://${LOCAL_IP}:9000"
+        export API_BASE_URL="http://${LOCAL_IP}:8000"
+        echo -e "${GREEN}✓ 已设置局域网访问地址: ${LOCAL_IP}${NC}"
+    else
+        echo -e "${YELLOW}⚠️  无法获取本地 IP，将使用 localhost（手机可能无法访问图片）${NC}"
+        export MINIO_EXTERNAL_ENDPOINT="http://localhost:9000"
+        export API_BASE_URL="http://localhost:8000"
+    fi
 
     # 启动服务（后台运行）
     docker compose up -d 2>&1 | tee "$DOCKER_LOG" &
@@ -227,6 +264,10 @@ show_service_info() {
     echo ""
     echo -e "${GREEN}🎉 所有服务启动成功！${NC}"
     echo ""
+    
+    # 获取本地 IP
+    LOCAL_IP=$(get_local_ip)
+    
     echo -e "${BLUE}📋 服务访问地址：${NC}"
     echo "----------------------------------------"
     echo -e "${GREEN}🌐 Web 前端:    http://localhost:3000${NC}"
@@ -236,6 +277,24 @@ show_service_info() {
     echo -e "${GREEN}📦 MinIO API:    http://localhost:9000${NC}"
     echo -e "${GREEN}🎛️  MinIO Console: http://localhost:9001${NC}"
     echo "----------------------------------------"
+    
+    if [ -n "$LOCAL_IP" ]; then
+        echo ""
+        echo -e "${BLUE}📱 局域网访问地址（手机/其他设备）：${NC}"
+        echo "----------------------------------------"
+        echo -e "${GREEN}🌐 Web 前端:    http://${LOCAL_IP}:3000${NC}"
+        echo -e "${GREEN}🔌 API 服务:    http://${LOCAL_IP}:8000${NC}"
+        echo -e "${GREEN}📊 API 文档:    http://${LOCAL_IP}:8000/docs${NC}"
+        echo -e "${GREEN}📦 MinIO API:    http://${LOCAL_IP}:9000${NC}"
+        echo -e "${GREEN}🎛️  MinIO Console: http://${LOCAL_IP}:9001${NC}"
+        echo "----------------------------------------"
+        echo ""
+        echo -e "${YELLOW}💡 提示：确保手机和电脑连接在同一个 WiFi 网络${NC}"
+    else
+        echo ""
+        echo -e "${YELLOW}⚠️  无法自动获取本地 IP 地址，请手动查看网络设置${NC}"
+    fi
+    
     echo ""
     echo -e "${BLUE}📁 日志文件位置：${NC}"
     echo "Docker 服务日志: $DOCKER_LOG"

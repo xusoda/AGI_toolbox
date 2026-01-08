@@ -47,7 +47,7 @@ services:
     environment:
       DATABASE_URL: postgresql://goodshunter:goodshunter123@postgres:5432/goodshunter
       MINIO_ENDPOINT: http://minio:9000
-      MINIO_EXTERNAL_ENDPOINT: http://localhost:9000
+      MINIO_EXTERNAL_ENDPOINT: ${MINIO_EXTERNAL_ENDPOINT:-http://localhost:9000}
       MINIO_ACCESS_KEY: minioadmin
       MINIO_SECRET_KEY: minioadmin123
       MINIO_BUCKET: watch-images
@@ -55,7 +55,7 @@ services:
       IMAGE_URL_MODE: presign
       PRESIGN_EXPIRES_SECONDS: "1800"
       USE_IMAGE_PROXY: "true"
-      API_BASE_URL: "http://localhost:8000"
+      API_BASE_URL: ${API_BASE_URL:-http://localhost:8000}
     ports:
       - "8000:8000"
     depends_on:
