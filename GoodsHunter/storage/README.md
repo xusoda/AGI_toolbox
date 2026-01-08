@@ -18,7 +18,7 @@ storage/
 在项目根目录运行：
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 这将启动：
