@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
 import { getItems } from '../api/items'
 import { searchProducts } from '../api/search'
 import type { ItemListItem, ItemsListParams, SearchParams, SearchItemResult } from '../api/types'
@@ -11,36 +10,44 @@ import SearchBar from '../components/SearchBar'
 import { CategorySelector } from '../components/CategorySelector'
 import { SortOption, SortField, SortOrder, getDefaultSortOption, getDefaultSortField, getDefaultSortOrder } from '@enums/display/sort'
 import { getDefaultItemStatus } from '@enums/business/status'
+import { useURLState } from '../hooks/useURLState'
+import { useDebounce } from '../hooks/useDebounce'
 import './ItemsListPage.css'
 
 export default function ItemsListPage() {
   const { i18n, t } = useTranslation()
-  const location = useLocation()
+  const { getState, updateState, setValue } = useURLState()
   const [items, setItems] = useState<ItemListItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [page, setPage] = useState(1)
-  const [pageSize] = useState(20)
   const [total, setTotal] = useState(0)
-  const [sort, setSort] = useState<ItemsListParams['sort']>(getDefaultSortOption() as ItemsListParams['sort'])
-  const [searchQuery, setSearchQuery] = useState('')
-  const [isSearchMode, setIsSearchMode] = useState(false)
-  const [sortField, setSortField] = useState<SortField>(getDefaultSortField())
-  const [sortOrder, setSortOrder] = useState<SortOrder>(getDefaultSortOrder())
+  const pageSize = 20
 
-  // 从 URL 参数获取 category 和 page
-  const searchParams = new URLSearchParams(location.search)
-  const category = searchParams.get('category') || undefined
+  // 从 URL 获取所有状态
+  const urlState = getState()
+  const searchQuery = urlState.q || ''
+  const category = urlState.category
+  const page = urlState.page || 1
+  const sort = urlState.sort || getDefaultSortOption()
+  const sortField = urlState.sort_field || getDefaultSortField()
+  const sortOrder = urlState.sort_order || getDefaultSortOrder()
+  const lang = urlState.lang || (i18n.language as any)
 
-  useEffect(() => {
-    // 从 URL 参数更新 page
-    const urlPage = parseInt(new URLSearchParams(location.search).get('page') || '1')
-    if (urlPage !== page && urlPage > 0) {
-      setPage(urlPage)
+  // 判断是否为搜索模式
+  const isSearchMode = useMemo(() => {
+    return Boolean(searchQuery && searchQuery.trim().length > 0)
+  }, [searchQuery])
+
+  // 防抖更新搜索关键词
+  const debouncedUpdateSearch = useDebounce((query: string) => {
+    if (query.trim()) {
+      updateState({ q: query, page: 1 }, { replace: false })
+    } else {
+      updateState({ q: undefined, page: 1 }, { replace: false })
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.search])
+  }, 300, [updateState])
 
+  // 当 URL 状态变化时，重新加载数据
   useEffect(() => {
     if (isSearchMode && searchQuery) {
       loadSearchResults()
@@ -48,7 +55,7 @@ export default function ItemsListPage() {
       loadItems()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, sort, i18n.language, isSearchMode, searchQuery, sortField, sortOrder, category])
+  }, [page, sort, lang, isSearchMode, searchQuery, sortField, sortOrder, category])
 
   const loadItems = async () => {
     setLoading(true)
@@ -58,9 +65,10 @@ export default function ItemsListPage() {
         page,
         page_size: pageSize,
         status: getDefaultItemStatus(),
-        sort,
-        lang: i18n.language as any,  // 传递当前语言
-        category: category as any,  // 传递 category
+        sort: sort as ItemsListParams['sort'],
+        lang: lang,
+        // 空字符串表示"全部"，传递 undefined
+        category: category && category !== '' ? (category as any) : undefined,
       }
       const response = await getItems(params)
       setItems(response.items)
@@ -74,7 +82,6 @@ export default function ItemsListPage() {
 
   const loadSearchResults = async () => {
     if (!searchQuery.trim()) {
-      setIsSearchMode(false)
       loadItems()
       return
     }
@@ -89,8 +96,9 @@ export default function ItemsListPage() {
         sort_field: sortField,
         sort_order: sortOrder,
         status: getDefaultItemStatus(),
-        lang: i18n.language as any,  // 传递当前语言
-        category: category as any,  // 传递 category
+        lang: lang,
+        // 空字符串表示"全部"，传递 undefined
+        category: category && category !== '' ? (category as any) : undefined,
       }
       const response = await searchProducts(params)
       
@@ -120,23 +128,17 @@ export default function ItemsListPage() {
   }
 
   const handleSearch = (query: string) => {
-    setSearchQuery(query)
-    setIsSearchMode(query.trim().length > 0)
-    setPage(1) // 重置到第一页
+    // 使用防抖更新搜索关键词
+    debouncedUpdateSearch(query)
   }
 
   const handleClearSearch = () => {
-    setSearchQuery('')
-    setIsSearchMode(false)
-    setPage(1)
+    // 立即清除搜索（不使用防抖）
+    updateState({ q: undefined, page: 1 }, { replace: false })
   }
 
   const handlePageChange = (newPage: number) => {
-    setPage(newPage)
-    // 更新 URL 参数
-    const newSearchParams = new URLSearchParams(location.search)
-    newSearchParams.set('page', newPage.toString())
-    window.history.pushState({}, '', `${location.pathname}?${newSearchParams.toString()}`)
+    setValue('page', newPage, { replace: false })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -149,7 +151,7 @@ export default function ItemsListPage() {
             <span className="sort-label-text">{t('app.sort_by', '排序')}：</span>
             <select 
               value={sortField} 
-              onChange={(e) => setSortField(e.target.value as SortField)}
+              onChange={(e) => setValue('sort_field', e.target.value as SortField, { replace: false })}
               className="sort-select"
             >
               <option value={SortField.LAST_SEEN_DT}>{t('app.sort_last_seen', '最后发现时间')}</option>
@@ -161,7 +163,7 @@ export default function ItemsListPage() {
             <span className="sort-label-text">{t('app.sort_order', '顺序')}：</span>
             <select 
               value={sortOrder} 
-              onChange={(e) => setSortOrder(e.target.value as SortOrder)}
+              onChange={(e) => setValue('sort_order', e.target.value as SortOrder, { replace: false })}
               className="sort-select"
             >
               <option value={SortOrder.DESC}>{t('app.sort_desc', '降序')}</option>
@@ -176,7 +178,7 @@ export default function ItemsListPage() {
           <span className="sort-label-text">{t('app.sort_by', '排序')}：</span>
           <select 
             value={sort} 
-            onChange={(e) => setSort(e.target.value as ItemsListParams['sort'])}
+            onChange={(e) => setValue('sort', e.target.value as SortOption, { replace: false })}
             className="sort-select"
           >
             <option value={SortOption.FIRST_SEEN_DESC}>{t('app.sort_first_seen_desc', '首次发现时间（降序）')}</option>

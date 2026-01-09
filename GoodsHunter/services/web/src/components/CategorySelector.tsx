@@ -1,17 +1,15 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useLocation } from 'react-router-dom'
-import { CategoryOrAll, CATEGORY_VALUES, isValidCategory } from '@enums/business/category'
+import { CategoryOrAll, CATEGORY_VALUES } from '@enums/business/category'
+import { useURLState } from '../hooks/useURLState'
 import './CategorySelector.css'
 
 export function CategorySelector() {
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const location = useLocation()
+  const { getValue, setValue } = useURLState()
 
-  // 从 URL 参数获取当前 category
-  const searchParams = new URLSearchParams(location.search)
-  const categoryParam = searchParams.get('category') || ''
-  const currentCategory: CategoryOrAll = isValidCategory(categoryParam) ? categoryParam : ''
+  // 从 URL 获取当前 category
+  const category = getValue('category')
+  const currentCategory: CategoryOrAll = category || ''
 
   const categories: { value: CategoryOrAll; labelKey: string }[] = [
     { value: '', labelKey: 'category.all' },
@@ -22,15 +20,8 @@ export function CategorySelector() {
   ]
 
   const handleCategoryChange = (category: CategoryOrAll) => {
-    const newSearchParams = new URLSearchParams(location.search)
-    if (category) {
-      newSearchParams.set('category', category)
-    } else {
-      newSearchParams.delete('category')
-    }
-    // 重置到第一页
-    newSearchParams.set('page', '1')
-    navigate(`${location.pathname}?${newSearchParams.toString()}`, { replace: true })
+    // 使用 useURLState 更新，自动重置页码
+    setValue('category', category || undefined, { resetPage: true, replace: false })
   }
 
   return (

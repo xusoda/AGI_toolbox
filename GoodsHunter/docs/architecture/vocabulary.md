@@ -6,3 +6,4 @@ item_id：指被抓取的商品，在原网站的唯一标识符（字符串）
 source_id:指被抓取的商品，全局的唯一标识符，site:category:item_id
 id：crawler_item表的id字段，指目前用来检索的商品id
 product表id：代表归一化的商品id，理论上 category:brand_name:model_name:model_no代表了归一化的商品。
+category：类型，比如手表，珠宝，箱包，等等

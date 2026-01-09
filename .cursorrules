@@ -44,7 +44,7 @@
 
 ### GoodsHunter 项目
 
-**重要**: 对于 `GoodsHunter/` 目录下的所有代码修改，必须遵循 `GoodsHunter/docs/architecture/rules.md` 文件中定义的规则。
+**重要**: 对于 `GoodsHunter/` 目录下的所有代码修改，必须第一优先级去遵循 `GoodsHunter/docs/architecture/rules.md` 文件中定义的规则以及重要原则。
 
 ## 其他项目
 
