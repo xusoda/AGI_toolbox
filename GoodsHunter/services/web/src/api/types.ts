@@ -1,5 +1,5 @@
 /** API 类型定义 */
-import { Category, CategoryOrAll } from '@enums/business/category'
+import { Category } from '@enums/business/category'
 import { ItemStatus } from '@enums/business/status'
 import { SortOption, SortField, SortOrder } from '@enums/display/sort'
 import { LanguageCode } from '@enums/display/lang'
