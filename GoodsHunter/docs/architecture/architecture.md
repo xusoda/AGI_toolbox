@@ -35,6 +35,10 @@ GoodsHunter/
 ├── services/             # 服务层
 │   ├── api/             # FastAPI 后端服务
 │   └── web/             # React 前端应用
+├── enums/                # 全局枚举值定义
+│   ├── business/        # 业务相关枚举（category, status, change_type 等）
+│   ├── display/         # 展示层相关枚举（sort, lang 等）
+│   └── trade/           # 交易相关枚举（currency 等）
 ├── manual_operation_bash/  # 手动操作脚本
 ├── docs/                 # 项目文档
 └── docker-compose.yml    # Docker 编排配置
@@ -1020,7 +1024,72 @@ docker compose down
 
 ---
 
-## 15. 文档索引
+## 15. 枚举值定义
+
+系统使用全局枚举值来统一管理常量，确保类型安全和代码一致性。枚举值定义在 `enums/` 目录下，按类别组织。
+
+### 15.1 枚举分类
+
+枚举值按业务领域分类：
+
+- **business/**: 业务相关枚举
+  - `Category`: 商品类别（watch/bag/jewelry/clothing/camera）
+  - `ItemStatus`: 商品状态（active/sold/removed）
+  - `ChangeType`: 变更类型（price/status）
+  - `CrawlerLogStatus`: 抓取日志状态（success/failed）
+
+- **display/**: 展示层相关枚举
+  - `SortOption`: 列表页排序选项（first_seen_desc/price_asc/price_desc）
+  - `SortField`: 搜索页排序字段（price/last_seen_dt/created_at）
+  - `SortOrder`: 排序顺序（asc/desc）
+  - `LanguageCode`: 语言代码（en/zh/ja）
+
+- **trade/**: 交易相关枚举
+  - `CurrencyCode`: 货币代码（JPY/USD/CNY）
+
+### 15.2 使用方式
+
+**Python 后端**:
+```python
+from enums.business.category import Category
+from enums.business.status import ItemStatus
+
+# 使用枚举值
+category = Category.WATCH.value  # "watch"
+if Category.is_valid(category):
+    # 处理类别
+    pass
+
+# 获取默认值
+default_category = Category.get_default()  # "watch"
+```
+
+**TypeScript 前端**:
+```typescript
+import { Category } from '@enums/business/category'
+import { ItemStatus } from '@enums/business/status'
+
+// 使用枚举值
+const category: Category = Category.WATCH
+const status: ItemStatus = ItemStatus.ACTIVE
+
+// 验证枚举值
+if (isValidCategory(value)) {
+  // 处理类别
+}
+```
+
+注意：前端项目配置了路径别名 `@enums`，指向全局的 `enums/` 目录。这需要：
+- 在 `tsconfig.json` 中配置 `paths` 别名
+- 在 `vite.config.ts` 中配置 `resolve.alias`
+
+### 15.3 详细文档
+
+更多关于枚举值的定义、使用场景和代码位置，请参考：`enums/README.md`
+
+---
+
+## 16. 文档索引
 
 - **Crawler 模块**: `crawler/README.md`
 - **Storage 模块**: `storage/README.md`
@@ -1029,4 +1098,5 @@ docker compose down
 - **API 服务**: `services/api/README.md`
 - **Web 前端**: `services/web/README.md`
 - **前端架构**: `README_FRONTEND.md`
+- **枚举值定义**: `enums/README.md`
 

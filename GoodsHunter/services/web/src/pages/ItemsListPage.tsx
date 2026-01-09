@@ -9,6 +9,8 @@ import PaginationBar from '../components/PaginationBar'
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import SearchBar from '../components/SearchBar'
 import { CategorySelector } from '../components/CategorySelector'
+import { SortOption, SortField, SortOrder, getDefaultSortOption, getDefaultSortField, getDefaultSortOrder } from '@enums/display/sort'
+import { ItemStatus, getDefaultItemStatus } from '@enums/business/status'
 import './ItemsListPage.css'
 
 export default function ItemsListPage() {
@@ -20,11 +22,11 @@ export default function ItemsListPage() {
   const [page, setPage] = useState(1)
   const [pageSize] = useState(20)
   const [total, setTotal] = useState(0)
-  const [sort, setSort] = useState<ItemsListParams['sort']>('first_seen_desc')
+  const [sort, setSort] = useState<ItemsListParams['sort']>(getDefaultSortOption() as ItemsListParams['sort'])
   const [searchQuery, setSearchQuery] = useState('')
   const [isSearchMode, setIsSearchMode] = useState(false)
-  const [sortField, setSortField] = useState<'price' | 'last_seen_dt' | 'created_at'>('last_seen_dt')
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
+  const [sortField, setSortField] = useState<SortField>(getDefaultSortField())
+  const [sortOrder, setSortOrder] = useState<SortOrder>(getDefaultSortOrder())
 
   // 从 URL 参数获取 category 和 page
   const searchParams = new URLSearchParams(location.search)
@@ -55,10 +57,10 @@ export default function ItemsListPage() {
       const params: ItemsListParams = {
         page,
         page_size: pageSize,
-        status: 'active',
+        status: getDefaultItemStatus(),
         sort,
-        lang: i18n.language,  // 传递当前语言
-        category,  // 传递 category
+        lang: i18n.language as any,  // 传递当前语言
+        category: category as any,  // 传递 category
       }
       const response = await getItems(params)
       setItems(response.items)
@@ -147,23 +149,23 @@ export default function ItemsListPage() {
             <span className="sort-label-text">{t('app.sort_by', '排序')}：</span>
             <select 
               value={sortField} 
-              onChange={(e) => setSortField(e.target.value as 'price' | 'last_seen_dt' | 'created_at')}
+              onChange={(e) => setSortField(e.target.value as SortField)}
               className="sort-select"
             >
-              <option value="last_seen_dt">{t('app.sort_last_seen', '最后发现时间')}</option>
-              <option value="price">{t('app.sort_price', '价格')}</option>
-              <option value="created_at">{t('app.sort_created', '创建时间')}</option>
+              <option value={SortField.LAST_SEEN_DT}>{t('app.sort_last_seen', '最后发现时间')}</option>
+              <option value={SortField.PRICE}>{t('app.sort_price', '价格')}</option>
+              <option value={SortField.CREATED_AT}>{t('app.sort_created', '创建时间')}</option>
             </select>
           </label>
           <label className="sort-label">
             <span className="sort-label-text">{t('app.sort_order', '顺序')}：</span>
             <select 
               value={sortOrder} 
-              onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+              onChange={(e) => setSortOrder(e.target.value as SortOrder)}
               className="sort-select"
             >
-              <option value="desc">{t('app.sort_desc', '降序')}</option>
-              <option value="asc">{t('app.sort_asc', '升序')}</option>
+              <option value={SortOrder.DESC}>{t('app.sort_desc', '降序')}</option>
+              <option value={SortOrder.ASC}>{t('app.sort_asc', '升序')}</option>
             </select>
           </label>
         </>
@@ -177,9 +179,9 @@ export default function ItemsListPage() {
             onChange={(e) => setSort(e.target.value as ItemsListParams['sort'])}
             className="sort-select"
           >
-            <option value="first_seen_desc">{t('app.sort_first_seen_desc', '首次发现时间（降序）')}</option>
-            <option value="price_asc">{t('app.sort_price_asc', '价格（升序）')}</option>
-            <option value="price_desc">{t('app.sort_price_desc', '价格（降序）')}</option>
+            <option value={SortOption.FIRST_SEEN_DESC}>{t('app.sort_first_seen_desc', '首次发现时间（降序）')}</option>
+            <option value={SortOption.PRICE_ASC}>{t('app.sort_price_asc', '价格（升序）')}</option>
+            <option value={SortOption.PRICE_DESC}>{t('app.sort_price_desc', '价格（降序）')}</option>
           </select>
         </label>
       )

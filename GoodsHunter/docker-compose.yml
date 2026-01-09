@@ -68,6 +68,7 @@ services:
       - ./storage:/app/../storage
       - ./i18n:/app/../i18n
       - ./search:/app/../search
+      - ./enums:/app/../enums
     networks:
       - goodshunter-network
 

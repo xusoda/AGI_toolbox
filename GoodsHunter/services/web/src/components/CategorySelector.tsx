@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { Category, CategoryOrAll, CATEGORY_VALUES, isValidCategory } from '@enums/business/category'
 import './CategorySelector.css'
-
-export type Category = 'watch' | 'bag' | 'jewelry' | 'clothing' | 'camera' | ''
 
 export function CategorySelector() {
   const { t } = useTranslation()
@@ -11,18 +10,18 @@ export function CategorySelector() {
 
   // 从 URL 参数获取当前 category
   const searchParams = new URLSearchParams(location.search)
-  const currentCategory = (searchParams.get('category') || '') as Category
+  const categoryParam = searchParams.get('category') || ''
+  const currentCategory: CategoryOrAll = isValidCategory(categoryParam) ? categoryParam : ''
 
-  const categories: { value: Category; labelKey: string }[] = [
+  const categories: { value: CategoryOrAll; labelKey: string }[] = [
     { value: '', labelKey: 'category.all' },
-    { value: 'watch', labelKey: 'category.watch' },
-    { value: 'bag', labelKey: 'category.bag' },
-    { value: 'jewelry', labelKey: 'category.jewelry' },
-    { value: 'clothing', labelKey: 'category.clothing' },
-    { value: 'camera', labelKey: 'category.camera' },
+    ...CATEGORY_VALUES.map(cat => ({
+      value: cat as CategoryOrAll,
+      labelKey: `category.${cat}` as const,
+    })),
   ]
 
-  const handleCategoryChange = (category: Category) => {
+  const handleCategoryChange = (category: CategoryOrAll) => {
     const newSearchParams = new URLSearchParams(location.search)
     if (category) {
       newSearchParams.set('category', category)
@@ -38,7 +37,7 @@ export function CategorySelector() {
     <div className="category-selector">
       <select
         value={currentCategory}
-        onChange={(e) => handleCategoryChange(e.target.value as Category)}
+        onChange={(e) => handleCategoryChange(e.target.value as CategoryOrAll)}
         className="category-select"
       >
         {categories.map((cat) => (

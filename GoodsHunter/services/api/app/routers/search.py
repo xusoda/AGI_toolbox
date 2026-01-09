@@ -7,64 +7,72 @@ from sqlalchemy.orm import Session
 from typing import Optional
 from app.db.session import get_db
 from app.schemas.search import SearchResponse, SuggestResponse
-from app.services.images import image_service
+from app.services.images import image_service, get_image_service
 from app.settings import settings
+from enums.business.category import Category
+from enums.business.status import ItemStatus
+from enums.display.lang import LanguageCode
+from enums.trade.currency import CurrencyCode
+from enums.display.sort import SortField, SortOrder
 
-# 添加项目根目录到路径
+# 添加项目根目录到路径（为了导入 search 和 enums 模块）
 # 在 Docker 容器中，路径结构是：
 # /app (services/api)
 # /app/../search (项目根目录下的 search) - 挂载为 /app/../search
 # /app/../i18n (项目根目录下的 i18n)
+# /app/../enums (项目根目录下的 enums)
 # /app/../storage (项目根目录下的 storage)
 
-# 注意：不要使用 resolve()，因为它会规范化路径，/app/.. 会变成 /
+# 注意：不要使用 resolve()，因为它会规范化路径，/app/.. 会变成 /，可能导致路径查找失败或阻塞
 # 直接使用字符串路径或 Path 对象，不调用 resolve()
 
-possible_search_paths = [
-    Path("/app/../search"),  # Docker 容器中的搜索模块路径（不 resolve）
-    Path("/app").parent / "search",  # 另一种方式
-    Path(__file__).parent.parent.parent.parent.parent / "search",  # 本地开发环境
-    Path(__file__).parent.parent.parent.parent / "search",  # 本地开发环境（备用）
+possible_roots = [
+    Path(__file__).parent.parent.parent.parent.parent,  # 从 services/api/app/routers/search.py 向上5级到 GoodsHunter
+    Path(__file__).parent.parent.parent.parent,  # 从 services/api/app/routers/search.py 向上4级
+    Path("/app").parent,  # Docker 容器中，/app 的父目录（不使用 resolve）
 ]
 
-# 添加搜索模块路径
-search_found = False
-for search_path in possible_search_paths:
-    # 检查路径是否存在（不 resolve，直接检查）
+# 查找项目根目录并添加到 sys.path
+project_root = None
+
+# 方法1: 通过 enums 目录定位（最可靠，因为这是必需的）
+for root in possible_roots:
     try:
-        if search_path.exists() and search_path.is_dir():
-            # 获取项目根目录（search 的父目录）
-            project_root = search_path.parent
-            sys.path.insert(0, str(project_root))
-            print(f"[Search] 找到搜索模块路径: {search_path}, 添加根目录: {project_root}")
-            search_found = True
+        enums_path = root / "enums"
+        if enums_path.exists() and enums_path.is_dir():
+            project_root = str(root.absolute() if hasattr(root, 'absolute') else root)
+            if project_root not in sys.path:
+                sys.path.insert(0, project_root)
+                print(f"[Search] 通过 enums 目录找到项目根目录: {project_root}")
             break
-    except Exception as e:
-        print(f"[Search] 检查路径失败 {search_path}: {e}")
+    except (OSError, PermissionError) as e:
+        print(f"[Search] 检查路径 {root} 时出错: {e}")
         continue
 
-if not search_found:
-    # 如果找不到，尝试直接添加可能的路径
-    print("[Search] 未找到搜索模块路径，尝试添加默认路径")
-    # 尝试直接使用 /app/.. 作为项目根目录（Docker 环境）
-    docker_root = Path("/app/..")
-    docker_search_path = docker_root / "search"
-    if docker_search_path.exists():
-        sys.path.insert(0, str(docker_root))
-        print(f"[Search] 使用 Docker 路径: {docker_root} (搜索模块: {docker_search_path})")
-    else:
-        print(f"[Search] 警告: 搜索模块路径不存在: {docker_search_path}")
-        print(f"[Search] 当前工作目录: {Path.cwd()}")
-        print(f"[Search] Python 路径: {sys.path}")
-        # 列出可能的路径供调试
-        test_paths = [
-            Path("/app/../search"),
-            Path("/app").parent / "search",
-            Path("/search"),
-        ]
-        for test_path in test_paths:
-            exists = test_path.exists() if hasattr(test_path, 'exists') else False
-            print(f"[Search] 测试路径 {test_path}: exists={exists}")
+# 方法2: 如果还没找到，尝试通过 search 目录定位
+if project_root is None:
+    possible_search_paths = [
+        Path("/app").parent / "search",  # Docker 环境（不使用 resolve）
+        Path(__file__).parent.parent.parent.parent.parent / "search",  # 本地开发环境
+        Path(__file__).parent.parent.parent.parent / "search",  # 本地开发环境（备用）
+    ]
+    
+    for search_path in possible_search_paths:
+        try:
+            if search_path.exists() and search_path.is_dir():
+                project_root = str((search_path.parent).absolute() if hasattr(search_path.parent, 'absolute') else search_path.parent)
+                if project_root not in sys.path:
+                    sys.path.insert(0, project_root)
+                    print(f"[Search] 通过 search 目录找到项目根目录: {project_root}")
+                break
+        except (OSError, PermissionError) as e:
+            print(f"[Search] 检查路径失败 {search_path}: {e}")
+            continue
+
+if project_root is None:
+    print(f"[Search] 警告: 未找到项目根目录")
+    print(f"[Search] 当前工作目录: {Path.cwd()}")
+    print(f"[Search] Python 路径: {sys.path}")
 
 # 导入搜索模块
 try:
@@ -113,16 +121,16 @@ async def search_products(
     q: str = Query(..., description="搜索关键词（支持中英日文）"),
     page: int = Query(1, ge=1, description="页码"),
     page_size: int = Query(20, ge=1, le=100, description="每页数量"),
-    sort_field: Optional[str] = Query("last_seen_dt", description="排序字段（price/last_seen_dt/created_at）"),
-    sort_order: Optional[str] = Query("desc", description="排序方向（asc/desc）"),
-    status: Optional[str] = Query(None, description="商品状态（active/sold/removed）"),
+    sort_field: Optional[str] = Query(SortField.get_default(), description=f"排序字段（{'/'.join([s.value for s in SortField])}），默认 {SortField.get_default()}"),
+    sort_order: Optional[str] = Query(SortOrder.get_default(), description=f"排序方向（{'/'.join([s.value for s in SortOrder])}），默认 {SortOrder.get_default()}"),
+    status: Optional[str] = Query(None, description=f"商品状态（{'/'.join(ItemStatus.all_values())}）"),
     site: Optional[str] = Query(None, description="站点域名"),
-    category: Optional[str] = Query(None, description="商品类别"),
+    category: Optional[str] = Query(None, description=f"商品类别（{'/'.join(Category.all_values())}）"),
     brand_name: Optional[str] = Query(None, description="品牌名称"),
     min_price: Optional[int] = Query(None, description="最低价格"),
     max_price: Optional[int] = Query(None, description="最高价格"),
-    currency: Optional[str] = Query(None, description="货币单位"),
-    lang: Optional[str] = Query("en", description="语言代码（en/zh/ja），默认 en"),
+    currency: Optional[str] = Query(None, description=f"货币单位（{'/'.join(CurrencyCode.all_values())}）"),
+    lang: Optional[str] = Query(LanguageCode.get_default(), description=f"语言代码（{'/'.join(LanguageCode.all_values())}），默认 {LanguageCode.get_default()}"),
     db: Session = Depends(get_db),
     search_service = Depends(get_search_service)
 ):
@@ -138,6 +146,20 @@ async def search_products(
     - **lang**: 语言代码（en/zh/ja），用于翻译
     """
     try:
+        # 验证枚举值
+        if status and not ItemStatus.is_valid(status):
+            status = None
+        if category and not Category.is_valid(category):
+            category = None
+        if currency and not CurrencyCode.is_valid(currency):
+            currency = None
+        if lang and not LanguageCode.is_valid(lang):
+            lang = LanguageCode.get_default()
+        if sort_field and not any(sf.value == sort_field for sf in SortField):
+            sort_field = SortField.get_default()
+        if sort_order and not any(so.value == sort_order for so in SortOrder):
+            sort_order = SortOrder.get_default()
+        
         # 构建过滤器
         filters = None
         if any([status, site, category, brand_name, min_price is not None, max_price is not None, currency]):
@@ -155,7 +177,7 @@ async def search_products(
         sort = None
         if sort_field:
             from search.engine import SortOption
-            sort = SortOption(field=sort_field, order=sort_order or "desc")
+            sort = SortOption(field=sort_field, order=sort_order or SortOrder.get_default())
         
         # 执行搜索
         result = search_service.search_products(

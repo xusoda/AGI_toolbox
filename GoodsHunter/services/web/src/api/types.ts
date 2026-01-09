@@ -1,4 +1,9 @@
 /** API 类型定义 */
+import { Category, CategoryOrAll } from '@enums/business/category'
+import { ItemStatus } from '@enums/business/status'
+import { SortOption, SortField, SortOrder } from '@enums/display/sort'
+import { LanguageCode } from '@enums/display/lang'
+import { CurrencyCode } from '@enums/trade/currency'
 
 export interface ItemListItem {
   id: number
@@ -7,11 +12,11 @@ export interface ItemListItem {
   model_name: string | null
   model_name_translated: string | null  // 翻译后的型号名
   model_no: string | null
-  currency: string
+  currency: CurrencyCode
   price: number | null
   image_thumb_url: string | null
   last_seen_dt: string
-  status: string
+  status: ItemStatus
   product_id: number | null
 }
 
@@ -19,20 +24,20 @@ export interface ItemDetail {
   id: number
   source_uid: string
   site: string
-  category: string
+  category: Category
   item_id: string
   brand_name: string | null
   brand_name_translated: string | null  // 翻译后的品牌名
   model_name: string | null
   model_name_translated: string | null  // 翻译后的型号名
   model_no: string | null
-  currency: string
+  currency: CurrencyCode
   price: number | null
   image_thumb_url: string | null
   image_600_url: string | null
   image_original_url: string | null
   product_url: string | null
-  status: string
+  status: ItemStatus
   first_seen_dt: string
   last_seen_dt: string
   sold_dt: string | null
@@ -53,10 +58,10 @@ export interface ItemsListResponse {
 export interface ItemsListParams {
   page?: number
   page_size?: number
-  status?: string
-  sort?: 'first_seen_desc' | 'price_asc' | 'price_desc'
-  lang?: string  // 语言代码（en/zh/ja）
-  category?: string  // 商品类别（watch/bag/jewelry/clothing/camera）
+  status?: ItemStatus
+  sort?: SortOption
+  lang?: LanguageCode
+  category?: Category  // 商品类别
 }
 
 // 搜索相关类型
@@ -66,10 +71,10 @@ export interface SearchItemResult {
   model_name: string | null
   model_no: string | null
   price: number | null
-  currency: string
+  currency: CurrencyCode
   site: string
-  category: string
-  status: string
+  category: Category
+  status: ItemStatus
   last_seen_dt: string | null
   image_thumb_300_key: string | null
   product_url: string | null
@@ -94,14 +99,14 @@ export interface SearchParams {
   q: string  // 搜索关键词（必需）
   page?: number
   page_size?: number
-  sort_field?: 'price' | 'last_seen_dt' | 'created_at'
-  sort_order?: 'asc' | 'desc'
-  status?: string
+  sort_field?: SortField
+  sort_order?: SortOrder
+  status?: ItemStatus
   site?: string
-  category?: string
+  category?: Category
   brand_name?: string
   min_price?: number
   max_price?: number
-  currency?: string
-  lang?: string
+  currency?: CurrencyCode
+  lang?: LanguageCode
 }

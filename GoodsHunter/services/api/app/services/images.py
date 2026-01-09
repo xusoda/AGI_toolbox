@@ -46,60 +46,77 @@ class ImageService:
     """图片 URL 生成服务"""
     
     def __init__(self):
-        """初始化图片服务"""
+        """初始化图片服务（延迟连接，避免启动时阻塞）"""
         self.mode = settings.IMAGE_URL_MODE
         self.cdn_base_url = settings.CDN_BASE_URL
         self.minio_client = None
         self.presign_client = None  # 专门用于生成 presigned URL 的客户端
+        self._initialized = False
+    
+    def _ensure_initialized(self):
+        """确保客户端已初始化（延迟初始化，避免启动时阻塞）"""
+        if self._initialized:
+            return
         
         if self.mode == "presign":
-            # 使用内部端点初始化客户端（用于检查 bucket 等操作）
-            internal_client = MinIOClient(
-                endpoint=settings.MINIO_ENDPOINT,
-                access_key=settings.MINIO_ACCESS_KEY,
-                secret_key=settings.MINIO_SECRET_KEY,
-                bucket=settings.MINIO_BUCKET,
-                use_ssl=settings.MINIO_USE_SSL
-            )
-            self.minio_client = internal_client
-            
-            # 如果配置了外部端点，创建专门用于生成 presigned URL 的客户端
-            # 使用外部端点，这样生成的 URL 浏览器可以访问
-            external_endpoint = settings.MINIO_EXTERNAL_ENDPOINT
-            if external_endpoint:
-                try:
-                    # 创建一个轻量级的客户端用于生成 presigned URL
-                    # 直接使用 minio 库，跳过 bucket 检查（因为可能无法连接）
-                    from minio import Minio
-                    endpoint_clean = external_endpoint.replace("http://", "").replace("https://", "")
-                    minio_client = Minio(
-                        endpoint=endpoint_clean,
+            try:
+                # 使用内部端点初始化客户端（用于检查 bucket 等操作）
+                # 添加超时处理，避免启动时阻塞
+                if MinIOClient is not None:
+                    internal_client = MinIOClient(
+                        endpoint=settings.MINIO_ENDPOINT,
                         access_key=settings.MINIO_ACCESS_KEY,
                         secret_key=settings.MINIO_SECRET_KEY,
-                        secure=settings.MINIO_USE_SSL
+                        bucket=settings.MINIO_BUCKET,
+                        use_ssl=settings.MINIO_USE_SSL
                     )
+                    self.minio_client = internal_client
                     
-                    # 创建一个包装类，只提供 get_presigned_url 方法
-                    class PresignOnlyClient:
-                        def __init__(self, client, bucket):
-                            self.client = client
-                            self.bucket = bucket
-                        
-                        def get_presigned_url(self, key, expires_seconds=3600):
-                            from datetime import timedelta
-                            return self.client.presigned_get_object(
-                                self.bucket,
-                                key,
-                                expires=timedelta(seconds=expires_seconds)
+                    # 如果配置了外部端点，创建专门用于生成 presigned URL 的客户端
+                    # 使用外部端点，这样生成的 URL 浏览器可以访问
+                    external_endpoint = settings.MINIO_EXTERNAL_ENDPOINT
+                    if external_endpoint:
+                        try:
+                            # 创建一个轻量级的客户端用于生成 presigned URL
+                            # 直接使用 minio 库，跳过 bucket 检查（因为可能无法连接）
+                            from minio import Minio
+                            endpoint_clean = external_endpoint.replace("http://", "").replace("https://", "")
+                            minio_client = Minio(
+                                endpoint=endpoint_clean,
+                                access_key=settings.MINIO_ACCESS_KEY,
+                                secret_key=settings.MINIO_SECRET_KEY,
+                                secure=settings.MINIO_USE_SSL
                             )
-                    
-                    self.presign_client = PresignOnlyClient(minio_client, settings.MINIO_BUCKET)
-                    print(f"[ImageService] 已创建外部端点 presign 客户端: {external_endpoint}")
-                except Exception as e:
-                    print(f"[ImageService] 创建外部端点客户端失败: {e}，将使用内部端点")
-                    import traceback
-                    traceback.print_exc()
-                    self.presign_client = None
+                            
+                            # 创建一个包装类，只提供 get_presigned_url 方法
+                            class PresignOnlyClient:
+                                def __init__(self, client, bucket):
+                                    self.client = client
+                                    self.bucket = bucket
+                                
+                                def get_presigned_url(self, key, expires_seconds=3600):
+                                    from datetime import timedelta
+                                    return self.client.presigned_get_object(
+                                        self.bucket,
+                                        key,
+                                        expires=timedelta(seconds=expires_seconds)
+                                    )
+                            
+                            self.presign_client = PresignOnlyClient(minio_client, settings.MINIO_BUCKET)
+                        except Exception as e:
+                            # 初始化失败不影响启动，只记录日志
+                            import logging
+                            logger = logging.getLogger(__name__)
+                            logger.warning(f"[ImageService] 创建外部端点客户端失败: {e}，将使用内部端点")
+                            self.presign_client = None
+            except Exception as e:
+                # MinIO 初始化失败不影响启动，只记录日志
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.warning(f"[ImageService] MinIO 客户端初始化失败: {e}，将使用降级方案")
+                self.minio_client = None
+        
+        self._initialized = True
     
     def get_image_url(self, key: Optional[str]) -> Optional[str]:
         """
@@ -113,6 +130,9 @@ class ImageService:
         """
         if not key:
             return None
+        
+        # 延迟初始化 MinIO 客户端（避免启动时阻塞）
+        self._ensure_initialized()
         
         if self.mode == "cdn" and self.cdn_base_url:
             # CDN 模式：直接拼接 URL
@@ -144,6 +164,22 @@ class ImageService:
             return key
 
 
-# 全局实例
-image_service = ImageService()
+# 全局实例（延迟初始化，避免启动时阻塞）
+_image_service_instance = None
+
+def get_image_service() -> ImageService:
+    """获取图片服务实例（延迟初始化）"""
+    global _image_service_instance
+    if _image_service_instance is None:
+        _image_service_instance = ImageService()
+    return _image_service_instance
+
+# 为了向后兼容，提供 image_service 属性
+# 但注意：只有在实际使用时才会初始化
+class ImageServiceProxy:
+    """图片服务代理类，延迟初始化"""
+    def __getattr__(self, name):
+        return getattr(get_image_service(), name)
+
+image_service = ImageServiceProxy()
 

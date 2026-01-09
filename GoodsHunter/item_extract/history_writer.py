@@ -1,8 +1,26 @@
 """变更历史写入：写入 item_change_history 表"""
+import sys
+from pathlib import Path
 from typing import Optional
 from datetime import datetime, date
 from .event_key_generator import generate_price_event_key, generate_status_event_key
 from .exceptions import DatabaseError
+
+# 添加项目根目录到路径（如果还未添加）
+if not any('enums' in str(p) or Path(str(p)).name == 'GoodsHunter' for p in sys.path):
+    current_file = Path(__file__)
+    possible_roots = [
+        current_file.parent.parent.parent,  # 从 item_extract/history_writer.py 向上3级
+        Path("/app/..").resolve(),  # Docker 容器中的项目根目录
+        Path("/app").parent,  # Docker 容器中，/app 的父目录
+    ]
+    for root in possible_roots:
+        enums_path = root / "enums"
+        if enums_path.exists() and enums_path.is_dir():
+            sys.path.insert(0, str(root))
+            break
+
+from enums.business.change_type import ChangeType
 
 
 def write_price_change(
@@ -52,14 +70,14 @@ def write_price_change(
                 old_value, new_value, currency,
                 reason, log_id, item_version, event_key
             ) VALUES (
-                %s, %s, %s, 'price',
+                %s, %s, %s, %s,
                 %s, %s, %s,
                 'crawler_update', %s, %s, %s
             )
             ON CONFLICT (event_key) DO NOTHING
             """,
             (
-                dt, source_uid, crawl_time,
+                dt, source_uid, crawl_time, ChangeType.PRICE.value,
                 old_value_str, new_value_str, currency,
                 log_id, item_version, event_key
             )
@@ -116,14 +134,14 @@ def write_status_change(
                 old_value, new_value,
                 reason, item_version, event_key
             ) VALUES (
-                %s, %s, now(), 'status',
+                %s, %s, now(), %s,
                 %s, %s,
                 %s, %s, %s
             )
             ON CONFLICT (event_key) DO NOTHING
             """,
             (
-                sold_dt, source_uid,
+                sold_dt, source_uid, ChangeType.STATUS.value,
                 old_status, new_status,
                 reason, item_version, event_key
             )

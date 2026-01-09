@@ -6,40 +6,55 @@ import sys
 import logging
 from pathlib import Path
 
-# 添加项目根目录到路径，以便导入 i18n 模块
-# 在 Docker 容器中，i18n 目录被挂载到 /app/../i18n
-# 尝试多个可能的路径
+# 添加项目根目录到路径，以便导入 i18n 和 enums 模块
+# 在 Docker 容器中，模块目录被挂载到 /app/../*
+# 注意：避免使用 resolve()，可能导致路径问题或阻塞
 possible_roots = [
-    Path(__file__).parent.parent.parent.parent.parent,  # 从 services/api/app/routers/items.py 向上5级
+    Path(__file__).parent.parent.parent.parent.parent,  # 从 services/api/app/routers/items.py 向上5级到 GoodsHunter
     Path(__file__).parent.parent.parent.parent,  # 从 services/api/app/routers/items.py 向上4级
-    Path("/app/..").resolve(),  # Docker 容器中的项目根目录
-    Path("/app").parent,  # Docker 容器中，/app 的父目录
+    Path("/app").parent,  # Docker 容器中，/app 的父目录（不使用 resolve）
 ]
 
-# 也尝试直接使用 i18n 目录路径（Docker 挂载）
-possible_i18n_paths = [
-    Path("/app/../i18n").resolve(),
-    Path("/i18n"),
-]
+# 查找项目根目录并添加到 sys.path（优先通过 enums 目录，因为这是必需的）
+project_root = None
 
-for i18n_path in possible_i18n_paths:
-    if i18n_path.exists() and i18n_path.is_dir():
-        # 如果找到 i18n 目录，将其父目录添加到路径
-        sys.path.insert(0, str(i18n_path.parent))
-        break
-else:
-    # 如果直接路径找不到，尝试从可能的根目录查找
-    for root in possible_roots:
-        i18n_path = root / "i18n"
-        if i18n_path.exists() and i18n_path.is_dir():
-            sys.path.insert(0, str(root))
+# 方法1: 通过 enums 目录定位（最可靠，因为这是必需的）
+for root in possible_roots:
+    try:
+        enums_path = root / "enums"
+        if enums_path.exists() and enums_path.is_dir():
+            project_root = str(root.absolute()) if hasattr(root, 'absolute') else str(root)
+            if project_root not in sys.path:
+                sys.path.insert(0, project_root)
             break
+    except (OSError, PermissionError):
+        continue
+
+# 方法2: 如果还没找到，尝试通过 i18n 目录定位
+if project_root is None:
+    possible_i18n_paths = [
+        Path("/app").parent / "i18n",  # Docker 环境（不使用 resolve）
+        Path("/i18n"),
+    ]
+    for i18n_path in possible_i18n_paths:
+        try:
+            if i18n_path.exists() and i18n_path.is_dir():
+                project_root = str((i18n_path.parent).absolute() if hasattr(i18n_path.parent, 'absolute') else i18n_path.parent)
+                if project_root not in sys.path:
+                    sys.path.insert(0, project_root)
+                break
+        except (OSError, PermissionError):
+            continue
 
 from app.db.session import get_db
 from app.db.queries import get_items, get_item_by_id
 from app.schemas.items import ItemsListResponse, ItemListItem, ItemDetail
-from app.services.images import image_service
+from app.services.images import image_service, get_image_service
 from app.settings import settings
+from enums.business.category import Category
+from enums.business.status import ItemStatus
+from enums.display.sort import SortOption
+from enums.display.lang import LanguageCode
 from fastapi.responses import StreamingResponse
 
 # 获取 logger
@@ -64,10 +79,10 @@ router = APIRouter()
 async def list_items(
     page: int = Query(1, ge=1, description="页码"),
     page_size: int = Query(20, ge=1, le=100, description="每页数量"),
-    status: Optional[str] = Query("active", description="商品状态"),
-    sort: str = Query("first_seen_desc", description="排序方式：first_seen_desc/price_asc/price_desc"),
-    lang: Optional[str] = Query("en", description="语言代码（en/zh/ja），默认 en"),
-    category: Optional[str] = Query(None, description="商品类别"),
+    status: Optional[str] = Query(None, description=f"商品状态（{'/'.join(ItemStatus.all_values())}），默认 {ItemStatus.get_default()}"),
+    sort: str = Query(SortOption.get_default(), description=f"排序方式（{'/'.join([s.value for s in SortOption])}），默认 {SortOption.get_default()}"),
+    lang: Optional[str] = Query(LanguageCode.get_default(), description=f"语言代码（{'/'.join(LanguageCode.all_values())}），默认 {LanguageCode.get_default()}"),
+    category: Optional[str] = Query(None, description=f"商品类别（{'/'.join(Category.all_values())}），可选"),
     db: Session = Depends(get_db)
 ):
     """
@@ -75,11 +90,23 @@ async def list_items(
     
     - **page**: 页码（从1开始）
     - **page_size**: 每页数量（最大100）
-    - **status**: 商品状态（active/sold/removed），默认 active
-    - **sort**: 排序方式（first_seen_desc/price_asc/price_desc），默认 first_seen_desc
-    - **lang**: 语言代码（en/zh/ja），默认 en
-    - **category**: 商品类别（watch/bag/jewelry/clothing/camera），可选
+    - **status**: 商品状态，默认 active
+    - **sort**: 排序方式，默认 first_seen_desc
+    - **lang**: 语言代码，默认 en
+    - **category**: 商品类别，可选
     """
+    # 验证和设置默认值
+    if status and not ItemStatus.is_valid(status):
+        status = ItemStatus.get_default()
+    elif status is None:
+        status = ItemStatus.get_default()
+    
+    if category and not Category.is_valid(category):
+        category = None
+    
+    if lang and not LanguageCode.is_valid(lang):
+        lang = LanguageCode.get_default()
+    
     items, total = get_items(
         db=db,
         page=page,
@@ -115,7 +142,7 @@ async def list_items(
                 
                 # 2. 只有当商品语言与用户选择的语言不同时，才进行翻译
                 if product_lang != lang:
-                    category = item.category or "watch"
+                    category = item.category or Category.get_default()
                     
                     # 归一化品牌和型号
                     normalized_brand = Normalizer.normalize_brand(item.brand_name, category)
@@ -179,20 +206,24 @@ async def list_items(
 @router.get("/items/{item_id}", response_model=ItemDetail)
 async def get_item(
     item_id: int,
-    lang: Optional[str] = Query("en", description="语言代码（en/zh/ja），默认 en"),
+    lang: Optional[str] = Query(LanguageCode.get_default(), description=f"语言代码（{'/'.join(LanguageCode.all_values())}），默认 {LanguageCode.get_default()}"),
     db: Session = Depends(get_db)
 ):
     """
     获取商品详情
     
     - **item_id**: 商品 ID
-    - **lang**: 语言代码（en/zh/ja），默认 en
+    - **lang**: 语言代码，默认 en
     """
     item = get_item_by_id(db=db, item_id=item_id)
     
     if not item:
          raise HTTPException(status_code=404, detail="商品不存在")
 
+    # 验证语言代码
+    if lang and not LanguageCode.is_valid(lang):
+        lang = LanguageCode.get_default()
+    
     # 初始化翻译映射器
     mapper = None
     if TRANSLATION_AVAILABLE and lang:
@@ -214,7 +245,7 @@ async def get_item(
             
             # 2. 只有当商品语言与用户选择的语言不同时，才进行翻译
             if product_lang != lang:
-                category = item.category or "watch"
+                category = item.category or Category.get_default()
                 
                 # 归一化品牌和型号
                 normalized_brand = Normalizer.normalize_brand(item.brand_name, category)
@@ -280,11 +311,16 @@ async def get_image(key: str):
     """
     try:
         # 使用内部端点客户端下载图片
-        if not image_service.minio_client:
+        # 获取实际的 ImageService 实例（延迟初始化）
+        service = get_image_service()
+        service._ensure_initialized()  # 确保已初始化
+        
+        if not service.minio_client:
             raise HTTPException(status_code=500, detail="图片服务未初始化")
         
         # 从 MinIO 下载图片
-        image_data = image_service.minio_client.download_image(key)
+        # MinIOClient 有 download_image 方法
+        image_data = service.minio_client.download_image(key)
         
         # 根据文件扩展名确定 content type
         content_type = "image/jpeg"

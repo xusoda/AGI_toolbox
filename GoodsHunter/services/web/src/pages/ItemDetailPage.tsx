@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { getItemById } from '../api/items'
 import type { ItemDetail } from '../api/types'
+import { ItemStatus } from '@enums/business/status'
 import './ItemDetailPage.css'
 
 export default function ItemDetailPage() {
@@ -238,7 +239,7 @@ export default function ItemDetailPage() {
             <div className="info-item">
               <span className="info-label">{t('item.status')}：</span>
               <span className="info-value status">
-                {item.status === 'active' ? t('app.active') : item.status === 'sold' ? t('app.sold') : t('app.removed')}
+                {item.status === ItemStatus.ACTIVE ? t('app.active') : item.status === ItemStatus.SOLD ? t('app.sold') : t('app.removed')}
               </span>
             </div>
           </div>

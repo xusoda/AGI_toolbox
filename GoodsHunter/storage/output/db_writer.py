@@ -456,7 +456,24 @@ class DBWriter:
                 raw_hash = hashlib.sha256(raw_json.encode('utf-8')).hexdigest()
                 
                 # status: 默认'success'，如果有错误可以设置为'failed'
-                status = 'success'
+                # 添加项目根目录到路径（如果还未添加）
+                import sys
+                from pathlib import Path
+                if not any('enums' in str(p) or Path(str(p)).name == 'GoodsHunter' for p in sys.path):
+                    current_file = Path(__file__)
+                    possible_roots = [
+                        current_file.parent.parent.parent.parent,  # 从 storage/output/db_writer.py 向上4级
+                        Path("/app/..").resolve(),  # Docker 容器中的项目根目录
+                        Path("/app").parent,  # Docker 容器中，/app 的父目录
+                    ]
+                    for root in possible_roots:
+                        enums_path = root / "enums"
+                        if enums_path.exists() and enums_path.is_dir():
+                            sys.path.insert(0, str(root))
+                            break
+                
+                from enums.business.crawler_status import CrawlerLogStatus
+                status = CrawlerLogStatus.SUCCESS.value
                 error = None
                 if record.errors:
                     # 如果有错误，可以设置为failed（但这里先保持success，因为可能只是部分字段提取失败）
