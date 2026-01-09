@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import ItemsListPage from './pages/ItemsListPage'
 import ItemDetailPage from './pages/ItemDetailPage'
 import { LanguageSelector } from './components/LanguageSelector'
-import { isValidLanguageCode } from './enums/display/lang'
+import { isValidLanguageCode } from '@enums/display/lang'
 
 // 内部组件：处理语言初始化（需要在 BrowserRouter 内部）
 function AppContent() {

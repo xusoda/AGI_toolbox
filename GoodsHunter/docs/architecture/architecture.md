@@ -759,8 +759,15 @@ services/web/
 │   │   ├── ItemCard.tsx      # 商品卡片
 │   │   ├── PaginationBar.tsx # 分页组件
 │   │   └── LoadingSkeleton.tsx # 加载骨架屏
+│   ├── hooks/                # 自定义 Hooks
+│   │   ├── useURLState.ts    # URL 状态管理 Hook
+│   │   └── useDebounce.ts    # 防抖 Hook
+│   ├── types/                # 类型定义
+│   │   └── urlState.ts       # URL 状态类型
 │   └── styles/               # 样式
 │       └── global.css        # 全局样式
+├── docs/                     # 文档
+│   └── URL_STATE_MANAGEMENT_IMPLEMENTATION.md  # URL 状态管理实现文档
 ├── index.html                # HTML 模板
 ├── package.json              # Node.js 依赖
 ├── vite.config.ts            # Vite 配置
@@ -786,6 +793,14 @@ services/web/
    - 加载骨架屏
    - 错误处理
    - 移动端优化
+
+4. **URL 状态管理**：
+   - 基于 React Router 的 `useSearchParams` 实现
+   - 将搜索、筛选、分页、排序等 UI 状态同步到 URL
+   - 支持深层链接（Deep Linking），可通过 URL 直接访问特定状态
+   - 支持浏览器前进/后退功能
+   - 搜索关键词使用防抖处理，避免频繁更新 URL
+   - 详细实现文档：`services/web/docs/URL_STATE_MANAGEMENT_IMPLEMENTATION.md`
 
 #### 5.2.4 对外接口
 
