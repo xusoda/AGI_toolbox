@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707240/
+item_id: gik-00-0707240
+brand_name: オメガ
+model_name: デ・ヴィル
+model_no: 424.10.37.20.03.002
+brand_name_model_name_model_no: オメガ デ・ヴィル プレステージ コーアクシャル 424.10.37.20.03.002 ブルー メンズ
+price_jpy: 297000
+category: watch

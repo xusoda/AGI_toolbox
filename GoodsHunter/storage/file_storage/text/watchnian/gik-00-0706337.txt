@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706337/
+item_id: gik-00-0706337
+brand_name: ロレックス
+model_name: ヨットマスター 42 ブラック
+model_no: 226659
+brand_name_model_name_model_no: ロレックス ヨットマスター 42 226659 ブラック メンズ
+price_jpy: 5115000
+category: watch

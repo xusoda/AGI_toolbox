@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0691209/
+item_id: gik-00-0691209
+brand_name: カルティエ
+model_name: パシャ グリッド シルバー
+model_no: WJ116056
+brand_name_model_name_model_no: カルティエ パシャ グリッド WJ116056 シルバー レディース
+price_jpy: 1052700
+category: watch

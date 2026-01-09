@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702189/
+item_id: gik-00-0702189
+brand_name: タグ
+model_name: ホイヤー フォーミュラ1 クォーツ ホワイト
+model_no: WAH1211.BA0861
+brand_name_model_name_model_no: タグ ホイヤー フォーミュラ1 クォーツ WAH1211.BA0861 ホワイト レディース
+price_jpy: 110000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/gpqrgka3
+item_id: gpqrgka3
+model_no: 1-66-08-01-03-50
+brand_name: グラスヒュッテオリジナル
+model_name: パノインバース リミテッドエデ...
+price_jpy: 3960000
+category: watch

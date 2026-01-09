@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0704238/
+item_id: gik-00-0704238
+brand_name: カルティエ
+model_name: マストタンク
+model_no: W1017654
+brand_name_model_name_model_no: カルティエ マストタンク W1017654 オレンジ レディース
+price_jpy: 337700
+category: watch

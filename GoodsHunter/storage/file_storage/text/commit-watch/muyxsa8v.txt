@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/muyxsa8v
+item_id: muyxsa8v
+model_no: IW503701
+brand_name: IWC
+model_name: ポルトギーゼ パーペチュアルカ...
+price_jpy: 4950000
+category: watch

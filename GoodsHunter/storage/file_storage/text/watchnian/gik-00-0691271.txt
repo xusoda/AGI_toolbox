@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0691271/
+item_id: gik-00-0691271
+brand_name: タグ
+model_name: ホイヤー カレラ キャリバー36 クロノグラフ フライバック グレー/シルバー
+model_no: CAR2B11.BA0799
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバー36 クロノグラフ フライバック CAR2B11.BA0799 グレー/シルバー メンズ
+price_jpy: 400400
+category: watch

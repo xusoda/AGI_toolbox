@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/dgxfdjkw
+item_id: dgxfdjkw
+model_no: 49140/423A-8790
+brand_name: ヴァシュロンコンスタンタン
+model_name: オーヴァーシーズ クロノグラフ
+price_jpy: 1628000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0704075/
+item_id: gik-00-0704075
+brand_name: タグ
+model_name: ホイヤー カレラ キャリバー16 クロノグラフ ブラック
+model_no: CV201AK.FT6040
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバー16 クロノグラフ CV201AK.FT6040 ブラック メンズ
+price_jpy: 272800
+category: watch

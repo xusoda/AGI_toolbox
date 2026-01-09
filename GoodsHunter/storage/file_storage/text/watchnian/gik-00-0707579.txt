@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707579/
+item_id: gik-00-0707579
+brand_name: ロレックス
+model_name: GMTマスターII
+model_no: 16713
+brand_name_model_name_model_no: ロレックス GMTマスターII 16713 ブラウン メンズ
+price_jpy: 2321000
+category: watch

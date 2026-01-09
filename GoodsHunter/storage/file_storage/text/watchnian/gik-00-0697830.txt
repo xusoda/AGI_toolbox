@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0697830/
+item_id: gik-00-0697830
+brand_name: ロレックス
+model_name: エクスプローラー
+model_no: 114270
+brand_name_model_name_model_no: ロレックス エクスプローラー 114270 ブラック メンズ
+price_jpy: 908600
+category: watch

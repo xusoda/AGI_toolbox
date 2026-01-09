@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0705408/
+item_id: gik-00-0705408
+brand_name: ハミルトン
+model_name: ハミルトン ジャズマスター オープンハート シルバー
+model_no: H32675150
+brand_name_model_name_model_no: ハミルトン ジャズマスター オープンハート H32675150 シルバー メンズ
+price_jpy: 84700
+category: watch

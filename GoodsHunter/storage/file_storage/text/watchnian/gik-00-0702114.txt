@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702114/
+item_id: gik-00-0702114
+brand_name: ランゲ＆ゾーネ
+model_name: ランゲ＆ゾーネ サクソニア オートマティック シルバー
+model_no: 315.026
+brand_name_model_name_model_no: ランゲ＆ゾーネ サクソニア オートマティック 315.026 シルバー メンズ
+price_jpy: 2893000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0704873/
+item_id: gik-00-0704873
+brand_name: ロレックス
+model_name: コスモグラフ デイトナ
+model_no: 116520
+brand_name_model_name_model_no: ロレックス コスモグラフ デイトナ 116520 ブラック メンズ
+price_jpy: 3685000
+category: watch

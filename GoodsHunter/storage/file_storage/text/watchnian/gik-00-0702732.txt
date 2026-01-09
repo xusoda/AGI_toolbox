@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702732/
+item_id: gik-00-0702732
+brand_name: グランドセイコー
+model_name: ヘリテージコレクション
+model_no: SBGV009
+brand_name_model_name_model_no: グランドセイコー ヘリテージコレクション クォーツ SBGV009 シルバー メンズ
+price_jpy: 430100
+category: watch

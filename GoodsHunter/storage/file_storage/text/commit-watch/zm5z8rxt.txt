@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/zm5z8rxt
+item_id: zm5z8rxt
+model_no: 116234
+brand_name: ロレックス
+model_name: デイトジャスト36
+price_jpy: 1397000
+category: watch

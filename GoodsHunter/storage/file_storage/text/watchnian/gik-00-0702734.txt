@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702734/
+item_id: gik-00-0702734
+brand_name: ブシュロン
+model_name: ブシュロン セルパンボエム ホワイトシェル/ダイヤモンド
+model_no: WA015801
+brand_name_model_name_model_no: ブシュロン セルパンボエム WA015801 ホワイトシェル/ダイヤモンド レディース
+price_jpy: 1028500
+category: watch

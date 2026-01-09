@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/y5heopms
+item_id: y5heopms
+model_no: 16610LV
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 2145000
+category: watch

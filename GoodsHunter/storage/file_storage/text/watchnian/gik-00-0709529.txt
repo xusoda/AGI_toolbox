@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709529/
+item_id: gik-00-0709529
+brand_name: シチズン
+model_name: エコドライブ
+model_no: CA4664-60W
+brand_name_model_name_model_no: シチズン エコドライブ SKYシリーズ CA4664-60W グリーン メンズ
+price_jpy: 51700
+category: watch

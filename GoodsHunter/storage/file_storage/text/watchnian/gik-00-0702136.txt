@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702136/
+item_id: gik-00-0702136
+brand_name: ブライトリング
+model_name: スーパーオーシャン
+model_no: AB201016/C960
+brand_name_model_name_model_no: ブライトリング スーパーオーシャン ヘリテージ II 42 AB201016/C960 ブルー メンズ
+price_jpy: 453200
+category: watch

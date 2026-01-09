@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702195/
+item_id: gik-00-0702195
+brand_name: シャネル
+model_name: シャネル J12 キャリバー12.1 38MM ブラックラッカー
+model_no: H5697
+brand_name_model_name_model_no: シャネル J12 キャリバー12.1 38MM H5697 ブラックラッカー メンズ
+price_jpy: 661100
+category: watch

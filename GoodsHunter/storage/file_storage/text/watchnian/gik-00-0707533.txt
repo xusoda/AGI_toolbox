@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707533/
+item_id: gik-00-0707533
+brand_name: ロレックス
+model_name: エクスプローラーI
+model_no: 16570
+brand_name_model_name_model_no: ロレックス エクスプローラーII 16570 ホワイト メンズ
+price_jpy: 1469600
+category: watch

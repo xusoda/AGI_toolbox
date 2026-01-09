@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0701147/
+item_id: gik-00-0701147
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 16233G
+brand_name_model_name_model_no: ロレックス デイトジャスト 16233G ブルー・グラデーション/ダイヤモンド メンズ
+price_jpy: 1243000
+category: watch

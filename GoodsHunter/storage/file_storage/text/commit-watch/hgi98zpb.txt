@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/hgi98zpb
+item_id: hgi98zpb
+model_no: 26600CR.OO.D009KB.01
+brand_name: オーデマピゲ
+model_name: CODE 11.59 バイ オ...
+price_jpy: 16940000
+category: watch

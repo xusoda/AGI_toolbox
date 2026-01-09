@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702093/
+item_id: gik-00-0702093
+brand_name: ウブロ
+model_name: ビッグバン
+model_no: 341.SX.7170.LR.1204
+brand_name_model_name_model_no: ウブロ ビッグバン スチール ブルー ダイヤモンド 341.SX.7170.LR.1204 ブルー メンズ
+price_jpy: 1346400
+category: watch

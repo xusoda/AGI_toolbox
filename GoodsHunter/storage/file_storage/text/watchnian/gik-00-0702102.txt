@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702102/
+item_id: gik-00-0702102
+brand_name: フランクミュラー
+model_name: フランクミュラー トノウカーベックス カサブランカ ホワイト
+model_no: 6850CASA
+brand_name_model_name_model_no: フランクミュラー トノウカーベックス カサブランカ 6850CASA ホワイト メンズ
+price_jpy: 590700
+category: watch

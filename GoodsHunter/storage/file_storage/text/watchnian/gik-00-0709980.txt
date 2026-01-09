@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709980/
+item_id: gik-00-0709980
+brand_name: ロレックス
+model_name: コスモグラフ デイトナ
+model_no: 116500LN
+brand_name_model_name_model_no: ロレックス コスモグラフ デイトナ 116500LN ブラック メンズ
+price_jpy: 4210800
+category: watch

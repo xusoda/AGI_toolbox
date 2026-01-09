@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/w6khxtus
+item_id: w6khxtus
+model_no: 16600
+brand_name: ロレックス
+model_name: シードゥエラー
+price_jpy: 1397000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/bafgx8e5
+item_id: bafgx8e5
+model_no: 15210BC.OO.A068CR.01
+brand_name: オーデマピゲ
+model_name: CODE 11.59 バイ オ...
+price_jpy: 3080000
+category: watch

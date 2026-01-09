@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707040/
+item_id: gik-00-0707040
+brand_name: パネライ
+model_name: ラジオミール
+model_no: PAM00573
+brand_name_model_name_model_no: パネライ ラジオミール 1940 3デイズ オートマティック オロロッソ PAM00573 ブラウン メンズ
+price_jpy: 1841400
+category: watch

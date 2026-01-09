@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/76d7ruys
+item_id: 76d7ruys
+model_no: 16610LV
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 2475000
+category: watch

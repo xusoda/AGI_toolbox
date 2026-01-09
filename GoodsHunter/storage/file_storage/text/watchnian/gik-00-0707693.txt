@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707693/
+item_id: gik-00-0707693
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 16234
+brand_name_model_name_model_no: ロレックス デイトジャスト 16234 シルバー メンズ
+price_jpy: 1145100
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ucztu3zq
+item_id: ucztu3zq
+model_no: 14800PT.OO.D001CR.01.SP
+brand_name: オーデマピゲ
+model_name: ロイヤルオーク
+price_jpy: 5995000
+category: watch

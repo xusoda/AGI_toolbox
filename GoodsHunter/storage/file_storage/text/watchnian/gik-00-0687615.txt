@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0687615/
+item_id: gik-00-0687615
+brand_name: タグ
+model_name: ホイヤー カレラ キャリバー ホイヤー02T クロノグラフ トゥールビヨン ブルー
+model_no: CAR5A8C.BF0707
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバー ホイヤー02T クロノグラフ トゥールビヨン CAR5A8C.BF0707 ブルー メンズ
+price_jpy: 1582900
+category: watch

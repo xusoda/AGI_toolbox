@@ -1,4 +1,8 @@
 product_url: https://watchnian.com/shop/g/gik-00-0704068/
 item_id: gik-00-0704068
-brand_name_model_name_model_no: カルティエ タンクフランセーズ SM　 W51008Q3 シルバー レディース 時計 【中古】【wristwatch】
+brand_name: カルティエ
+model_name: タンク
+model_no: W51008Q3
+brand_name_model_name_model_no: カルティエ タンクフランセーズ SM W51008Q3 シルバー レディース
 price_jpy: 374000
+category: watch

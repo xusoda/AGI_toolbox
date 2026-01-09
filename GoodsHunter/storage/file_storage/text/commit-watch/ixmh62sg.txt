@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ixmh62sg
+item_id: ixmh62sg
+model_no: 740.056FE
+brand_name: A.ランゲ＆ゾーネ
+model_name: ダトグラフ パーペチュアル ト...
+price_jpy: 43780000
+category: watch

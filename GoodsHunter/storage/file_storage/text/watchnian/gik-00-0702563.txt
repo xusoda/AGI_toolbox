@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702563/
+item_id: gik-00-0702563
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 79174
+brand_name_model_name_model_no: ロレックス デイトジャスト 79174 ピンク レディース
+price_jpy: 773300
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702628/
+item_id: gik-00-0702628
+brand_name: オメガ
+model_name: シーマスター
+model_no: 2265.80
+brand_name_model_name_model_no: オメガ シーマスター プロフェッショナル 300 2265.80 ブルー メンズ
+price_jpy: 314600
+category: watch

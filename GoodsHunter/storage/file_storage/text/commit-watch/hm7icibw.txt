@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/hm7icibw
+item_id: hm7icibw
+model_no: 5172G-001
+brand_name: パテックフィリップ
+model_name: コンプリケーション クロノグラフ
+price_jpy: 8250000
+category: watch

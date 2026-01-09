@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/a4p29275
+item_id: a4p29275
+model_no: 5513
+brand_name: ロレックス
+model_name: サブマリーナー
+price_jpy: 2398000
+category: watch

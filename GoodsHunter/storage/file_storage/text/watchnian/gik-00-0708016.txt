@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708016/
+item_id: gik-00-0708016
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 79174NR
+brand_name_model_name_model_no: ロレックス デイトジャスト 79174NR ブラックシェル レディース
+price_jpy: 935000
+category: watch

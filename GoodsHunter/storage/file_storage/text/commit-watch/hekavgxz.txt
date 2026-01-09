@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/hekavgxz
+item_id: hekavgxz
+model_no: 1665
+brand_name: ロレックス
+model_name: シードゥエラー
+price_jpy: 3498000
+category: watch

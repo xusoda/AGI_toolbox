@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707593/
+item_id: gik-00-0707593
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 179173G
+brand_name_model_name_model_no: ロレックス デイトジャスト 179173G シャンパンコンピュータ/ダイヤモンド レディース
+price_jpy: 1488300
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708123/
+item_id: gik-00-0708123
+brand_name: ブライトリング
+model_name: ナビタイマー
+model_no: AB0139241C2A1
+brand_name_model_name_model_no: ブライトリング ナビタイマー B01 クロノグラフ 41 AB0139241C2A1 アイスブルー/ブラック メンズ
+price_jpy: 983400
+category: watch

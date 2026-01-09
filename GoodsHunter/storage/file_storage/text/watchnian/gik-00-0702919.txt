@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702919/
+item_id: gik-00-0702919
+brand_name: タグ
+model_name: ホイヤー カレラ アストロノマー 39nn 世界限定500本 シルバー
+model_no: WBX2111.BD0002
+brand_name_model_name_model_no: タグ ホイヤー カレラ アストロノマー 39nn 世界限定500本 WBX2111.BD0002 シルバー メンズ
+price_jpy: 1021900
+category: watch

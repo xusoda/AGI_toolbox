@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ymnwixr9
+item_id: ymnwixr9
+model_no: IW371222
+brand_name: IWC
+model_name: ポルトギーゼ クロノグラフ ラ...
+price_jpy: 1694000
+category: watch

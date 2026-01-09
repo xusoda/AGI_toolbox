@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/t4usb4zp
+item_id: t4usb4zp
+model_no: 168619-3012
+brand_name: ショパール
+model_name: ミッレ ミリア クラシック ク...
+price_jpy: 1298000
+category: watch

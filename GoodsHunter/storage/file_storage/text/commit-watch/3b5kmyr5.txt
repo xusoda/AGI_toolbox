@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/3b5kmyr5
+item_id: 3b5kmyr5
+model_no: 16520
+brand_name: ロレックス
+model_name: デイトナ エルプリメロ
+price_jpy: 3938000
+category: watch

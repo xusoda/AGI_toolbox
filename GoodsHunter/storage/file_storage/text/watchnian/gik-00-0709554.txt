@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709554/
+item_id: gik-00-0709554
+brand_name: セイコー
+model_name: セイコー プロスペックス メカニカルダイバーズ 1965 ヘリテージ スペシャルエディション チャコールグレー
+model_no: SBDC199
+brand_name_model_name_model_no: セイコー プロスペックス メカニカルダイバーズ 1965 ヘリテージ スペシャルエディション SBDC199 チャコールグレー メンズ
+price_jpy: 198000
+category: watch

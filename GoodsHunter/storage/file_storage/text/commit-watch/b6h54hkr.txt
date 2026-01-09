@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/b6h54hkr
+item_id: b6h54hkr
+model_no: 16550
+brand_name: ロレックス
+model_name: エクスプローラーII
+price_jpy: 1848000
+category: watch

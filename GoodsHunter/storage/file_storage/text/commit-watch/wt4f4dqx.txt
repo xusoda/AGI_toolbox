@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/wt4f4dqx
+item_id: wt4f4dqx
+model_no: 16550
+brand_name: ロレックス
+model_name: エクスプローラーII
+price_jpy: 4488000
+category: watch

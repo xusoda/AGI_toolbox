@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708056/
+item_id: gik-00-0708056
+brand_name: タグ
+model_name: ホイヤー フォーミュラ1 クォーツ クロノグラフ マンチェスター・ユナイテッド ブラック
+model_no: CAZ101J.FT8027
+brand_name_model_name_model_no: タグ ホイヤー フォーミュラ1 クォーツ クロノグラフ マンチェスター・ユナイテッド CAZ101J.FT8027 ブラック メンズ
+price_jpy: 166100
+category: watch

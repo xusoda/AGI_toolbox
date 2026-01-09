@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0678716/
+item_id: gik-00-0678716
+brand_name: ロレックス
+model_name: GMTマスターII
+model_no: 116713LN
+brand_name_model_name_model_no: ロレックス GMTマスターII 116713LN ブラック メンズ
+price_jpy: 2321000
+category: watch

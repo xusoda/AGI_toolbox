@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/y5zvardj
+item_id: y5zvardj
+model_no: 26600OR.OO.D002CR.01
+brand_name: オーデマピゲ
+model_name: CODE 11.59 バイ オ...
+price_jpy: 13860000
+category: watch

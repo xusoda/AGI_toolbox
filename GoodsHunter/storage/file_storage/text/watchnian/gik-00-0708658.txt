@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708658/
+item_id: gik-00-0708658
+brand_name: ティソ
+model_name: ティソ PRX オートマティック クロノグラフ ホワイト
+model_no: T137.427.11.011.00
+brand_name_model_name_model_no: ティソ PRX オートマティック クロノグラフ T137.427.11.011.00 ホワイト メンズ
+price_jpy: 176000
+category: watch

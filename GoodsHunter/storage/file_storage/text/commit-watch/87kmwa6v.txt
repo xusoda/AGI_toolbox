@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/87kmwa6v
+item_id: 87kmwa6v
+model_no: 1804
+brand_name: ロレックス
+model_name: デイデイト36
+price_jpy: 5995000
+category: watch

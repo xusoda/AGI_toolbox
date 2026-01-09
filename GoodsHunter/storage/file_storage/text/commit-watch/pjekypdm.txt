@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/pjekypdm
+item_id: pjekypdm
+model_no: 49-01-04-02-04
+brand_name: グラスヒュッテオリジナル
+model_name: セネタ 1845 パーペチュア...
+price_jpy: 2255000
+category: watch

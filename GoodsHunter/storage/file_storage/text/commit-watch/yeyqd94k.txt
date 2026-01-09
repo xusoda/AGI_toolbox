@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/yeyqd94k
+item_id: yeyqd94k
+model_no: 114300
+brand_name: ロレックス
+model_name: オイスターパーペチュアル39
+price_jpy: 1243000
+category: watch

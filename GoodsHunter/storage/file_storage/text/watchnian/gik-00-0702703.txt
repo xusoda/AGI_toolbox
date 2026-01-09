@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702703/
+item_id: gik-00-0702703
+brand_name: ゼニス
+model_name: エル・プリメロ
+model_no: 03.2040.4061/01.M204
+brand_name_model_name_model_no: ゼニス クロノマスター エル・プリメロ オープン 03.2040.4061/01.M204 シルバー メンズ
+price_jpy: 684200
+category: watch

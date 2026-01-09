@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707557/
+item_id: gik-00-0707557
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 178241
+brand_name_model_name_model_no: ロレックス デイトジャスト 31 178241 ホワイト ユニセックス
+price_jpy: 1608200
+category: watch

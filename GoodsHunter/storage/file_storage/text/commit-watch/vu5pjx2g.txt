@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/vu5pjx2g
+item_id: vu5pjx2g
+model_no: 16550
+brand_name: ロレックス
+model_name: エクスプローラーII
+price_jpy: 3960000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0686609/
+item_id: gik-00-0686609
+brand_name: ロレックス
+model_name: サブマリーナ デイト ブラック
+model_no: 126619LB
+brand_name_model_name_model_no: ロレックス サブマリーナ デイト 126619LB ブラック メンズ
+price_jpy: 5654000
+category: watch

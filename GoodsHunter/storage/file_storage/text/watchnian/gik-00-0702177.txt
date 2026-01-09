@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702177/
+item_id: gik-00-0702177
+brand_name: カルティエ
+model_name: タンク
+model_no: W51028Q3
+brand_name_model_name_model_no: カルティエ タンク フランセーズ SM W51028Q3 ピンクシェル レディース
+price_jpy: 444400
+category: watch

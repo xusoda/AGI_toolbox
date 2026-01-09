@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702196/
+item_id: gik-00-0702196
+brand_name: フランクミュラー
+model_name: フランクミュラー トノウカーベックス ピンク
+model_no: 1752QZ
+brand_name_model_name_model_no: フランクミュラー トノウカーベックス 1752QZ ピンク レディース
+price_jpy: 242000
+category: watch

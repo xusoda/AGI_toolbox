@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0705985/
+item_id: gik-00-0705985
+brand_name: タグ
+model_name: ホイヤー アクアレーサー キャリバー7 GMT ブラック
+model_no: WAY201F.BA0927
+brand_name_model_name_model_no: タグ ホイヤー アクアレーサー キャリバー7 GMT WAY201F.BA0927 ブラック メンズ
+price_jpy: 349800
+category: watch

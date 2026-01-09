@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707592/
+item_id: gik-00-0707592
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 178343
+brand_name_model_name_model_no: ロレックス デイトジャスト 31 178343 グリーン/ダイヤモンド ユニセックス
+price_jpy: 2141700
+category: watch

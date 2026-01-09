@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702620/
+item_id: gik-00-0702620
+brand_name: ロレックス
+model_name: エアキング ホワイト
+model_no: 14010
+brand_name_model_name_model_no: ロレックス エアキング 14010 ホワイト メンズ
+price_jpy: 817300
+category: watch

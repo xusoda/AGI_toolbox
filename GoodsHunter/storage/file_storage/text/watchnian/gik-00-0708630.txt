@@ -1,0 +1,7 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708630/
+item_id: gik-00-0708630
+brand_name: カルティエ
+model_name: パンテール ドゥ カルティエ
+brand_name_model_name_model_no: カルティエ パンテール ドゥ カルティエ
+price_jpy: 690800
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/i9oanzws
+item_id: i9oanzws
+model_no: 5204G-001
+brand_name: パテックフィリップ
+model_name: パーペチュアルカレンダー スプ...
+price_jpy: 31020000
+category: watch

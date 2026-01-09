@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706027/
+item_id: gik-00-0706027
+brand_name: オメガ
+model_name: スピードマスター
+model_no: 3594.50
+brand_name_model_name_model_no: オメガ スピードマスター ファースト レプリカ 3594.50 ブラック メンズ
+price_jpy: 585200
+category: watch

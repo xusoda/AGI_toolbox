@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707663/
+item_id: gik-00-0707663
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 16014
+brand_name_model_name_model_no: ロレックス デイトジャスト 36 16014 シルバー メンズ
+price_jpy: 881100
+category: watch

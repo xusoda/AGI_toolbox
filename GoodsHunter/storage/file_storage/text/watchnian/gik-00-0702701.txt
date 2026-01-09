@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702701/
+item_id: gik-00-0702701
+brand_name: ベル＆ロス
+model_name: BR 05 クロノ ブラックスチール ブラック
+model_no: BR05C-BL-ST/SRB
+brand_name_model_name_model_no: ベル＆ロス BR 05 クロノ ブラックスチール BR05C-BL-ST/SRB ブラック メンズ
+price_jpy: 441100
+category: watch

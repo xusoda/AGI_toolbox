@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702009/
+item_id: gik-00-0702009
+brand_name: グランドセイコー
+model_name: スポーツコレクション
+model_no: SBGJ275
+brand_name_model_name_model_no: グランドセイコー スポーツコレクション メカニカル ハイビート36000 GMT キャリバー9S 25th SBGJ275 ブルー メンズ
+price_jpy: 1062600
+category: watch

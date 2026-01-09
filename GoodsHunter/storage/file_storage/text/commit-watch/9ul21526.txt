@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/9ul21526
+item_id: 9ul21526
+model_no: PFC910-0000141-X01482
+brand_name: パルミジャーニフルリエ
+model_name: トンダ GT オートマチック
+price_jpy: 1375000
+category: watch

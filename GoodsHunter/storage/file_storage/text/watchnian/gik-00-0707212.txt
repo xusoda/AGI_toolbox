@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707212/
+item_id: gik-00-0707212
+brand_name: オメガ
+model_name: スピードマスター
+model_no: 3510.61
+brand_name_model_name_model_no: オメガ スピードマスター レーシング ミハエル・シューマッハ 3510.61 レッド メンズ
+price_jpy: 462000
+category: watch

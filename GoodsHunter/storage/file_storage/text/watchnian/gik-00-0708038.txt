@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708038/
+item_id: gik-00-0708038
+brand_name: ヴェルサーチ
+model_name: ヴェルサーチ ミスティック スポーツ クロノグラフ ブルー
+model_no: VFG120015
+brand_name_model_name_model_no: ヴェルサーチ ミスティック スポーツ クロノグラフ VFG120015 ブルー メンズ
+price_jpy: 72600
+category: watch

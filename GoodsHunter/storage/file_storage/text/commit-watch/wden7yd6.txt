@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/wden7yd6
+item_id: wden7yd6
+model_no: WGTA0088
+brand_name: カルティエ
+model_name: タンクシノワーズ
+price_jpy: 3685000
+category: watch

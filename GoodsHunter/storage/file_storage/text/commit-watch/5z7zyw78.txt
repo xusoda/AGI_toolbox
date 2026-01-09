@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/5z7zyw78
+item_id: 5z7zyw78
+model_no: 39-50-03-13-04
+brand_name: グラスヒュッテオリジナル
+model_name: セネタ パーペチュアルカレンダー
+price_jpy: 2365000
+category: watch

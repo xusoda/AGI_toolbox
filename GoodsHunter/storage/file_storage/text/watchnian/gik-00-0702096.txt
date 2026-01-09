@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702096/
+item_id: gik-00-0702096
+brand_name: ブルガリ
+model_name: ブルガリ ブルガリブルガリ ブラック
+model_no: BB33SG
+brand_name_model_name_model_no: ブルガリ ブルガリブルガリ BB33SG ブラック ユニセックス
+price_jpy: 195800
+category: watch

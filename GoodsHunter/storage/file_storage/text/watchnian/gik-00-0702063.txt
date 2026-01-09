@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702063/
+item_id: gik-00-0702063
+brand_name: カルティエ
+model_name: パシャC ホワイト
+model_no: W31074M7
+brand_name_model_name_model_no: カルティエ パシャC W31074M7 ホワイト ユニセックス
+price_jpy: 298100
+category: watch

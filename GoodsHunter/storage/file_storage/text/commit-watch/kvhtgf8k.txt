@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/kvhtgf8k
+item_id: kvhtgf8k
+model_no: 116528
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 6578000
+category: watch

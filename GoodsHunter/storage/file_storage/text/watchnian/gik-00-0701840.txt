@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0701840/
+item_id: gik-00-0701840
+brand_name: ブライトリング
+model_name: クロノマット
+model_no: B156G70PA
+brand_name_model_name_model_no: ブライトリング クロノマット エボリューション B156G70PA ホワイト/シャンパン メンズ
+price_jpy: 422400
+category: watch

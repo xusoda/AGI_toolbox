@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707754/
+item_id: gik-00-0707754
+brand_name: セイコー
+model_name: セイコー プロスペックス ダイバースキューバ 1968 メカニカルダイバーズ 現代デザイン GMT グリーン
+model_no: SBEJ009
+brand_name_model_name_model_no: セイコー プロスペックス ダイバースキューバ 1968 メカニカルダイバーズ 現代デザイン GMT SBEJ009 グリーン メンズ
+price_jpy: 182600
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709216/
+item_id: gik-00-0709216
+brand_name: ブルガリ
+model_name: ブルガリ アルミニウム クロノグラフ シルバー/グレー
+model_no: BB40ATCH
+brand_name_model_name_model_no: ブルガリ アルミニウム クロノグラフ BB40ATCH シルバー/グレー メンズ
+price_jpy: 514800
+category: watch

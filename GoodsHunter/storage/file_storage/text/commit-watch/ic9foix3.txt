@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ic9foix3
+item_id: ic9foix3
+model_no: A22322
+brand_name: ブライトリング
+model_name: ナビタイマー コスモノート フ...
+price_jpy: 1573000
+category: watch

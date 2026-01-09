@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/5fei9yh4
+item_id: 5fei9yh4
+model_no: 4910/1200A-011
+brand_name: パテックフィリップ
+model_name: Twenty-4
+price_jpy: 2035000
+category: watch

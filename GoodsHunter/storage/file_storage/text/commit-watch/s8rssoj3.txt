@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/s8rssoj3
+item_id: s8rssoj3
+model_no: 16610LV
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 2035000
+category: watch

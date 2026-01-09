@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/c6g96tgt
+item_id: c6g96tgt
+model_no: 4900J
+brand_name: パテックフィリップ
+model_name: パゴダ
+price_jpy: 2365000
+category: watch

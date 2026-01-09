@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702055/
+item_id: gik-00-0702055
+brand_name: グランドセイコー
+model_name: ヘリテージコレクション
+model_no: SBGH277
+brand_name_model_name_model_no: グランドセイコー ヘリテージコレクション メカニカル ハイビート36000 SBGH277 シルバー メンズ
+price_jpy: 551100
+category: watch

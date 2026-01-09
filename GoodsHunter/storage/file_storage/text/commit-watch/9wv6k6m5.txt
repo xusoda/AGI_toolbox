@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/9wv6k6m5
+item_id: 9wv6k6m5
+model_no: 15210BC.OO.A500KB.01
+brand_name: オーデマピゲ
+model_name: CODE 11.59 バイ オ...
+price_jpy: 2585000
+category: watch

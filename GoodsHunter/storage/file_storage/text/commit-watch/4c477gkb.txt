@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/4c477gkb
+item_id: 4c477gkb
+model_no: 1665
+brand_name: ロレックス
+model_name: シードゥエラー
+price_jpy: 2882000
+category: watch

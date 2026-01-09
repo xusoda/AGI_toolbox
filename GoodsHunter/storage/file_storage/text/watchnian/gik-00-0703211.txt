@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0703211/
+item_id: gik-00-0703211
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 69173G
+brand_name_model_name_model_no: ロレックス デイトジャスト 69173G ブルー/ダイヤモンド レディース
+price_jpy: 982300
+category: watch

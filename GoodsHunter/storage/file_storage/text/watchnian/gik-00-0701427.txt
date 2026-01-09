@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0701427/
+item_id: gik-00-0701427
+brand_name: ロレックス
+model_name: サブマリーナ デイト ブルー
+model_no: 16613
+brand_name_model_name_model_no: ロレックス サブマリーナ デイト 16613 ブルー メンズ
+price_jpy: 1756700
+category: watch

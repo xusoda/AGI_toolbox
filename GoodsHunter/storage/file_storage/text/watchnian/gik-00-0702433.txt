@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702433/
+item_id: gik-00-0702433
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 116300
+brand_name_model_name_model_no: ロレックス デイトジャストII 116300 ブルー メンズ
+price_jpy: 1668700
+category: watch

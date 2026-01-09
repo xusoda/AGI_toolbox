@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0710143/
+item_id: gik-00-0710143
+brand_name: ロレックス
+model_name: サブマリーナ デイト ブラック
+model_no: 126613LN
+brand_name_model_name_model_no: ロレックス サブマリーナ デイト 126613LN ブラック メンズ
+price_jpy: 2901800
+category: watch

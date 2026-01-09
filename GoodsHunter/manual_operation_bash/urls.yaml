@@ -1,0 +1,20 @@
+# 爬虫 URL 列表
+# YAML 格式，支持分组和注释
+
+urls:
+  watchnian:
+    - https://watchnian.com/shop/r/rwatch_supd/?filtercode13=1#block_of_filter
+    # - https://watchnian.com/shop/r/rwatch_supd_p2/?filtercode13=1#block_of_filter
+    # - https://watchnian.com/shop/r/rwatch_supd_p3/?filtercode13=1#block_of_filter
+    # - https://watchnian.com/shop/r/rwatch_supd_p4/?filtercode13=1#block_of_filter
+
+  commit:
+    - https://commit-watch.co.jp/collections/onsale
+    # - https://commit-watch.co.jp/collections/onsale?page=3
+    # - https://commit-watch.co.jp/collections/onsale?page=4
+    # - https://commit-watch.co.jp/collections/onsale?page=5
+    # - https://commit-watch.co.jp/collections/onsale?page=6
+    # - https://commit-watch.co.jp/collections/onsale?page=7
+    # - https://commit-watch.co.jp/collections/onsale?page=8
+    # - https://commit-watch.co.jp/collections/onsale?page=9
+    # - https://commit-watch.co.jp/collections/onsale?page=10

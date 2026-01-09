@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702416/
+item_id: gik-00-0702416
+brand_name: ロレックス
+model_name: ヨットマスター スレートグレー
+model_no: 268622
+brand_name_model_name_model_no: ロレックス ヨットマスター 268622 スレートグレー ユニセックス
+price_jpy: 2000900
+category: watch

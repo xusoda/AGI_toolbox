@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/8ptsvypa
+item_id: 8ptsvypa
+model_no: 26405CG.OO.A004CA.01
+brand_name: オーデマピゲ
+model_name: ロイヤルオーク オフショア ク...
+price_jpy: 5280000
+category: watch

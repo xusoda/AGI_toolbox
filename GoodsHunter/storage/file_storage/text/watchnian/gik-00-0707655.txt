@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707655/
+item_id: gik-00-0707655
+brand_name: ロレックス
+model_name: エクスプローラー
+model_no: 14270
+brand_name_model_name_model_no: ロレックス エクスプローラー 14270 ブラック メンズ
+price_jpy: 1045000
+category: watch

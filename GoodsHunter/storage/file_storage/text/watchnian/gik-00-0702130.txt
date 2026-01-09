@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702130/
+item_id: gik-00-0702130
+brand_name: カルティエ
+model_name: パシャ ドゥ カルティエ ムーンフェイズ 41mm シルバー/ブルー
+model_no: WSPA0030
+brand_name_model_name_model_no: カルティエ パシャ ドゥ カルティエ ムーンフェイズ 41mm WSPA0030 シルバー/ブルー メンズ
+price_jpy: 999900
+category: watch

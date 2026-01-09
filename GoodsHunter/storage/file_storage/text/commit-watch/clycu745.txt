@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/clycu745
+item_id: clycu745
+model_no: 16520
+brand_name: ロレックス
+model_name: デイトナ エルプリメロ
+price_jpy: 3828000
+category: watch

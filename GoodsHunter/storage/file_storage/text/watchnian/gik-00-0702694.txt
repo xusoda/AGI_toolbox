@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702694/
+item_id: gik-00-0702694
+brand_name: カシオ
+model_name: カシオ オシアナス マンタ ブラック
+model_no: OCW-S5000B-1AJF
+brand_name_model_name_model_no: カシオ オシアナス マンタ OCW-S5000B-1AJF ブラック メンズ
+price_jpy: 81400
+category: watch

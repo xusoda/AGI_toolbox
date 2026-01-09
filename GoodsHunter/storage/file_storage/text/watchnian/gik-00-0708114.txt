@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708114/
+item_id: gik-00-0708114
+brand_name: カルティエ
+model_name: ロンドソロ ドゥ カルティエ 42mm シルバー
+model_no: W6701011
+brand_name_model_name_model_no: カルティエ ロンドソロ ドゥ カルティエ 42mm W6701011 シルバー メンズ
+price_jpy: 451000
+category: watch

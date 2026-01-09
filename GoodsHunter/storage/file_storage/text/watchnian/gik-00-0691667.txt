@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0691667/
+item_id: gik-00-0691667
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 179174
+brand_name_model_name_model_no: ロレックス デイトジャスト 179174 ホワイト レディース
+price_jpy: 1089000
+category: watch

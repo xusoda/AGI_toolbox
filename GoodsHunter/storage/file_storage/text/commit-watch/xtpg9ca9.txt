@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/xtpg9ca9
+item_id: xtpg9ca9
+model_no: 1500
+brand_name: ロレックス
+model_name: オイスターパーペチュアル デイト
+price_jpy: 770000
+category: watch

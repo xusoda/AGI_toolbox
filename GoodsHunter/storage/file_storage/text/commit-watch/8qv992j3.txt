@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/8qv992j3
+item_id: 8qv992j3
+model_no: 116243
+brand_name: ロレックス
+model_name: デイトジャスト
+price_jpy: 2090000
+category: watch

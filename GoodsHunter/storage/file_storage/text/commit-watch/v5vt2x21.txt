@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/v5vt2x21
+item_id: v5vt2x21
+model_no: 116519
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 4048000
+category: watch

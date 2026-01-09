@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0701453/
+item_id: gik-00-0701453
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 178240
+brand_name_model_name_model_no: ロレックス デイトジャスト 178240 シルバーフラワー ユニセックス
+price_jpy: 1115400
+category: watch

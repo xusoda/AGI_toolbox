@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707806/
+item_id: gik-00-0707806
+brand_name: チューダー
+model_name: ブラックベイ
+model_no: 79210CNU
+brand_name_model_name_model_no: チューダー / チュードル ブラックベイ セラミック 79210CNU ブルー メンズ
+price_jpy: 642400
+category: watch

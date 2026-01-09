@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708025/
+item_id: gik-00-0708025
+brand_name: パネライ
+model_name: ルミノール
+model_no: PAM01048
+brand_name_model_name_model_no: パネライ ルミノール マリーナ PAM01048 ブラック メンズ
+price_jpy: 662200
+category: watch

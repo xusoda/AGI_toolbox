@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709502/
+item_id: gik-00-0709502
+brand_name: セイコー
+model_name: セイコー ドクターイエロー＆すみっコぐらし イエロー
+model_no: 8T63-03N0
+brand_name_model_name_model_no: セイコー ドクターイエロー＆すみっコぐらし 8T63-03N0 イエロー メンズ
+price_jpy: 58300
+category: watch

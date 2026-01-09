@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/qfc7gi4t
+item_id: qfc7gi4t
+model_no: 126301
+brand_name: ロレックス
+model_name: デイトジャスト41
+price_jpy: 2365000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702205/
+item_id: gik-00-0702205
+brand_name: オメガ
+model_name: デ・ヴィル
+model_no: 434.13.28.60.53.001
+brand_name_model_name_model_no: オメガ デ・ヴィル プレステージ 434.13.28.60.53.001 ラベンダー/ダイヤモンド レディース
+price_jpy: 246400
+category: watch

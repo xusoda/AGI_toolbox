@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/rk7xrgp6
+item_id: rk7xrgp6
+model_no: 5036/1G-017
+brand_name: パテックフィリップ
+model_name: アニュアルカレンダー ムーンフェイズ
+price_jpy: 5478000
+category: watch

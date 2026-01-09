@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/vji54mp5
+item_id: vji54mp5
+model_no: 52506
+brand_name: ロレックス
+model_name: 1908
+price_jpy: 7260000
+category: watch

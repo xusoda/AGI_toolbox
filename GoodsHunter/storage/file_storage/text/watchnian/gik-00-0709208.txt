@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709208/
+item_id: gik-00-0709208
+brand_name: ブライトリング
+model_name: スーパーオーシャン
+model_no: A17375211B2S3
+brand_name_model_name_model_no: ブライトリング スーパーオーシャン オートマチック 42 A17375211B2S3 ブラック メンズ
+price_jpy: 558800
+category: watch

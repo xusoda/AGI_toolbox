@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707556/
+item_id: gik-00-0707556
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 116263
+brand_name_model_name_model_no: ロレックス デイトジャスト ターノグラフ 116263 シャンパン メンズ
+price_jpy: 1387100
+category: watch

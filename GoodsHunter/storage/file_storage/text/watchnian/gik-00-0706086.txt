@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706086/
+item_id: gik-00-0706086
+brand_name: ブルガリ
+model_name: ブルガリ アルベアーレ シルバー
+model_no: BJ02
+brand_name_model_name_model_no: ブルガリ アルベアーレ BJ02 シルバー レディース
+price_jpy: 2992000
+category: watch

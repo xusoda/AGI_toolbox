@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ptl1lm4v
+item_id: ptl1lm4v
+model_no: 380.028
+brand_name: A.ランゲ＆ゾーネ
+model_name: サクソニア オートマティック
+price_jpy: 2970000
+category: watch

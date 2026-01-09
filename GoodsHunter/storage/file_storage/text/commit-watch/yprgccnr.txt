@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/yprgccnr
+item_id: yprgccnr
+model_no: 1665
+brand_name: ロレックス
+model_name: シードゥエラー
+price_jpy: 2288000
+category: watch

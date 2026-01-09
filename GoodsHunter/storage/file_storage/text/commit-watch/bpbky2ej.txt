@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/bpbky2ej
+item_id: bpbky2ej
+model_no: 26238CE.OO.1300CE.01
+brand_name: オーデマピゲ
+model_name: ロイヤルオーク オフショア ク...
+price_jpy: 12320000
+category: watch

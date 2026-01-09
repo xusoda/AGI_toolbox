@@ -8,8 +8,8 @@ description: >
   Extract watch brand, model name, model number(ref), sale price(JPY, tax-in), image url, and product url from listing cards.
 
 match:
-  url_regex: "^https://watchnian\\.com/shop/r/rwatch_supd/.*$"
-  example_url: https://watchnian.com/shop/r/rwatch_supd/?filtercode13=1#block_of_filter
+  url_regex: "^https://watchnian\\.com/shop/r/rwatch_supd(_p\\d+)?/.*$"
+  example_url: https://watchnian.com/shop/r/rwatch_supd_p4/?filtercode13=1#block_of_filter
   priority: 20
 
 fetch:

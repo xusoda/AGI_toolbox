@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/yisdtir9
+item_id: yisdtir9
+model_no: SBGE315
+brand_name: グランドセイコー
+model_name: スポーツコレクション スプリン...
+price_jpy: 1210000
+category: watch

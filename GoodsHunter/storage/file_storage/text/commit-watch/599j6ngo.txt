@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/599j6ngo
+item_id: 599j6ngo
+model_no: 126300
+brand_name: ロレックス
+model_name: デイトジャスト41
+price_jpy: 1518000
+category: watch

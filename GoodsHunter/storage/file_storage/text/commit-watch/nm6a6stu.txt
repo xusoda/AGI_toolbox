@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/nm6a6stu
+item_id: nm6a6stu
+model_no: PFC907-2020001-300182
+brand_name: パルミジャーニフルリエ
+model_name: トンダ PF アニュアルカレンダー
+price_jpy: 4488000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/xxx834zp
+item_id: xxx834zp
+model_no: 16660
+brand_name: ロレックス
+model_name: シードゥエラー トリプルシックス
+price_jpy: 1683000
+category: watch

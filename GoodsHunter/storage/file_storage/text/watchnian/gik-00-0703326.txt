@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0703326/
+item_id: gik-00-0703326
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 69174
+brand_name_model_name_model_no: ロレックス デイトジャスト 69174 ブルー レディース
+price_jpy: 766700
+category: watch

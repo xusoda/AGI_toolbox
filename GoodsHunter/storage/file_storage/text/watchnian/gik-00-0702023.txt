@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702023/
+item_id: gik-00-0702023
+brand_name: カルティエ
+model_name: ラニエール ミニ トノー シルバー
+model_no: WJ2006X3
+brand_name_model_name_model_no: カルティエ ラニエール ミニ トノー WJ2006X3 シルバー レディース
+price_jpy: 2140600
+category: watch

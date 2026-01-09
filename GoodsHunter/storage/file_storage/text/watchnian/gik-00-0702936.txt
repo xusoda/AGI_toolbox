@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702936/
+item_id: gik-00-0702936
+brand_name: エドックス
+model_name: エドックス ネプチュニアン グランデ リザーブ デイト オートマティック ブラック
+model_no: 80801-3NRM-NIR
+brand_name_model_name_model_no: エドックス ネプチュニアン グランデ リザーブ デイト オートマティック 80801-3NRM-NIR ブラック メンズ
+price_jpy: 192500
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708663/
+item_id: gik-00-0708663
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 179174G
+brand_name_model_name_model_no: ロレックス デイトジャスト 179174G シルバー/ダイヤモンド レディース
+price_jpy: 1269400
+category: watch

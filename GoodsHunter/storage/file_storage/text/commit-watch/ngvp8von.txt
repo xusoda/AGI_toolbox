@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ngvp8von
+item_id: ngvp8von
+model_no: 124200
+brand_name: ロレックス
+model_name: オイスターパーペチュアル34
+price_jpy: 1287000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702704/
+item_id: gik-00-0702704
+brand_name: オメガ
+model_name: シーマスター
+model_no: 220.10.38.20.03.004
+brand_name_model_name_model_no: オメガ シーマスター アクアテラ コーアクシャル マスタークロノメーター レディース 220.10.38.20.03.004 ブルー レディース
+price_jpy: 774400
+category: watch

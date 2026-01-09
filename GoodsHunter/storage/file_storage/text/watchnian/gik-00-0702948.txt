@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702948/
+item_id: gik-00-0702948
+brand_name: カルティエ
+model_name: タンク
+model_no: WSTA0072
+brand_name_model_name_model_no: カルティエ タンク マスト ドゥ カルティエ LM WSTA0072 ブラックラッカー メンズ
+price_jpy: 580800
+category: watch

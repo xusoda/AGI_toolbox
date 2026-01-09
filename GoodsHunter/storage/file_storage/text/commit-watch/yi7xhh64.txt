@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/yi7xhh64
+item_id: yi7xhh64
+model_no: 26331BC.GG.1224BC.03
+brand_name: オーデマピゲ
+model_name: ロイヤルオーク クロノグラフ
+price_jpy: 17600000
+category: watch

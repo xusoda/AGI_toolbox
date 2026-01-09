@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0695910/
+item_id: gik-00-0695910
+brand_name: パテック フィリップ
+model_name: カラトラバ
+model_no: 5227R-001
+brand_name_model_name_model_no: パテック フィリップ カラトラバ 5227R-001 ラック・アイボリー メンズ
+price_jpy: 4543000
+category: watch

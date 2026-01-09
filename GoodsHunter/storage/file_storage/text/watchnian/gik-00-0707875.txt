@@ -1,0 +1,7 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707875/
+item_id: gik-00-0707875
+brand_name: オメガ
+model_name: スピードマスター
+brand_name_model_name_model_no: オメガ スピードマスター ムーン
+price_jpy: 772200
+category: watch

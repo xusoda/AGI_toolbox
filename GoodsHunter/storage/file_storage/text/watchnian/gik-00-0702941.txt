@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702941/
+item_id: gik-00-0702941
+brand_name: オメガ
+model_name: シーマスター
+model_no: 232.90.42.21.03.001
+brand_name_model_name_model_no: オメガ シーマスター プラネットオーシャン 600 コーアクシャル 232.90.42.21.03.001 ブルー メンズ
+price_jpy: 661100
+category: watch

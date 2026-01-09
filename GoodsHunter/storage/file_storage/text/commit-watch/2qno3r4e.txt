@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/2qno3r4e
+item_id: 2qno3r4e
+model_no: 76100
+brand_name: チューダー(チュードル)
+model_name: サブマリーナー
+price_jpy: 1298000
+category: watch

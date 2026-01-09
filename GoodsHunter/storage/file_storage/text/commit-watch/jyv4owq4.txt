@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/jyv4owq4
+item_id: jyv4owq4
+model_no: 116713LN
+brand_name: ロレックス
+model_name: GMTマスターII
+price_jpy: 2255000
+category: watch

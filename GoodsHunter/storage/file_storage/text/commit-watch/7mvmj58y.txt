@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/7mvmj58y
+item_id: 7mvmj58y
+model_no: 90100
+brand_name: ジラールペルゴ
+model_name: クロノグラフ ラトラパンテ
+price_jpy: 1760000
+category: watch

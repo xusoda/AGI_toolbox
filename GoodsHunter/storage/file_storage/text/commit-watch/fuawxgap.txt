@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/fuawxgap
+item_id: fuawxgap
+model_no: 277200
+brand_name: ロレックス
+model_name: オイスターパーペチュアル31
+price_jpy: 1341000
+category: watch

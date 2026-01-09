@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ymoygk5e
+item_id: ymoygk5e
+model_no: PFC915-2020001-300182
+brand_name: パルミジャーニフルリエ
+model_name: トンダ PF クロノグラフ
+price_jpy: 4070000
+category: watch

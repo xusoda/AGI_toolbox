@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702717/
+item_id: gik-00-0702717
+brand_name: ブライトリング
+model_name: ナビタイマー
+model_no: AB0139
+brand_name_model_name_model_no: ブライトリング ナビタイマー B01 クロノグラフ 41 AB0139 アイスブルー/ブラック メンズ
+price_jpy: 1019700
+category: watch

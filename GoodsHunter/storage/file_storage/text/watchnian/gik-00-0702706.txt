@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702706/
+item_id: gik-00-0702706
+brand_name: タグ
+model_name: ホイヤー カレラ キャリバーホイヤー02 クロノグラフ スケルトン
+model_no: CBG2A90.BH0653
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバーホイヤー02 クロノグラフ CBG2A90.BH0653 スケルトン メンズ
+price_jpy: 578600
+category: watch

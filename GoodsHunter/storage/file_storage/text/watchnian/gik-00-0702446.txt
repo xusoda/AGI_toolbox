@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702446/
+item_id: gik-00-0702446
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 126234G
+brand_name_model_name_model_no: ロレックス デイトジャスト 36 126234G ブライトブルー/ダイヤモンド メンズ
+price_jpy: 2387000
+category: watch

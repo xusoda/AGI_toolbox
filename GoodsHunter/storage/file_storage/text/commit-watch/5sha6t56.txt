@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/5sha6t56
+item_id: 5sha6t56
+model_no: 5726A-001
+brand_name: パテックフィリップ
+model_name: ノーチラス アニュアルカレンダ...
+price_jpy: 14630000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/69m6caae
+item_id: 69m6caae
+model_no: 116523
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 2783000
+category: watch

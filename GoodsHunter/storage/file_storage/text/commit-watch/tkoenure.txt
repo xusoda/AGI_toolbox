@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/tkoenure
+item_id: tkoenure
+model_no: P10183
+brand_name: ピアジェ
+model_name: ポロ
+price_jpy: 2970000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/jmruymg9
+item_id: jmruymg9
+model_no: 5935A-001
+brand_name: パテックフィリップ
+model_name: コンプリケーション ワールドタ...
+price_jpy: 7678000
+category: watch

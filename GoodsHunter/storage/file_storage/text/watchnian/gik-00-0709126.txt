@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709126/
+item_id: gik-00-0709126
+brand_name: オメガ
+model_name: シーマスター
+model_no: 2517.50
+brand_name_model_name_model_no: オメガ シーマスター アクアテラ クォーツ 2517.50 ブラック メンズ
+price_jpy: 312400
+category: watch

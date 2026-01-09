@@ -1,0 +1,7 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702088/
+item_id: gik-00-0702088
+brand_name: IWC
+model_name: パイロット
+brand_name_model_name_model_no: IWC パイロット
+price_jpy: 810700
+category: watch

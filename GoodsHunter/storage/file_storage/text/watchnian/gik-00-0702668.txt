@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702668/
+item_id: gik-00-0702668
+brand_name: エルメス
+model_name: クリッパー ダイバー クロノグラフ ホワイト
+model_no: CP2.910
+brand_name_model_name_model_no: エルメス クリッパー ダイバー クロノグラフ CP2.910 ホワイト メンズ
+price_jpy: 350900
+category: watch

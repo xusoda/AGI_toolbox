@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ws52qbtp
+item_id: ws52qbtp
+model_no: 168629-3001
+brand_name: ショパール
+model_name: L.U.C XPS
+price_jpy: 1375000
+category: watch

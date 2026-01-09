@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707580/
+item_id: gik-00-0707580
+brand_name: ロレックス
+model_name: GMTマスター
+model_no: 16700
+brand_name_model_name_model_no: ロレックス GMTマスター 16700 ブラック メンズ
+price_jpy: 2156000
+category: watch

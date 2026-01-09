@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/b97645mf
+item_id: b97645mf
+model_no: 16520
+brand_name: ロレックス
+model_name: デイトナ エルプリメロ
+price_jpy: 3883000
+category: watch

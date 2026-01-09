@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/zwyfzmoa
+item_id: zwyfzmoa
+model_no: 315.032
+brand_name: A.ランゲ＆ゾーネ
+model_name: サクソニア
+price_jpy: 2684000
+category: watch

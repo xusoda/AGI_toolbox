@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/fyggzoub
+item_id: fyggzoub
+model_no: 126621
+brand_name: ロレックス
+model_name: ヨットマスター40
+price_jpy: 2365000
+category: watch

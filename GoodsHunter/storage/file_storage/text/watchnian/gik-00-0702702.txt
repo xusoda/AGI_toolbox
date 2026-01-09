@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702702/
+item_id: gik-00-0702702
+brand_name: フランクミュラー
+model_name: フランクミュラー トノウカーベックス 150th アニバーサリー ホワイト/レッド
+model_no: 1752QZ150TH
+brand_name_model_name_model_no: フランクミュラー トノウカーベックス 150th アニバーサリー 1752QZ150TH ホワイト/レッド レディース
+price_jpy: 630300
+category: watch

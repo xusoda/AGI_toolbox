@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/a7z8kzzu
+item_id: a7z8kzzu
+model_no: 5513
+brand_name: ロレックス
+model_name: サブマリーナー
+price_jpy: 2343000
+category: watch

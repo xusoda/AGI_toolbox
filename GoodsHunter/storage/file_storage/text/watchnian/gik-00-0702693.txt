@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702693/
+item_id: gik-00-0702693
+brand_name: カシオ
+model_name: カシオ G-SHOCK フロッグマン ボルネオ・レインボー・トード ブラック
+model_no: GWF-A1000BRT-1AJR
+brand_name_model_name_model_no: カシオ G-SHOCK フロッグマン ボルネオ・レインボー・トード GWF-A1000BRT-1AJR ブラック メンズ
+price_jpy: 234300
+category: watch

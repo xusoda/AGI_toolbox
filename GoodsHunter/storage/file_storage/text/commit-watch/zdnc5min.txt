@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/zdnc5min
+item_id: zdnc5min
+model_no: 15210ST.OO.A348KB.01
+brand_name: オーデマピゲ
+model_name: CODE 11.59 バイ オ...
+price_jpy: 2695000
+category: watch

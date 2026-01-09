@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/s9f3j8ta
+item_id: s9f3j8ta
+model_no: 15206PT.OO.1240PT.01
+brand_name: オーデマピゲ
+model_name: ロイヤルオーク ジャンボ エク...
+price_jpy: 20900000
+category: watch

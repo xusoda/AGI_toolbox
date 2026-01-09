@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ss5hnrt4
+item_id: ss5hnrt4
+model_no: 26170TI.OO.1000TI.01
+brand_name: オーデマピゲ
+model_name: ロイヤルオーク オフショア ク...
+price_jpy: 3168000
+category: watch

@@ -1,0 +1,6 @@
+product_url: https://commit-watch.co.jp/products/gfiuodyr
+item_id: gfiuodyr
+model_no: 5164A-001
+brand_name: パテックフィリップ
+model_name: アクアノート トラベルタイム
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/5akk7ndt
+item_id: 5akk7ndt
+model_no: 33158/000G-9394
+brand_name: ヴァシュロンコンスタンタン
+model_name: トラディショナル スケルトン
+price_jpy: 2376000
+category: watch

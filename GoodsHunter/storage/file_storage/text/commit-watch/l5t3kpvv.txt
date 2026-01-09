@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/l5t3kpvv
+item_id: l5t3kpvv
+model_no: G0A32040
+brand_name: ピアジェ
+model_name: ポロ
+price_jpy: 2090000
+category: watch

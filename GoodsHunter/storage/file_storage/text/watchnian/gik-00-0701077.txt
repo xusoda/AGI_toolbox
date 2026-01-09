@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0701077/
+item_id: gik-00-0701077
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 279174G
+brand_name_model_name_model_no: ロレックス レディ デイトジャスト 279174G ダークグレー/ダイヤモンド レディース
+price_jpy: 1717100
+category: watch

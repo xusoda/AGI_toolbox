@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707591/
+item_id: gik-00-0707591
+brand_name: ロレックス
+model_name: シードゥエラー ブラック
+model_no: 16600
+brand_name_model_name_model_no: ロレックス シードゥエラー 16600 ブラック メンズ
+price_jpy: 1590600
+category: watch

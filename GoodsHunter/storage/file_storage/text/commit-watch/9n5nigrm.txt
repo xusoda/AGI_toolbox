@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/9n5nigrm
+item_id: 9n5nigrm
+model_no: 1675
+brand_name: ロレックス
+model_name: GMTマスター
+price_jpy: 3168000
+category: watch

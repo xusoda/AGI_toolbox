@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702031/
+item_id: gik-00-0702031
+brand_name: ロレックス
+model_name: デイデイト
+model_no: 118296A
+brand_name_model_name_model_no: ロレックス デイデイト 118296A シルバー/ダイヤモンド メンズ
+price_jpy: 5467000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709577/
+item_id: gik-00-0709577
+brand_name: グランドセイコー
+model_name: スポーツコレクション
+model_no: SBGC275
+brand_name_model_name_model_no: グランドセイコー スポーツコレクション スプリングドライブ 20th SBGC275 レッド メンズ
+price_jpy: 1549900
+category: watch

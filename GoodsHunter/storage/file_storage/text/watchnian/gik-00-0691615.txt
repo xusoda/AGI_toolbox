@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0691615/
+item_id: gik-00-0691615
+brand_name: グランドセイコー
+model_name: スプリングドライブ クロノグラフ GMT ブラック
+model_no: SBGC005
+brand_name_model_name_model_no: グランドセイコー スプリングドライブ クロノグラフ GMT SBGC005 ブラック メンズ
+price_jpy: 774400
+category: watch

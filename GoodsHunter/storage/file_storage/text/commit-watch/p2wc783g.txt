@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/p2wc783g
+item_id: p2wc783g
+model_no: PAM01483
+brand_name: パネライ
+model_name: ルミノール ディエチ ジョルニ...
+price_jpy: 2178000
+category: watch

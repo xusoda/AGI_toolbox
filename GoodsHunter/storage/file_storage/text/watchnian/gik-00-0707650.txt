@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707650/
+item_id: gik-00-0707650
+brand_name: ロレックス
+model_name: オイスターパーペチュアル
+model_no: 67480
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 67480 ブラック ユニセックス
+price_jpy: 679800
+category: watch

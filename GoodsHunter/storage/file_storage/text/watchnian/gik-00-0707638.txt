@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707638/
+item_id: gik-00-0707638
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 179174
+brand_name_model_name_model_no: ロレックス デイトジャスト 179174 ピンク レディース
+price_jpy: 1029600
+category: watch

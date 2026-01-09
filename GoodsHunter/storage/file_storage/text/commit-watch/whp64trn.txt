@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/whp64trn
+item_id: whp64trn
+model_no: SBGK002
+brand_name: グランドセイコー
+model_name: エレガンスコレクション
+price_jpy: 2035000
+category: watch

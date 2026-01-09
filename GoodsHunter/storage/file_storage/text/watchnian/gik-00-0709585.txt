@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0709585/
+item_id: gik-00-0709585
+brand_name: ロンジン
+model_name: マスターコレクション オートマティック
+model_no: L2.128.4.78.3
+brand_name_model_name_model_no: ロンジン マスターコレクション オートマティック L2.128.4.78.3 シルバー レディース
+price_jpy: 167200
+category: watch

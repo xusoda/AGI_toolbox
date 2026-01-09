@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708677/
+item_id: gik-00-0708677
+brand_name: ロレックス
+model_name: チェリーニ
+model_no: 5115/9
+brand_name_model_name_model_no: ロレックス チェリーニ クラシック 5115/9 シルバーコンピュータ メンズ
+price_jpy: 730400
+category: watch

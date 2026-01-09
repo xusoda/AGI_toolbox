@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0691530/
+item_id: gik-00-0691530
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 68273
+brand_name_model_name_model_no: ロレックス デイトジャスト 68273 シャンパン ユニセックス
+price_jpy: 1131900
+category: watch

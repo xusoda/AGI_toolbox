@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702151/
+item_id: gik-00-0702151
+brand_name: パネライ
+model_name: ルミノール
+model_no: PAM00251
+brand_name_model_name_model_no: パネライ ルミノール クロノグラフ デイライト PAM00251 ホワイト メンズ
+price_jpy: 752400
+category: watch

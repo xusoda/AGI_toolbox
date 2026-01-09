@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707549/
+item_id: gik-00-0707549
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 116243
+brand_name_model_name_model_no: ロレックス デイトジャスト 36 116243 ブラウンフラワー メンズ
+price_jpy: 2050400
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702437/
+item_id: gik-00-0702437
+brand_name: ロレックス
+model_name: サブマリーナ ブラック
+model_no: 14060M
+brand_name_model_name_model_no: ロレックス サブマリーナ 14060M ブラック メンズ
+price_jpy: 1826000
+category: watch

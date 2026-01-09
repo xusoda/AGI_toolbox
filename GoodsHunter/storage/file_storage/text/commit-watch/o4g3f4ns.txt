@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/o4g3f4ns
+item_id: o4g3f4ns
+model_no: 268655
+brand_name: ロレックス
+model_name: ヨットマスター37
+price_jpy: 4180000
+category: watch

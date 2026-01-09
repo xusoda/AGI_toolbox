@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702188/
+item_id: gik-00-0702188
+brand_name: ブルガリ
+model_name: ブルガリ ブルガリブルガリ ブラック
+model_no: BBL26S
+brand_name_model_name_model_no: ブルガリ ブルガリブルガリ BBL26S ブラック レディース
+price_jpy: 136400
+category: watch

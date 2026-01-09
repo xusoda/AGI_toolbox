@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702069/
+item_id: gik-00-0702069
+brand_name: ティファニー
+model_name: ティファニー メイカーズ グレー/ダイヤモンド
+model_no: 67460391
+brand_name_model_name_model_no: ティファニー メイカーズ 67460391 グレー/ダイヤモンド レディース
+price_jpy: 190300
+category: watch

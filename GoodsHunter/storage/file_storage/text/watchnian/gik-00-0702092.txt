@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702092/
+item_id: gik-00-0702092
+brand_name: シャネル
+model_name: シャネル J12 33MM ホワイトラッカー
+model_no: H5698
+brand_name_model_name_model_no: シャネル J12 33MM H5698 ホワイトラッカー レディース
+price_jpy: 589600
+category: watch

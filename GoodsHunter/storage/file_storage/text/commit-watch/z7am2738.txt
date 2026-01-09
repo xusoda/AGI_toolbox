@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/z7am2738
+item_id: z7am2738
+model_no: 505.CM.0500.VR.BER17
+brand_name: ウブロ
+model_name: クラシックフュージョン トゥー...
+price_jpy: 4785000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/eop5ze87
+item_id: eop5ze87
+model_no: WGSA0084
+brand_name: カルティエ
+model_name: サントス デュモン XL
+price_jpy: 2475000
+category: watch

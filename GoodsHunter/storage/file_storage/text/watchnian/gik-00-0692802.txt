@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0692802/
+item_id: gik-00-0692802
+brand_name: ロレックス
+model_name: オイスターパーペチュアル
+model_no: 67180
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 67180 ブラック レディース
+price_jpy: 423500
+category: watch

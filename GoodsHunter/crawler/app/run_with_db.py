@@ -3,7 +3,9 @@ import argparse
 import asyncio
 import sys
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
+
+import yaml
 
 # 将项目根目录添加到Python路径
 _current_file = Path(__file__).resolve()
@@ -133,9 +135,12 @@ async def process_urls(
 def load_urls_from_file(file_path: str) -> List[str]:
     """
     从文件加载URL列表
+    支持两种格式：
+    1. YAML 格式（.yaml 或 .yml）：支持分组结构
+    2. 文本格式（.txt 或其他）：每行一个URL
     
     Args:
-        file_path: URL文件路径（每行一个URL）
+        file_path: URL文件路径
         
     Returns:
         URL列表
@@ -144,14 +149,50 @@ def load_urls_from_file(file_path: str) -> List[str]:
     if not path.exists():
         raise FileNotFoundError(f"URL文件不存在: {file_path}")
 
-    urls = []
-    with open(path, "r", encoding="utf-8") as f:
-        for line in f:
-            url = line.strip()
-            if url and not url.startswith("#"):  # 忽略空行和注释
-                urls.append(url)
-
-    return urls
+    # 检查文件扩展名，判断是否为 YAML 格式
+    file_ext = path.suffix.lower()
+    if file_ext in (".yaml", ".yml"):
+        # YAML 格式
+        with open(path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+        
+        if data is None:
+            return []
+        
+        urls = []
+        # 处理 YAML 数据
+        if isinstance(data, dict):
+            # 如果顶层是字典，查找 urls 键
+            if "urls" in data:
+                urls_data = data["urls"]
+                if isinstance(urls_data, list):
+                    # 扁平列表格式
+                    urls = [url for url in urls_data if isinstance(url, str)]
+                elif isinstance(urls_data, dict):
+                    # 分组格式，展平所有 URL
+                    for group_urls in urls_data.values():
+                        if isinstance(group_urls, list):
+                            urls.extend([url for url in group_urls if isinstance(url, str)])
+            else:
+                # 如果没有 urls 键，尝试直接展平所有值
+                for value in data.values():
+                    if isinstance(value, list):
+                        urls.extend([url for url in value if isinstance(url, str)])
+        elif isinstance(data, list):
+            # 如果顶层是列表，直接使用
+            urls = [url for url in data if isinstance(url, str)]
+        
+        return urls
+    else:
+        # 文本格式：每行一个URL
+        urls = []
+        with open(path, "r", encoding="utf-8") as f:
+            for line in f:
+                url = line.strip()
+                if url and not url.startswith("#"):  # 忽略空行和注释
+                    urls.append(url)
+        
+        return urls
 
 
 def main():
@@ -161,7 +202,7 @@ def main():
         "--urls",
         type=str,
         required=True,
-        help="URL文件路径（每行一个URL）或单个URL",
+        help="URL文件路径（支持 YAML 格式或文本格式，每行一个URL）或单个URL",
     )
     parser.add_argument(
         "--out",

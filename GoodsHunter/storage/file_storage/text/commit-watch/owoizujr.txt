@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/owoizujr
+item_id: owoizujr
+model_no: 124300
+brand_name: ロレックス
+model_name: オイスターパーペチュアル41
+price_jpy: 2596000
+category: watch

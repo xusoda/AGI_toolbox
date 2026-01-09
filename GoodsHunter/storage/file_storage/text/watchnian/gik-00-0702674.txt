@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702674/
+item_id: gik-00-0702674
+brand_name: ブライトリング
+model_name: ナビタイマー
+model_no: A17314101B1X1
+brand_name_model_name_model_no: ブライトリング ナビタイマー 8 A17314101B1X1 ブラック メンズ
+price_jpy: 341000
+category: watch

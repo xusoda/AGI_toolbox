@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/fjkso7c4
+item_id: fjkso7c4
+model_no: 5930P-001
+brand_name: パテックフィリップ
+model_name: コンプリケーション ワールドタ...
+price_jpy: 11220000
+category: watch

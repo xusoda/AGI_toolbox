@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/yh62wi9t
+item_id: yh62wi9t
+model_no: 4947/1A-001
+brand_name: パテックフィリップ
+model_name: アニュアルカレンダー ムーンフェイズ
+price_jpy: 4488000
+category: watch

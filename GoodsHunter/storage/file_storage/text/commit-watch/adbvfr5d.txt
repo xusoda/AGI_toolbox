@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/adbvfr5d
+item_id: adbvfr5d
+model_no: PAM01074
+brand_name: パネライ
+model_name: サブマーシブル ブロンゾ ブル...
+price_jpy: 1760000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0689717/
+item_id: gik-00-0689717
+brand_name: オーデマ ピゲ
+model_name: ロイヤルオーク
+model_no: 26401RO.OO.A002CA.01
+brand_name_model_name_model_no: オーデマ ピゲ ロイヤルオーク オフショア クロノグラフ 26401RO.OO.A002CA.01 ブラック/シルバー メンズ
+price_jpy: 5126000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702687/
+item_id: gik-00-0702687
+brand_name: タグ
+model_name: ホイヤー アクアレーサー プロフェッショナル 300 キャリバー 5 ブルー
+model_no: WBP201B.BA0632
+brand_name_model_name_model_no: タグ ホイヤー アクアレーサー プロフェッショナル 300 キャリバー 5 WBP201B.BA0632 ブルー メンズ
+price_jpy: 339900
+category: watch

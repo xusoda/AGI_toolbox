@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/q9jsyzxa
+item_id: q9jsyzxa
+model_no: PFC912-2020001-200182
+brand_name: パルミジャーニフルリエ
+model_name: トンダ PF スケルトン
+price_jpy: 8580000
+category: watch

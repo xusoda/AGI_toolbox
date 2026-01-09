@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0705994/
+item_id: gik-00-0705994
+brand_name: シャネル
+model_name: シャネル J12 33MM ブラック
+model_no: H0682
+brand_name_model_name_model_no: シャネル J12 33MM H0682 ブラック レディース
+price_jpy: 400400
+category: watch

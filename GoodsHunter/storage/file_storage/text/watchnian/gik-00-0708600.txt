@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708600/
+item_id: gik-00-0708600
+brand_name: IWC
+model_name: ポートフィノ
+model_no: IW391037
+brand_name_model_name_model_no: IWC ポートフィノ クロノグラフ IW391037 シルバー メンズ
+price_jpy: 590700
+category: watch

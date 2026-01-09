@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707223/
+item_id: gik-00-0707223
+brand_name: セイコー
+model_name: セイコー プロスペックス スピードタイマー ソーラークロノグラフ ブラック
+model_no: SBDL091
+brand_name_model_name_model_no: セイコー プロスペックス スピードタイマー ソーラークロノグラフ SBDL091 ブラック メンズ
+price_jpy: 71500
+category: watch

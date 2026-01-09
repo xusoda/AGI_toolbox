@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/g8qsfter
+item_id: g8qsfter
+model_no: 5066/1A-001
+brand_name: パテックフィリップ
+model_name: アクアノート ミディアム
+price_jpy: 5555000
+category: watch

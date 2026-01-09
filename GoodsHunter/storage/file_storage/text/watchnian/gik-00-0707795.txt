@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707795/
+item_id: gik-00-0707795
+brand_name: カルティエ
+model_name: パシャ ドゥ カルティエ 41mm ダークグレー
+model_no: WSPA0026
+brand_name_model_name_model_no: カルティエ パシャ ドゥ カルティエ 41mm WSPA0026 ダークグレー メンズ
+price_jpy: 781000
+category: watch

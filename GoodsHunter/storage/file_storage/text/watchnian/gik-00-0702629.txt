@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702629/
+item_id: gik-00-0702629
+brand_name: カルティエ
+model_name: パシャC クロノグラフ シルバー/ブラック
+model_no: W31048M7
+brand_name_model_name_model_no: カルティエ パシャC クロノグラフ W31048M7 シルバー/ブラック メンズ
+price_jpy: 398200
+category: watch

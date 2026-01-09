@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707057/
+item_id: gik-00-0707057
+brand_name: タグ
+model_name: ホイヤー カレラ キャリバーホイヤー02 クロノグラフ ブラック
+model_no: CBG2010.FT6143
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバーホイヤー02 クロノグラフ CBG2010.FT6143 ブラック メンズ
+price_jpy: 429000
+category: watch

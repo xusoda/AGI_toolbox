@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708684/
+item_id: gik-00-0708684
+brand_name: ウブロ
+model_name: クラシックフュージョン
+model_no: 511.NX.1171.LR
+brand_name_model_name_model_no: ウブロ クラシックフュージョン チタニウム 511.NX.1171.LR マットブラック メンズ
+price_jpy: 658900
+category: watch

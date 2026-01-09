@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0691467/
+item_id: gik-00-0691467
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 179171G
+brand_name_model_name_model_no: ロレックス デイトジャスト 179171G ピンクコンピュータ/ダイヤモンド レディース
+price_jpy: 1461900
+category: watch

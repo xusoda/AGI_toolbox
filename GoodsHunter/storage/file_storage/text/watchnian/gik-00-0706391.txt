@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706391/
+item_id: gik-00-0706391
+brand_name: ロレックス
+model_name: GMTマスターII
+model_no: 126719BLRO
+brand_name_model_name_model_no: ロレックス GMTマスターII 126719BLRO メテオライト メンズ
+price_jpy: 9108000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0645052/
+item_id: gik-00-0645052
+brand_name: パテック フィリップ
+model_name: コンプリケーション アニュアルカレンダー アイボリー
+model_no: 5146G-001
+brand_name_model_name_model_no: パテック フィリップ コンプリケーション アニュアルカレンダー 5146G-001 アイボリー メンズ
+price_jpy: 4356000
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/p5t3hdqn
+item_id: p5t3hdqn
+model_no: 5512
+brand_name: ロレックス
+model_name: サブマリーナー
+price_jpy: 3278000
+category: watch

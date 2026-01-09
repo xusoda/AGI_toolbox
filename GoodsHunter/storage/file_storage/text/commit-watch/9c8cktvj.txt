@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/9c8cktvj
+item_id: 9c8cktvj
+model_no: 16520
+brand_name: ロレックス
+model_name: デイトナ エルプリメロ
+price_jpy: 3575000
+category: watch

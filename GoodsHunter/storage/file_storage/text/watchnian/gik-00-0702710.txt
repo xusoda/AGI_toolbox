@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702710/
+item_id: gik-00-0702710
+brand_name: グランドセイコー
+model_name: ヘリテージコレクション
+model_no: SBGH319
+brand_name_model_name_model_no: グランドセイコー ヘリテージコレクション メカニカル ハイビート36000 日本橋三越350th SBGH319 ブルー メンズ
+price_jpy: 1092300
+category: watch

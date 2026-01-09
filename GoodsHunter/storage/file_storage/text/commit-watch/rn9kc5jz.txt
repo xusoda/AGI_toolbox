@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/rn9kc5jz
+item_id: rn9kc5jz
+model_no: 3800/1A-001
+brand_name: パテックフィリップ
+model_name: ノーチラス
+price_jpy: 8580000
+category: watch

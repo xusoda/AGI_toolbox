@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707720/
+item_id: gik-00-0707720
+brand_name: ロレックス
+model_name: オイスターパーペチュアル
+model_no: 176200
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 176200 オリーブグリーン レディース
+price_jpy: 853600
+category: watch

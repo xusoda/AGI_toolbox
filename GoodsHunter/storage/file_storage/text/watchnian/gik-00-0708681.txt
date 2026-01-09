@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708681/
+item_id: gik-00-0708681
+brand_name: IWC
+model_name: ポルトギーゼ
+model_no: IW358304
+brand_name_model_name_model_no: IWC ポルトギーゼ オートマティック 40 IW358304 シルバー メンズ
+price_jpy: 752400
+category: watch

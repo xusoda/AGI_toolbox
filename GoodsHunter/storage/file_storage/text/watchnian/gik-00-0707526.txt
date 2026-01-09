@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707526/
+item_id: gik-00-0707526
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 179313NG
+brand_name_model_name_model_no: ロレックス レディ デイトジャスト 26 179313NG ホワイトシェル/ダイヤモンド レディース
+price_jpy: 1903000
+category: watch

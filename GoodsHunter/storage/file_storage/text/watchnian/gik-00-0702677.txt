@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702677/
+item_id: gik-00-0702677
+brand_name: オメガ
+model_name: ダイナミック クロノグラフ ブラック
+model_no: 5240.50
+brand_name_model_name_model_no: オメガ ダイナミック クロノグラフ 5240.50 ブラック メンズ
+price_jpy: 313500
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/o85wu3nf
+item_id: o85wu3nf
+model_no: 310.92.44.51.01.001
+brand_name: オメガ
+model_name: スピードマスター ダーク サイ...
+price_jpy: 2090000
+category: watch

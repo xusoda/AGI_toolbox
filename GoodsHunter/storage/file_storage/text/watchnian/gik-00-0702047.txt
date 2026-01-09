@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702047/
+item_id: gik-00-0702047
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 16233
+brand_name_model_name_model_no: ロレックス デイトジャスト 16233 シャンパン メンズ
+price_jpy: 1128600
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708015/
+item_id: gik-00-0708015
+brand_name: ゼニス
+model_name: デファイ
+model_no: 03.9300.3620/51.I001
+brand_name_model_name_model_no: ゼニス デファイ スカイライン 03.9300.3620/51.I001 ブルー メンズ
+price_jpy: 859100
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/qugwwsim
+item_id: qugwwsim
+model_no: 16014
+brand_name: ロレックス
+model_name: デイトジャスト
+price_jpy: 880000
+category: watch

@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0691462/
+item_id: gik-00-0691462
+brand_name: カルティエ
+model_name: パシャ ドゥ カルティエ レッド
+model_no: WSPA0031
+brand_name_model_name_model_no: カルティエ パシャ ドゥ カルティエ WSPA0031 レッド ユニセックス
+price_jpy: 814000
+category: watch

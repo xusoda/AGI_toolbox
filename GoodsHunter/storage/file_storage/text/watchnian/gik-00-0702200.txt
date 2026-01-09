@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702200/
+item_id: gik-00-0702200
+brand_name: エルメス
+model_name: ケープコッド シルバー
+model_no: CC1.210a
+brand_name_model_name_model_no: エルメス ケープコッド CC1.210a シルバー レディース
+price_jpy: 177100
+category: watch

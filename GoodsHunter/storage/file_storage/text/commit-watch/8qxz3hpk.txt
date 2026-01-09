@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/8qxz3hpk
+item_id: 8qxz3hpk
+model_no: 16613
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 1892000
+category: watch

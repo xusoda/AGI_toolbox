@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702162/
+item_id: gik-00-0702162
+brand_name: ロレックス
+model_name: エアキング シルバー
+model_no: 114200
+brand_name_model_name_model_no: ロレックス エアキング 114200 シルバー メンズ
+price_jpy: 927300
+category: watch

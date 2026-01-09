@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702172/
+item_id: gik-00-0702172
+brand_name: タグ
+model_name: ホイヤー アクアレーサー プロフェッショナル 300 キャリバー5 ブラック
+model_no: WBP201A.BA0632
+brand_name_model_name_model_no: タグ ホイヤー アクアレーサー プロフェッショナル 300 キャリバー5 WBP201A.BA0632 ブラック メンズ
+price_jpy: 290400
+category: watch

@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/yq63vwsp
+item_id: yq63vwsp
+model_no: 3297BR/12/286
+brand_name: ブレゲ
+model_name: クラシック
+price_jpy: 1243000
+category: watch

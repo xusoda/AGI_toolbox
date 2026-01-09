@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/jfd6rb5k
+item_id: jfd6rb5k
+model_no: 1675
+brand_name: ロレックス
+model_name: GMTマスター
+price_jpy: 2255000
+category: watch

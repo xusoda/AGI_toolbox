@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706066/
+item_id: gik-00-0706066
+brand_name: ハリー
+model_name: ハリー ウィンストン アベニューC ミニ リリークラスター ピンクシェル/ダイヤモンド
+model_no: AVCQHM16WW055
+brand_name_model_name_model_no: ハリー ウィンストン アベニューC ミニ リリークラスター AVCQHM16WW055 ピンクシェル/ダイヤモンド レディース
+price_jpy: 1030700
+category: watch

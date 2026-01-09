@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0690606/
+item_id: gik-00-0690606
+brand_name: オメガ
+model_name: スピードマスター
+model_no: 3513.30
+brand_name_model_name_model_no: オメガ スピードマスター デイト 3513.30 シルバー メンズ
+price_jpy: 313500
+category: watch

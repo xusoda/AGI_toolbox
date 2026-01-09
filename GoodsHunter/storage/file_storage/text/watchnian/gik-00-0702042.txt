@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702042/
+item_id: gik-00-0702042
+brand_name: ブシュロン
+model_name: ブシュロン リフレ シルバー/ダイヤモンド
+model_no: WA030504
+brand_name_model_name_model_no: ブシュロン リフレ WA030504 シルバー/ダイヤモンド レディース
+price_jpy: 165000
+category: watch

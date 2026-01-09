@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702490/
+item_id: gik-00-0702490
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 279383RBR
+brand_name_model_name_model_no: ロレックス レディ デイトジャスト 28 279383RBR シルバー/ダイヤモンド レディース
+price_jpy: 3201000
+category: watch

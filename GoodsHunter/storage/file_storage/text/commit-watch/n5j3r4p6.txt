@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/n5j3r4p6
+item_id: n5j3r4p6
+model_no: 126234
+brand_name: ロレックス
+model_name: デイトジャスト36
+price_jpy: 1848000
+category: watch

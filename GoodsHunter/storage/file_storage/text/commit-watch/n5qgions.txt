@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/n5qgions
+item_id: n5qgions
+model_no: 1680
+brand_name: ロレックス
+model_name: サブマリーナー デイト
+price_jpy: 1980000
+category: watch

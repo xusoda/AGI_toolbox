@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/r6zzfj58
+item_id: r6zzfj58
+model_no: 16520
+brand_name: ロレックス
+model_name: デイトナ エルプリメロ
+price_jpy: 4290000
+category: watch

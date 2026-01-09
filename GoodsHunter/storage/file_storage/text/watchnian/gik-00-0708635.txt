@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708635/
+item_id: gik-00-0708635
+brand_name: グランドセイコー
+model_name: エボリューション9コレクション
+model_no: SLGA009
+brand_name_model_name_model_no: グランドセイコー エボリューション9コレクション スプリングドライブ マスターショップ限定 SLGA009 シルバー メンズ
+price_jpy: 1084600
+category: watch

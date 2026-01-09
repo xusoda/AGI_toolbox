@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0703384/
+item_id: gik-00-0703384
+brand_name: ショパール
+model_name: ハッピーダイヤモンド リボン ホワイトシェル
+model_no: 20/5334
+brand_name_model_name_model_no: ショパール ハッピーダイヤモンド リボン 20/5334 ホワイトシェル レディース
+price_jpy: 499400
+category: watch

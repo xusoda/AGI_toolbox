@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702689/
+item_id: gik-00-0702689
+brand_name: タグ
+model_name: ホイヤー カレラ キャリバーホイヤー01 クロノグラフ ブラック
+model_no: CAR201V.FT6046
+brand_name_model_name_model_no: タグ ホイヤー カレラ キャリバーホイヤー01 クロノグラフ CAR201V.FT6046 ブラック メンズ
+price_jpy: 458700
+category: watch

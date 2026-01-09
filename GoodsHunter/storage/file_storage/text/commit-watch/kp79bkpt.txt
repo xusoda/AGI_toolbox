@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/kp79bkpt
+item_id: kp79bkpt
+model_no: 3570.40
+brand_name: オメガ
+model_name: スピードマスター プロフェッシ...
+price_jpy: 1375000
+category: watch

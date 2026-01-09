@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/h4of5xgd
+item_id: h4of5xgd
+model_no: 277200
+brand_name: ロレックス
+model_name: オイスターパーペチュアル31
+price_jpy: 1298000
+category: watch

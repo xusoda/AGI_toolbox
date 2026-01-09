@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/h6gkc2ch
+item_id: h6gkc2ch
+model_no: 16520
+brand_name: ロレックス
+model_name: デイトナ エルプリメロ
+price_jpy: 4235000
+category: watch

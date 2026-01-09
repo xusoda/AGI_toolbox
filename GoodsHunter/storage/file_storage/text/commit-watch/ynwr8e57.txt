@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ynwr8e57
+item_id: ynwr8e57
+model_no: 85250/000G-9141
+brand_name: ヴァシュロンコンスタンタン
+model_name: ジュビレ 1755
+price_jpy: 3278000
+category: watch

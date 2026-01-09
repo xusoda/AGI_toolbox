@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0706330/
+item_id: gik-00-0706330
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 126300
+brand_name_model_name_model_no: ロレックス デイトジャスト 41 126300 ミントグリーン メンズ
+price_jpy: 1677500
+category: watch

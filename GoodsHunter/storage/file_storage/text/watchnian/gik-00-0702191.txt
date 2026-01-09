@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702191/
+item_id: gik-00-0702191
+brand_name: ブレゲ
+model_name: トランスアトランティック タイプXXI
+model_no: 3815TI/HO/3ZU
+brand_name_model_name_model_no: ブレゲ トランスアトランティック タイプXXI 3815TI/HO/3ZU スレートグレー メンズ
+price_jpy: 1597200
+category: watch

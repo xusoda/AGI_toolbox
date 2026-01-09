@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707789/
+item_id: gik-00-0707789
+brand_name: グランドセイコー
+model_name: ヘリテージコレクション
+model_no: SBGV225
+brand_name_model_name_model_no: グランドセイコー ヘリテージコレクション クォーツ SBGV225 ブルー メンズ
+price_jpy: 216700
+category: watch

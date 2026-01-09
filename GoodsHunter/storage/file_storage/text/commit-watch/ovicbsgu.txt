@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/ovicbsgu
+item_id: ovicbsgu
+model_no: 3853.32
+brand_name: オメガ
+model_name: スピードマスター シューマッハ...
+price_jpy: 1375000
+category: watch

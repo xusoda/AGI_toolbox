@@ -1,0 +1,7 @@
+product_url: https://watchnian.com/shop/g/gik-00-0708697/
+item_id: gik-00-0708697
+brand_name: カルティエ
+model_name: タンク
+brand_name_model_name_model_no: カルティエ タンク マスト ドゥ カルティエ
+price_jpy: 481800
+category: watch

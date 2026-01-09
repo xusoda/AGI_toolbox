@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707691/
+item_id: gik-00-0707691
+brand_name: ロレックス
+model_name: オイスターパーペチュアル
+model_no: 76080
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル 76080 シルバー レディース
+price_jpy: 495000
+category: watch

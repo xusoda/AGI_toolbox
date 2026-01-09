@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/rdbdtcxx
+item_id: rdbdtcxx
+model_no: 26670ST.OO.1240ST.02
+brand_name: オーデマピゲ
+model_name: ロイヤルオーク フライング ト...
+price_jpy: 25960000
+category: watch

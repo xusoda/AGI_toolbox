@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0633529/
+item_id: gik-00-0633529
+brand_name: ブライトリング
+model_name: クロノマット
+model_no: AB011012/M524
+brand_name_model_name_model_no: ブライトリング クロノマット 44 AB011012/M524 ブラック メンズ
+price_jpy: 410300
+category: watch

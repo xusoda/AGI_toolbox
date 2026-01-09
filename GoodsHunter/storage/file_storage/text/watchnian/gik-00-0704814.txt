@@ -1,0 +1,7 @@
+product_url: https://watchnian.com/shop/g/gik-00-0704814/
+item_id: gik-00-0704814
+brand_name: ヴァン
+model_name: ヴァン クリーフ&アーペル アルハンブラ ブレスレット
+brand_name_model_name_model_no: ヴァン クリーフ&アーペル アルハンブラ ブレスレット
+price_jpy: 2354000
+category: watch

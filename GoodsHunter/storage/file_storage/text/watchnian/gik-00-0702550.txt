@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702550/
+item_id: gik-00-0702550
+brand_name: ロレックス
+model_name: オイスターパーペチュアル
+model_no: 115200
+brand_name_model_name_model_no: ロレックス オイスターパーペチュアル デイト 115200 ブルー メンズ
+price_jpy: 1083500
+category: watch

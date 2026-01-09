@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/tocmr6s2
+item_id: tocmr6s2
+model_no: 116519
+brand_name: ロレックス
+model_name: デイトナ
+price_jpy: 3993000
+category: watch

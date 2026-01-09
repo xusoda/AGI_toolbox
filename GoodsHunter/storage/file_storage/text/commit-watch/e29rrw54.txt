@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/e29rrw54
+item_id: e29rrw54
+model_no: IW388117
+brand_name: IWC
+model_name: パイロットウォッチ クロノグラ...
+price_jpy: 1045000
+category: watch

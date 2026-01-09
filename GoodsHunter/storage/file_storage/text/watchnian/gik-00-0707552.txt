@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707552/
+item_id: gik-00-0707552
+brand_name: ロレックス
+model_name: GMTマスター
+model_no: 126710BLRO
+brand_name_model_name_model_no: ロレックス GMTマスター II 126710BLRO ブラック メンズ
+price_jpy: 3555200
+category: watch

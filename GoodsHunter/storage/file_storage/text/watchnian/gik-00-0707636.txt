@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0707636/
+item_id: gik-00-0707636
+brand_name: ロレックス
+model_name: デイトジャスト
+model_no: 278240
+brand_name_model_name_model_no: ロレックス デイトジャスト 31 278240 ダークグレー ユニセックス
+price_jpy: 1290300
+category: watch

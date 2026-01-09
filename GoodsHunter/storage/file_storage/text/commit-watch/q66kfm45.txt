@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/q66kfm45
+item_id: q66kfm45
+model_no: 2356
+brand_name: カルティエ
+model_name: トーチュ ワンプッシュクロノグラフ
+price_jpy: 4994000
+category: watch

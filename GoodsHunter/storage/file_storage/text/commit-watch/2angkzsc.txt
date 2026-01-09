@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/2angkzsc
+item_id: 2angkzsc
+model_no: 16520
+brand_name: ロレックス
+model_name: デイトナ エルプリメロ
+price_jpy: 4290000
+category: watch

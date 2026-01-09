@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702064/
+item_id: gik-00-0702064
+brand_name: タグ
+model_name: ホイヤー カレラ デイデイト ブラック
+model_no: WDA2111.BA0043
+brand_name_model_name_model_no: タグ ホイヤー カレラ デイデイト WDA2111.BA0043 ブラック メンズ
+price_jpy: 447700
+category: watch

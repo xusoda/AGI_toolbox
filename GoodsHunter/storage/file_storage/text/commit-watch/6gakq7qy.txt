@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/6gakq7qy
+item_id: 6gakq7qy
+model_no: 5370P-011
+brand_name: パテックフィリップ
+model_name: グランドコンプリケーション
+price_jpy: 26950000
+category: watch

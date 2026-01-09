@@ -1,0 +1,8 @@
+product_url: https://watchnian.com/shop/g/gik-00-0702955/
+item_id: gik-00-0702955
+brand_name: ブルガリ
+model_name: ブルガリ オクト ローマ グレー
+model_no: OCP41SG
+brand_name_model_name_model_no: ブルガリ オクト ローマ OCP41SG グレー メンズ
+price_jpy: 599500
+category: watch

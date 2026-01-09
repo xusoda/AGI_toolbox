@@ -1,0 +1,7 @@
+product_url: https://commit-watch.co.jp/products/rxtpnngq
+item_id: rxtpnngq
+model_no: 117.028
+brand_name: A.ランゲ＆ゾーネ
+model_name: グランド ランゲ1
+price_jpy: 4378000
+category: watch
