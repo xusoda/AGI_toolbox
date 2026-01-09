@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Category, CategoryOrAll, CATEGORY_VALUES, isValidCategory } from '@enums/business/category'
+import { CategoryOrAll, CATEGORY_VALUES, isValidCategory } from '@enums/business/category'
 import './CategorySelector.css'
 
 export function CategorySelector() {
@@ -15,7 +15,7 @@ export function CategorySelector() {
 
   const categories: { value: CategoryOrAll; labelKey: string }[] = [
     { value: '', labelKey: 'category.all' },
-    ...CATEGORY_VALUES.map(cat => ({
+    ...CATEGORY_VALUES.map((cat) => ({
       value: cat as CategoryOrAll,
       labelKey: `category.${cat}` as const,
     })),

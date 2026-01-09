@@ -17,7 +17,7 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
     "paths": {
-      "@enums/*": ["../enums/*"]
+      "@enums/*": ["src/enums/*", "../../enums/*"]
     }
   },
   "include": ["src", "../enums/**/*.ts"],

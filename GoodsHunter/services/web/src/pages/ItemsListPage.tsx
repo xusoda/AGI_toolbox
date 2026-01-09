@@ -10,7 +10,7 @@ import LoadingSkeleton from '../components/LoadingSkeleton'
 import SearchBar from '../components/SearchBar'
 import { CategorySelector } from '../components/CategorySelector'
 import { SortOption, SortField, SortOrder, getDefaultSortOption, getDefaultSortField, getDefaultSortOrder } from '@enums/display/sort'
-import { ItemStatus, getDefaultItemStatus } from '@enums/business/status'
+import { getDefaultItemStatus } from '@enums/business/status'
 import './ItemsListPage.css'
 
 export default function ItemsListPage() {
@@ -88,9 +88,9 @@ export default function ItemsListPage() {
         page_size: pageSize,
         sort_field: sortField,
         sort_order: sortOrder,
-        status: 'active',
-        lang: i18n.language,
-        category,  // 传递 category
+        status: getDefaultItemStatus(),
+        lang: i18n.language as any,  // 传递当前语言
+        category: category as any,  // 传递 category
       }
       const response = await searchProducts(params)
       
