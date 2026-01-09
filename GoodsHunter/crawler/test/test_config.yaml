@@ -12,7 +12,17 @@ profiles:
   # commit_watch profile的测试URL
   commit_watch_onsale_list_v1:
     urls:
-      - https://commit-watch.co.jp/collections/onsale
+      # - https://commit-watch.co.jp/collections/onsale
+      - https://commit-watch.co.jp/collections/onsale?page=2
+      # - https://commit-watch.co.jp/collections/onsale?page=3
+      # - https://commit-watch.co.jp/collections/onsale?page=4
+      # - https://commit-watch.co.jp/collections/onsale?page=5
+      # - https://commit-watch.co.jp/collections/onsale?page=6
+      # - https://commit-watch.co.jp/collections/onsale?page=7
+      # - https://commit-watch.co.jp/collections/onsale?page=8
+      # - https://commit-watch.co.jp/collections/onsale?page=9
+      # - https://commit-watch.co.jp/collections/onsale?page=10
+
     # 字段级别的检查标准（覆盖默认配置）
     fields:
       price_jpy:
@@ -22,7 +32,9 @@ profiles:
   # watchnian profile的测试URL
   watchnian_supd_list_v1:
     urls:
-      - https://watchnian.com/shop/r/rwatch_supd/?filtercode13=1#block_of_filter
+      # - https://watchnian.com/shop/r/rwatch_supd/?filtercode13=1#block_of_filter
+      - https://watchnian.com/shop/r/rwatch_supd_p2/?filtercode13=1#block_of_filter
+      # - https://watchnian.com/shop/r/rwatch_supd_p3/?filtercode13=1#block_of_filter
     fields:
       price_jpy:
         type: 1  # 数字

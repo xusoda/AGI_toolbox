@@ -3,6 +3,7 @@
 验证yaml配置中定义的字段在指定比例以上的记录中都存在且满足检查标准。
 支持四种检查类型：0=任意非空内容, 1=数字, 2=非空字符串, 3=URL链接
 """
+import logging
 import sys
 from pathlib import Path
 from typing import Dict, List, Set, Callable
@@ -10,6 +11,9 @@ from urllib.parse import urlparse
 
 import pytest
 import yaml
+
+# 配置日志
+logger = logging.getLogger(__name__)
 
 # 将项目根目录添加到Python路径
 _current_file = Path(__file__).resolve()
@@ -227,12 +231,16 @@ async def test_field_completeness():
     
     # 加载profiles
     profiles_path = _project_root / "profiles"
+    logger.info(f"加载profiles目录: {profiles_path}")
     registry = ProfileRegistry(str(profiles_path))
+    logger.info(f"成功加载 {len(registry.profiles)} 个profiles: {[p.name for p in registry.profiles]}")
     
     # 为每个profile运行测试
     for profile_id, config in profiles_config.items():
+        logger.info(f"开始测试 profile: {profile_id}")
         urls = config.get("urls", [])
         if not urls:
+            logger.warning(f"Profile {profile_id} 没有配置测试URL，跳过")
             pytest.skip(f"Profile {profile_id} 没有配置测试URL")
         
         # 获取字段级别的配置
@@ -246,7 +254,10 @@ async def test_field_completeness():
                 break
         
         if not profile:
+            logger.error(f"未找到profile: {profile_id}，可用的profiles: {[p.name for p in registry.profiles]}")
             pytest.skip(f"未找到profile: {profile_id}")
+        
+        logger.info(f"找到profile: {profile_id}, 字段数: {len(get_profile_fields(profile))}")
         
         # 获取配置的字段
         expected_fields = get_profile_fields(profile)
@@ -255,19 +266,25 @@ async def test_field_completeness():
         
         # 对每个测试URL执行抓取
         for url in urls:
-            print(f"\n测试 Profile: {profile_id}, URL: {url}")
+            logger.info(f"\n{'='*60}")
+            logger.info(f"测试 Profile: {profile_id}, URL: {url}")
+            logger.info(f"{'='*60}")
             
             # 抓取数据
+            logger.info("开始抓取数据...")
             result = await fetch_and_extract(url, profile)
+            logger.info("抓取完成")
             
             # 获取items列表
             items = result.get("data", {}).get("items", [])
             if not items:
+                logger.error(f"Profile {profile_id} 在URL {url} 上没有提取到任何items")
                 pytest.fail(f"Profile {profile_id} 在URL {url} 上没有提取到任何items")
             
-            print(f"提取了 {len(items)} 个items")
+            logger.info(f"提取了 {len(items)} 个items")
             
             # 计算字段完整性
+            logger.info("开始计算字段完整性...")
             completeness_results = calculate_completeness(
                 items, expected_fields, field_configs, default_type, default_threshold
             )
@@ -281,7 +298,7 @@ async def test_field_completeness():
                 validation_type = result_info["type"]
                 type_name = get_validation_type_name(validation_type)
                 
-                print(
+                logger.info(
                     f"  字段 {field}: {completeness_rate:.2%} ({completeness_rate * len(items):.0f}/{len(items)}) "
                     f"[类型: {type_name}, 要求: {threshold:.2%}]"
                 )
@@ -317,9 +334,10 @@ async def test_field_completeness():
                         type_name = get_validation_type_name(validation_type)
                         error_msg += f"    {field}: {repr(value)} (类型: {type_name}, 有效: {is_valid})\n"
                 
+                logger.error(error_msg)
                 pytest.fail(error_msg)
             
-            print(f"✓ 所有字段完整性检查通过")
+            logger.info(f"✓ 所有字段完整性检查通过")
 
 
 if __name__ == "__main__":
