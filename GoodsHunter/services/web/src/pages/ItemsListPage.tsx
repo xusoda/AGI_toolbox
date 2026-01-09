@@ -20,7 +20,7 @@ export default function ItemsListPage() {
   const [page, setPage] = useState(1)
   const [pageSize] = useState(20)
   const [total, setTotal] = useState(0)
-  const [sort, setSort] = useState<ItemsListParams['sort']>('last_seen_desc')
+  const [sort, setSort] = useState<ItemsListParams['sort']>('first_seen_desc')
   const [searchQuery, setSearchQuery] = useState('')
   const [isSearchMode, setIsSearchMode] = useState(false)
   const [sortField, setSortField] = useState<'price' | 'last_seen_dt' | 'created_at'>('last_seen_dt')
@@ -177,7 +177,7 @@ export default function ItemsListPage() {
             onChange={(e) => setSort(e.target.value as ItemsListParams['sort'])}
             className="sort-select"
           >
-            <option value="last_seen_desc">{t('app.sort_last_seen_desc', '最后发现时间（降序）')}</option>
+            <option value="first_seen_desc">{t('app.sort_first_seen_desc', '首次发现时间（降序）')}</option>
             <option value="price_asc">{t('app.sort_price_asc', '价格（升序）')}</option>
             <option value="price_desc">{t('app.sort_price_desc', '价格（降序）')}</option>
           </select>

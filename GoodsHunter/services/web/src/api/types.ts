@@ -54,7 +54,7 @@ export interface ItemsListParams {
   page?: number
   page_size?: number
   status?: string
-  sort?: 'last_seen_desc' | 'price_asc' | 'price_desc'
+  sort?: 'first_seen_desc' | 'price_asc' | 'price_desc'
   lang?: string  // 语言代码（en/zh/ja）
   category?: string  // 商品类别（watch/bag/jewelry/clothing/camera）
 }

@@ -65,7 +65,7 @@ async def list_items(
     page: int = Query(1, ge=1, description="页码"),
     page_size: int = Query(20, ge=1, le=100, description="每页数量"),
     status: Optional[str] = Query("active", description="商品状态"),
-    sort: str = Query("last_seen_desc", description="排序方式：last_seen_desc/price_asc/price_desc"),
+    sort: str = Query("first_seen_desc", description="排序方式：first_seen_desc/price_asc/price_desc"),
     lang: Optional[str] = Query("en", description="语言代码（en/zh/ja），默认 en"),
     category: Optional[str] = Query(None, description="商品类别"),
     db: Session = Depends(get_db)
@@ -76,7 +76,7 @@ async def list_items(
     - **page**: 页码（从1开始）
     - **page_size**: 每页数量（最大100）
     - **status**: 商品状态（active/sold/removed），默认 active
-    - **sort**: 排序方式（last_seen_desc/price_asc/price_desc），默认 last_seen_desc
+    - **sort**: 排序方式（first_seen_desc/price_asc/price_desc），默认 first_seen_desc
     - **lang**: 语言代码（en/zh/ja），默认 en
     - **category**: 商品类别（watch/bag/jewelry/clothing/camera），可选
     """

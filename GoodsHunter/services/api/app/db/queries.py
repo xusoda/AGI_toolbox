@@ -10,7 +10,7 @@ def get_items(
     page: int = 1,
     page_size: int = 20,
     status: Optional[str] = "active",
-    sort: str = "last_seen_desc",
+    sort: str = "first_seen_desc",
     category: Optional[str] = None
 ) -> Tuple[List[CrawlerItem], int]:
     """
@@ -21,7 +21,7 @@ def get_items(
         page: 页码（从1开始）
         page_size: 每页数量
         status: 商品状态（active/sold/removed），None 表示不过滤
-        sort: 排序方式（last_seen_desc/price_asc/price_desc）
+        sort: 排序方式（first_seen_desc/price_asc/price_desc）
         category: 商品类别，None 表示不过滤
     
     Returns:
@@ -42,9 +42,9 @@ def get_items(
         query = query.order_by(asc(CrawlerItem.price))
     elif sort == "price_desc":
         query = query.order_by(desc(CrawlerItem.price))
-    else:  # 默认 last_seen_desc
-        # 按 last_seen_dt 降序排序，如果 last_seen_dt 相同则按 id 降序排序
-        query = query.order_by(desc(CrawlerItem.last_seen_dt), desc(CrawlerItem.id))
+    else:  # 默认 first_seen_desc
+        # 按 first_seen_dt 降序排序，如果 first_seen_dt 相同则按 id 降序排序
+        query = query.order_by(desc(CrawlerItem.first_seen_dt), desc(CrawlerItem.id))
     
     # 总数
     total = query.count()
