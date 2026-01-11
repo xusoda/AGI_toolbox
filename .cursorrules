@@ -3,6 +3,8 @@
 本文件定义了 WorkSpace 下的通用编码规范和规则。
 
 ## 通用规则
+1、在执行之前先运行 source .venv/bin/activate 激活虚拟环境。
+2、在执行agent之前，先确认相关的项目/文件，是在哪个路径，以此来读取相应的“项目特定规则”。当且仅当“有当前所属目录对应的项目特定规则”时，才需要读取对应的项目准则文件。
 
 ### 基本编码规范
 
@@ -41,13 +43,10 @@
    - 验证和清理用户输入
 
 ## 项目特定规则
-
 ### GoodsHunter 项目
-
 **重要**: 对于 `GoodsHunter/` 目录下的所有代码修改，必须第一优先级去遵循 `GoodsHunter/docs/architecture/rules.md` 文件中定义的规则以及重要原则。
 
 ## 其他项目
-
 对于 WorkSpace 下的其他项目（如 `career_rag/`, `gemini_api_test/`, `mcp_test/` 等），遵循上述通用规则。
 
 如果项目有自己的 `.cursorrules` 或 `rules.md` 文件，优先使用项目特定的规则。

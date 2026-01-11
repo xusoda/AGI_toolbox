@@ -39,6 +39,26 @@ services:
     networks:
       - goodshunter-network
 
+  elasticsearch:
+    image: elasticsearch:8.11.0
+    container_name: goodshunter-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.security.enabled=false  # 开发环境禁用安全
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - goodshunter-network
+
   api:
     build:
       context: ./services/api
@@ -56,12 +76,17 @@ services:
       PRESIGN_EXPIRES_SECONDS: "1800"
       USE_IMAGE_PROXY: "true"
       API_BASE_URL: ${API_BASE_URL:-http://localhost:8000}
+      ES_HOST: elasticsearch
+      ES_PORT: 9200
+      ES_INDEX_NAME: products
     ports:
       - "8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
       minio:
+        condition: service_healthy
+      elasticsearch:
         condition: service_healthy
     volumes:
       - ./services/api:/app
@@ -75,6 +100,7 @@ services:
 volumes:
   postgres_data:
   minio_data:
+  es_data:
 
 networks:
   goodshunter-network:

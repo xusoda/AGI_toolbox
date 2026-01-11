@@ -76,7 +76,7 @@ if project_root is None:
 
 # 导入搜索模块
 try:
-    from search.postgres_engine import PostgresSearchEngine
+    from search.es_engine import ElasticsearchSearchEngine
     from search.service import SearchService
     from search.engine import SearchFilters, SortOption
     SEARCH_AVAILABLE = True
@@ -84,7 +84,7 @@ except ImportError as e:
     SEARCH_AVAILABLE = False
     # 定义占位类型，避免类型检查错误
     SearchService = None
-    PostgresSearchEngine = None
+    ElasticsearchSearchEngine = None
     SearchFilters = None
     SortOption = None
     logging.warning(f"搜索模块不可用: {e}")
@@ -93,23 +93,38 @@ logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
+# 缓存搜索服务实例（单例模式，避免每次请求都创建新实例）
+_search_service_cache = None
+
 
 def get_search_service(db: Session = Depends(get_db)):
-    """获取搜索服务实例（依赖注入）"""
+    """获取搜索服务实例（依赖注入，使用单例模式）"""
+    global _search_service_cache
+    
     if not SEARCH_AVAILABLE:
         raise HTTPException(status_code=503, detail="搜索功能不可用")
     
+    # 如果已有缓存实例，直接返回
+    if _search_service_cache is not None:
+        return _search_service_cache
+    
     try:
         # 确保导入（防止延迟导入问题）
-        from search.postgres_engine import PostgresSearchEngine
+        from search.es_engine import ElasticsearchSearchEngine
         from search.service import SearchService
         
-        # 每次创建新的搜索引擎实例，使用当前数据库会话
-        search_engine = PostgresSearchEngine(
-            database_url=settings.DATABASE_URL,
-            session=db
+        # 创建 Elasticsearch 搜索引擎实例（只创建一次）
+        search_engine = ElasticsearchSearchEngine(
+            es_host=settings.ES_HOST,
+            es_port=settings.ES_PORT,
+            index_name=settings.ES_INDEX_NAME
         )
         search_service = SearchService(search_engine)
+        
+        # 缓存实例
+        _search_service_cache = search_service
+        logger.info("搜索服务实例已创建并缓存")
+        
         return search_service
     except Exception as e:
         logger.error(f"初始化搜索服务失败: {e}", exc_info=True)

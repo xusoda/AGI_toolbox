@@ -35,6 +35,11 @@ class Settings(BaseSettings):
     # API 基础 URL（用于生成代理 URL）
     API_BASE_URL: str = os.getenv("API_BASE_URL", "http://localhost:8000")
     
+    # Elasticsearch 配置
+    ES_HOST: str = os.getenv("ES_HOST", "localhost")
+    ES_PORT: int = int(os.getenv("ES_PORT", "9200"))
+    ES_INDEX_NAME: str = os.getenv("ES_INDEX_NAME", "products")
+    
     class Config:
         env_file = ".env"
         case_sensitive = True

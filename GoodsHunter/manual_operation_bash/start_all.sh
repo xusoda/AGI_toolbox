@@ -143,8 +143,9 @@ start_docker_services() {
         export API_BASE_URL="http://localhost:8000"
     fi
 
-    # 启动服务（后台运行）
-    docker compose up -d 2>&1 | tee "$DOCKER_LOG" &
+    # 启动服务（自动构建镜像，如果代码或依赖有变化）
+    echo -e "${BLUE}启动 Docker Compose 服务（如果需要会自动构建镜像）...${NC}"
+    docker compose up -d --build 2>&1 | tee "$DOCKER_LOG" &
 
     DOCKER_PID=$!
 
