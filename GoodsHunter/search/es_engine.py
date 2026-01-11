@@ -129,7 +129,14 @@ class ElasticsearchSearchEngine(SearchEngine):
                 "last_seen_dt": {"type": "date"},
                 "created_at": {"type": "date"},
                 "image_thumb_300_key": {"type": "keyword"},
-                "product_url": {"type": "keyword"}
+                "product_url": {"type": "keyword"},
+                "suggest": {
+                    "type": "completion",
+                    "analyzer": "simple",
+                    "preserve_separators": True,
+                    "preserve_position_increments": True,
+                    "max_input_length": 50
+                }
             }
         }
         
@@ -315,45 +322,41 @@ class ElasticsearchSearchEngine(SearchEngine):
         query: str,
         size: int = 5
     ) -> List[str]:
-        """获取搜索建议"""
+        """获取搜索建议（使用ES Completion Suggester）"""
         if not query or not query.strip():
             return []
         
         try:
-            query_clean = query.strip().lower()
+            query_clean = query.strip()
             
-            # 使用前缀匹配查询
+            # 使用ES的Completion Suggester API
             es_query = {
-                "query": {
-                    "bool": {
-                        "should": [
-                            {"prefix": {"brand_name": query_clean}},
-                            {"prefix": {"model_name": query_clean}},
-                            {"prefix": {"model_no": query_clean}},
-                            {"prefix": {"brand_aliases": query_clean}},
-                            {"prefix": {"model_aliases": query_clean}}
-                        ]
+                "suggest": {
+                    "product-suggest": {
+                        "prefix": query_clean,
+                        "completion": {
+                            "field": "suggest",
+                            "size": size,
+                            "skip_duplicates": True  # 跳过重复项
+                        }
                     }
-                },
-                "size": size * 3,  # 多取一些以便去重
-                "_source": ["brand_name", "model_name", "model_no"]
+                }
             }
             
             response = self.es_client.search(index=self.index_name, body=es_query)
             
-            suggestions = set()
-            for hit in response["hits"]["hits"]:
-                source = hit["_source"]
-                if source.get("brand_name"):
-                    suggestions.add(source["brand_name"])
-                if source.get("model_name"):
-                    suggestions.add(source["model_name"])
-                if source.get("model_no"):
-                    suggestions.add(source["model_no"])
+            # 解析Completion Suggester的响应
+            suggestions = []
+            if "suggest" in response and "product-suggest" in response["suggest"]:
+                suggest_result = response["suggest"]["product-suggest"]
+                if suggest_result and len(suggest_result) > 0:
+                    options = suggest_result[0].get("options", [])
+                    for option in options:
+                        text = option.get("text", "")
+                        if text and text not in suggestions:
+                            suggestions.append(text)
             
-            # 转换为列表并排序
-            result = sorted(list(suggestions))[:size]
-            return result
+            return suggestions
         except Exception as e:
             logger.error(f"获取搜索建议失败: {e}", exc_info=True)
             return []

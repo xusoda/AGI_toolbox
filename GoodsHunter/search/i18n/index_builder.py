@@ -64,6 +64,32 @@ class IndexBuilder:
                 search_text_parts.append(model_no)
             search_text = " ".join(filter(None, search_text_parts))
             
+            # 构建completion字段的输入词（用于搜索建议）
+            # 包含品牌名、型号名、型号编号和所有别名
+            suggest_inputs = []
+            
+            # 添加品牌名（如果存在）
+            if brand_name:
+                suggest_inputs.append(brand_name)
+            
+            # 添加型号名（如果存在）
+            if model_name:
+                suggest_inputs.append(model_name)
+            
+            # 添加型号编号（如果存在）
+            if model_no:
+                suggest_inputs.append(model_no)
+            
+            # 添加品牌别名（去重）
+            for alias in brand_aliases:
+                if alias and alias not in suggest_inputs:
+                    suggest_inputs.append(alias)
+            
+            # 添加型号别名（去重）
+            for alias in model_aliases:
+                if alias and alias not in suggest_inputs:
+                    suggest_inputs.append(alias)
+            
             # 构建ES文档
             doc = {
                 "id": item_data.get("id"),
@@ -73,6 +99,9 @@ class IndexBuilder:
                 "brand_aliases": brand_aliases,
                 "model_aliases": model_aliases,
                 "search_text": search_text,
+                "suggest": {
+                    "input": suggest_inputs
+                } if suggest_inputs else None,
                 "price": item_data.get("price"),
                 "currency": item_data.get("currency"),
                 "site": item_data.get("site"),
@@ -88,14 +117,30 @@ class IndexBuilder:
         except Exception as e:
             logger.error(f"构建索引文档失败 (item_id={item_data.get('id')}): {e}", exc_info=True)
             # 返回基本文档（不包含别名）
+            basic_brand = item_data.get("brand_name", "")
+            basic_model = item_data.get("model_name", "")
+            basic_model_no = item_data.get("model_no", "")
+            
+            # 构建基本的completion字段
+            basic_suggest_inputs = []
+            if basic_brand:
+                basic_suggest_inputs.append(basic_brand)
+            if basic_model:
+                basic_suggest_inputs.append(basic_model)
+            if basic_model_no:
+                basic_suggest_inputs.append(basic_model_no)
+            
             return {
                 "id": item_data.get("id"),
-                "brand_name": item_data.get("brand_name", ""),
-                "model_name": item_data.get("model_name", ""),
-                "model_no": item_data.get("model_no", ""),
-                "brand_aliases": [item_data.get("brand_name", "")],
-                "model_aliases": [item_data.get("model_name", "")],
-                "search_text": f"{item_data.get('brand_name', '')} {item_data.get('model_name', '')} {item_data.get('model_no', '')}".strip(),
+                "brand_name": basic_brand,
+                "model_name": basic_model,
+                "model_no": basic_model_no,
+                "brand_aliases": [basic_brand] if basic_brand else [],
+                "model_aliases": [basic_model] if basic_model else [],
+                "search_text": f"{basic_brand} {basic_model} {basic_model_no}".strip(),
+                "suggest": {
+                    "input": basic_suggest_inputs
+                } if basic_suggest_inputs else None,
                 "price": item_data.get("price"),
                 "currency": item_data.get("currency"),
                 "site": item_data.get("site"),
