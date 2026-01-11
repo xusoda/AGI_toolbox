@@ -132,7 +132,6 @@ class ElasticsearchSearchEngine(SearchEngine):
                 "product_url": {"type": "keyword"},
                 "suggest": {
                     "type": "completion",
-                    "analyzer": "simple",
                     "preserve_separators": True,
                     "preserve_position_increments": True,
                     "max_input_length": 50
@@ -322,41 +321,88 @@ class ElasticsearchSearchEngine(SearchEngine):
         query: str,
         size: int = 5
     ) -> List[str]:
-        """获取搜索建议（使用ES Completion Suggester）"""
+        """获取搜索建议（使用prefix查询，支持中文前缀匹配）"""
         if not query or not query.strip():
             return []
         
         try:
             query_clean = query.strip()
             
-            # 使用ES的Completion Suggester API
+            # 使用match_phrase_prefix查询替代Completion Suggester，以更好地支持中文前缀匹配
+            # match_phrase_prefix适用于text字段，支持分词后的前缀匹配
             es_query = {
-                "suggest": {
-                    "product-suggest": {
-                        "prefix": query_clean,
-                        "completion": {
-                            "field": "suggest",
-                            "size": size,
-                            "skip_duplicates": True  # 跳过重复项
-                        }
+                "query": {
+                    "bool": {
+                        "should": [
+                            {"match_phrase_prefix": {"brand_name": {"query": query_clean, "max_expansions": 50}}},
+                            {"match_phrase_prefix": {"brand_aliases": {"query": query_clean, "max_expansions": 50}}},
+                            {"match_phrase_prefix": {"model_name": {"query": query_clean, "max_expansions": 50}}},
+                            {"match_phrase_prefix": {"model_aliases": {"query": query_clean, "max_expansions": 50}}},
+                            {"match_phrase_prefix": {"search_text": {"query": query_clean, "max_expansions": 50}}},
+                            {"prefix": {"model_no": query_clean}}  # model_no是keyword类型
+                        ],
+                        "minimum_should_match": 1
                     }
-                }
+                },
+                "size": size * 5,  # 获取更多结果以便去重
+                "_source": ["brand_name", "model_name", "model_no", "brand_aliases", "model_aliases"]
             }
             
             response = self.es_client.search(index=self.index_name, body=es_query)
             
-            # 解析Completion Suggester的响应
+            # 从返回的文档中提取建议词条
             suggestions = []
-            if "suggest" in response and "product-suggest" in response["suggest"]:
-                suggest_result = response["suggest"]["product-suggest"]
-                if suggest_result and len(suggest_result) > 0:
-                    options = suggest_result[0].get("options", [])
-                    for option in options:
-                        text = option.get("text", "")
-                        if text and text not in suggestions:
-                            suggestions.append(text)
+            seen = set()
             
-            return suggestions
+            hits = response["hits"]["hits"]
+            for hit in hits:
+                source = hit["_source"]
+                
+                # 收集所有可能匹配的词条
+                candidate_terms = []
+                
+                # 添加品牌名
+                if source.get("brand_name"):
+                    candidate_terms.append(source["brand_name"])
+                
+                # 添加型号名
+                if source.get("model_name"):
+                    candidate_terms.append(source["model_name"])
+                
+                # 添加型号编号
+                if source.get("model_no"):
+                    candidate_terms.append(source["model_no"])
+                
+                # 添加品牌别名
+                brand_aliases = source.get("brand_aliases", [])
+                if isinstance(brand_aliases, list):
+                    candidate_terms.extend(brand_aliases)
+                elif isinstance(brand_aliases, str):
+                    candidate_terms.append(brand_aliases)
+                
+                # 添加型号别名
+                model_aliases = source.get("model_aliases", [])
+                if isinstance(model_aliases, list):
+                    candidate_terms.extend(model_aliases)
+                elif isinstance(model_aliases, str):
+                    candidate_terms.append(model_aliases)
+                
+                # 检查每个词条是否以查询前缀开头
+                for term in candidate_terms:
+                    if term and term not in seen:
+                        # 对于中英文混合，使用大小写不敏感的匹配
+                        term_lower = term.lower() if isinstance(term, str) else str(term).lower()
+                        query_lower = query_clean.lower()
+                        
+                        if term_lower.startswith(query_lower):
+                            suggestions.append(term)
+                            seen.add(term)
+                            
+                            # 如果已经收集到足够的建议，提前返回
+                            if len(suggestions) >= size:
+                                return suggestions[:size]
+            
+            return suggestions[:size]
         except Exception as e:
             logger.error(f"获取搜索建议失败: {e}", exc_info=True)
             return []

@@ -64,7 +64,6 @@
    {
      "suggest": {
        "type": "completion",
-       "analyzer": "simple",
        "preserve_separators": true,
        "preserve_position_increments": true,
        "max_input_length": 50

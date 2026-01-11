@@ -235,7 +235,7 @@ curl "http://localhost:8000/api/search?q=rolex"
 2. **索引刷新**：批量索引后需要调用 `refresh_index()` 使数据立即可搜索
 3. **词表更新**：词表更新后需要运行更新脚本，索引才会生效
 4. **数据同步**：当前是批量同步，如果需要实时同步，可以集成到 item_extract 模块
-5. **回退方案**：PostgreSQL 搜索引擎保留，可以作为 fallback
+5. **回退方案**：已完全迁移到 Elasticsearch，不再使用 PostgreSQL 作为搜索引擎
 
 ## 测试建议
 

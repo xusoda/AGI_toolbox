@@ -20,7 +20,7 @@
 search/
 ├── engine.py                  # 搜索引擎抽象接口（保持不变）
 ├── es_engine.py              # Elasticsearch 搜索引擎实现（需实现）
-├── postgres_engine.py        # PostgreSQL 搜索引擎（保留，作为fallback）
+├── es_engine.py              # Elasticsearch 搜索引擎实现
 ├── data_manager.py           # 搜索数据管理器（需增强）
 ├── service.py                # 搜索服务层（保持不变）
 ├── i18n/                     # 多语言搜索模块（新增）
@@ -603,12 +603,7 @@ if __name__ == "__main__":
 #### 步骤4.1：修改 API 路由（`services/api/app/routers/search.py`）
 
 ```python
-# 从
-from search.postgres_engine import PostgresSearchEngine
-
-search_engine = PostgresSearchEngine(database_url=settings.DATABASE_URL, session=db)
-
-# 改为
+# 使用Elasticsearch搜索引擎
 from search.es_engine import ElasticsearchSearchEngine
 
 search_engine = ElasticsearchSearchEngine(
@@ -734,9 +729,9 @@ async def reindex_all(db: Session = Depends(get_db)):
 - 在迁移期间，同时写入 PostgreSQL 和 ES
 - 可以通过配置开关切换搜索引擎
 
-### 6.2 保留 PostgreSQL 实现
-- 保留 `postgres_engine.py` 作为 fallback
-- 如果 ES 不可用，可以快速切回 PostgreSQL
+### 6.2 回退策略
+- 已完全迁移到 Elasticsearch，不再使用 PostgreSQL 作为搜索引擎
+- 如果 ES 不可用，需要修复 ES 服务或使用备用 ES 集群
 
 ## 七、注意事项
 
