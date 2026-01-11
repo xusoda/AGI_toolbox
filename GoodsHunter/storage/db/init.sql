@@ -166,20 +166,6 @@ CREATE INDEX IF NOT EXISTS idx_crawler_item_status
 CREATE INDEX IF NOT EXISTS idx_crawler_item_product_id
     ON crawler_item(product_id);
 
--- 搜索相关索引（用于全文搜索优化）
--- 为品牌名、型号名、型号编号创建文本索引，优化 ILIKE 查询
-CREATE INDEX IF NOT EXISTS idx_crawler_item_brand_name_text
-    ON crawler_item(brand_name text_pattern_ops) WHERE brand_name IS NOT NULL;
-CREATE INDEX IF NOT EXISTS idx_crawler_item_model_name_text
-    ON crawler_item(model_name text_pattern_ops) WHERE model_name IS NOT NULL;
-CREATE INDEX IF NOT EXISTS idx_crawler_item_model_no_text
-    ON crawler_item(model_no text_pattern_ops) WHERE model_no IS NOT NULL;
-
--- 组合索引用于搜索建议（SUG）
-CREATE INDEX IF NOT EXISTS idx_crawler_item_search_suggest
-    ON crawler_item(brand_name, model_name, model_no) 
-    WHERE brand_name IS NOT NULL OR model_name IS NOT NULL OR model_no IS NOT NULL;
-
 COMMENT ON TABLE crawler_item IS '商品主表，存储从 crawler_log 提取的商品信息';
 COMMENT ON COLUMN crawler_item.source_uid IS '幂等去重键：{site}:{item_id}';
 COMMENT ON COLUMN crawler_item.product_url IS '原网站的商品URL';

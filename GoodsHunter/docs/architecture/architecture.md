@@ -28,10 +28,20 @@ GoodsHunter/
 ├── item_extract/         # 商品数据提取和同步模块
 ├── search/               # 搜索模块
 │   ├── engine.py        # 搜索引擎抽象接口
-│   ├── postgres_engine.py  # PostgreSQL 搜索引擎实现
-│   ├── es_engine.py     # Elasticsearch 搜索引擎实现（预留）
+│   ├── es_engine.py     # Elasticsearch 搜索引擎实现
 │   ├── data_manager.py  # 搜索数据管理器
-│   └── service.py       # 搜索服务层
+│   ├── service.py       # 搜索服务层
+│   ├── i18n/            # 国际化支持
+│   │   ├── index_builder.py   # 索引构建器（多语言别名）
+│   │   └── alias_resolver.py  # 别名解析器
+│   ├── sync/            # 同步模块
+│   │   ├── index_syncer.py    # 索引同步器
+│   │   └── alias_updater.py   # 别名更新器
+│   └── scripts/         # 工具脚本
+│       ├── create_index.py    # 创建ES索引
+│       ├── sync_all_data.py   # 全量同步数据
+│       ├── update_aliases.py  # 更新别名（词典更新后）
+│       └── inspect_index.py   # 检查索引
 ├── services/             # 服务层
 │   ├── api/             # FastAPI 后端服务
 │   └── web/             # React 前端应用
@@ -443,7 +453,7 @@ def run_sync(
 
 ### 4.1 模块概述
 
-搜索模块提供商品搜索功能，支持全文搜索、过滤、排序和分页。采用抽象设计，可以无缝切换不同的搜索引擎实现（PostgreSQL、Elasticsearch 等）。
+搜索模块提供商品搜索功能，支持全文搜索、过滤、排序和分页。使用 Elasticsearch 作为搜索引擎，支持多语言搜索和多语言别名匹配。
 
 ### 4.2 目录结构
 
@@ -451,20 +461,33 @@ def run_sync(
 search/
 ├── __init__.py          # 模块初始化
 ├── engine.py            # 搜索引擎抽象接口
-├── postgres_engine.py   # PostgreSQL 搜索引擎实现
-├── es_engine.py         # Elasticsearch 搜索引擎实现（预留）
+├── es_engine.py         # Elasticsearch 搜索引擎实现
 ├── data_manager.py      # 搜索数据管理器
 ├── service.py          # 搜索服务层
+├── i18n/               # 国际化支持
+│   ├── index_builder.py   # 索引构建器（多语言别名）
+│   └── alias_resolver.py  # 别名解析器
+├── sync/               # 同步模块
+│   ├── index_syncer.py    # 索引同步器
+│   └── alias_updater.py   # 别名更新器
+├── scripts/            # 工具脚本
+│   ├── create_index.py    # 创建ES索引
+│   ├── sync_all_data.py   # 全量同步数据
+│   ├── update_aliases.py  # 更新别名（词典更新后）
+│   └── inspect_index.py   # 检查索引
 └── README.md           # 模块文档
 ```
 
 ### 4.3 核心功能
 
 1. **全文搜索**：支持在品牌名、型号名、型号编号中搜索，支持中文、英文、日文
-2. **搜索过滤**：支持按状态、站点、类别、品牌、价格范围等过滤
-3. **排序功能**：支持按价格、最后发现时间、创建时间排序
-4. **分页功能**：支持分页查询
-5. **搜索建议（SUG）**：根据用户输入的前缀提供自动补全建议
+2. **多语言别名匹配**：通过别名数组实现跨语言匹配（如"Rolex"和"ロレックス"）
+3. **搜索过滤**：支持按状态、站点、类别、品牌、价格范围等过滤
+4. **排序功能**：支持按价格、最后发现时间、创建时间排序
+5. **分页功能**：支持分页查询
+6. **搜索建议（SUG）**：根据用户输入的前缀提供自动补全建议
+7. **索引同步**：支持从数据库全量/增量同步商品数据到ES索引
+8. **别名更新**：支持在词典更新后增量/全量更新ES索引
 
 ### 4.4 对外 API
 
@@ -479,26 +502,56 @@ search/
 - `delete_document(document_id)`: 删除文档
 - `bulk_index_documents(documents)`: 批量索引文档
 
-#### 4.4.2 PostgresSearchEngine 类
+#### 4.4.2 ElasticsearchSearchEngine 类
 
-**路径**: `search/postgres_engine.py`
+**路径**: `search/es_engine.py`
 
 **功能**:
-- 使用 PostgreSQL 的全文搜索功能（tsvector/tsquery）
+- 使用 Elasticsearch 作为搜索引擎
 - 支持中文、英文、日文搜索
-- 使用 `plainto_tsquery` 和 `to_tsvector` 实现全文搜索
+- 支持多语言别名匹配（通过 IndexBuilder 构建）
+- 支持模糊匹配和相关性排序
 
 **初始化**:
 ```python
-from search.postgres_engine import PostgresSearchEngine
+from search.es_engine import ElasticsearchSearchEngine
 
-search_engine = PostgresSearchEngine(
-    database_url="postgresql://...",
-    session=db_session  # 可选
+search_engine = ElasticsearchSearchEngine(
+    es_host="localhost",
+    es_port=9200,
+    index_name="products",
+    category="watch"
 )
 ```
 
-#### 4.4.3 SearchService 类
+#### 4.4.3 IndexBuilder 类
+
+**路径**: `search/i18n/index_builder.py`
+
+**功能**:
+- 构建包含多语言同义词的ES文档
+- 集成品牌和型号的别名解析
+- 将数据库商品数据转换为ES索引文档
+
+#### 4.4.4 IndexSyncer 类
+
+**路径**: `search/sync/index_syncer.py`
+
+**功能**:
+- 从数据库同步商品数据到ES索引
+- 支持全量同步和增量同步
+- 支持批量处理
+
+#### 4.4.5 AliasUpdater 类
+
+**路径**: `search/sync/alias_updater.py`
+
+**功能**:
+- 在词典更新后更新ES索引
+- 支持增量更新（仅更新受影响的商品）和全量重建
+- 支持按品牌和型号更新
+
+#### 4.4.6 SearchService 类
 
 **路径**: `search/service.py`
 
@@ -509,8 +562,17 @@ search_engine = PostgresSearchEngine(
 
 **使用示例**:
 ```python
+from search.es_engine import ElasticsearchSearchEngine
 from search.service import SearchService
 from search.engine import SearchFilters, SortOption
+
+# 初始化搜索引擎
+search_engine = ElasticsearchSearchEngine(
+    es_host="localhost",
+    es_port=9200,
+    index_name="products",
+    category="watch"
+)
 
 search_service = SearchService(search_engine)
 
@@ -529,26 +591,64 @@ result = search_service.search_products(
 suggestions = search_service.suggest_products(query="Role", size=5)
 ```
 
-### 4.5 设计原则
+### 4.5 索引同步
+
+#### 4.5.1 全量同步
+
+全量同步所有商品数据到ES索引：
+
+```bash
+python -m search.scripts.sync_all_data
+```
+
+或使用手动操作脚本：
+
+```bash
+./manual_operation_bash/update_search_index_after_items.sh
+```
+
+#### 4.5.2 词典更新后更新索引
+
+在更新词典（`i18n/dictionaries/`）后，需要更新ES索引：
+
+```bash
+# 全量重建
+python -m search.scripts.update_aliases --rebuild-all
+
+# 增量更新（仅更新受影响的商品）
+python -m search.scripts.update_aliases --brands "Rolex" --models '{"Rolex": ["Submariner"]}'
+```
+
+或使用手动操作脚本：
+
+```bash
+./manual_operation_bash/update_search_index_after_dictionary.sh --rebuild-all
+```
+
+### 4.6 设计原则
 
 1. **抽象设计**：通过 `SearchEngine` 抽象接口，将底层搜索引擎与其他模块解耦
-2. **无缝迁移**：可以轻松切换搜索引擎（从 PostgreSQL 到 Elasticsearch），API 层和前端无需修改
-3. **多语言支持**：支持中文、英文、日文搜索
-4. **性能优化**：使用数据库索引优化搜索性能
+2. **多语言支持**：支持中文、英文、日文搜索，通过多语言别名实现跨语言匹配
+3. **索引同步**：支持从数据库同步商品数据到ES索引，支持全量和增量同步
+4. **别名更新**：支持在词典更新后增量/全量更新ES索引
 
-### 4.6 依赖关系
+### 4.7 依赖关系
 
+- 依赖 Elasticsearch 搜索引擎
 - 依赖 `storage` 模块的数据库表（`crawler_item`）
+- 依赖 `i18n` 模块的词典和别名解析（用于多语言搜索）
 - 被 `services/api` 模块使用（通过搜索路由）
-- 未来可扩展支持 Elasticsearch 等其他搜索引擎
 
-### 4.7 迁移到 Elasticsearch
+### 4.8 环境配置
 
-当需要迁移到 Elasticsearch 时：
+搜索模块需要以下环境变量：
 
-1. 实现 `ElasticsearchSearchEngine` 类（继承 `SearchEngine`）
-2. 在 API 路由中替换搜索引擎实例
-3. API 层和前端无需修改，因为接口保持一致
+```bash
+ES_HOST=localhost          # Elasticsearch 主机
+ES_PORT=9200              # Elasticsearch 端口
+ES_INDEX_NAME=products    # ES索引名称
+DATABASE_URL=postgresql://...  # 数据库连接URL（用于同步）
+```
 
 ---
 
@@ -837,14 +937,49 @@ VITE_API_BASE_URL=/api  # 默认使用 Vite 代理配置
 
 ```
 manual_operation_bash/
-├── run_crawl.sh          # 运行抓取任务
-└── run_item_extract.sh   # 运行商品提取任务
+├── run_crawl.sh                          # 运行抓取任务
+├── run_item_extract.sh                   # 运行商品提取任务
+├── update_search_index_after_dictionary.sh  # 更新词典后更新ES索引
+└── update_search_index_after_items.sh    # 更新商品后更新ES索引
 ```
 
 ### 6.3 功能
 
 - `run_crawl.sh`: 执行网页抓取任务
 - `run_item_extract.sh`: 执行商品数据提取和同步任务
+- `update_search_index_after_dictionary.sh`: 更新词典后，增量/全量更新ES索引
+- `update_search_index_after_items.sh`: 更新商品后，全量同步ES索引
+
+### 6.4 搜索索引脚本
+
+#### 6.4.1 update_search_index_after_dictionary.sh
+
+在更新词典（`i18n/dictionaries/`）后，更新ES索引以反映新的别名。
+
+**使用方法**:
+```bash
+# 全量重建索引
+./manual_operation_bash/update_search_index_after_dictionary.sh --rebuild-all
+
+# 增量更新（仅更新指定品牌）
+./manual_operation_bash/update_search_index_after_dictionary.sh --brands "Rolex Omega"
+
+# 增量更新（仅更新指定型号）
+./manual_operation_bash/update_search_index_after_dictionary.sh --models '{"Rolex": ["Submariner", "Datejust"]}'
+```
+
+#### 6.4.2 update_search_index_after_items.sh
+
+在商品数据更新后，同步更新ES索引。
+
+**使用方法**:
+```bash
+# 全量同步所有商品
+./manual_operation_bash/update_search_index_after_items.sh
+
+# 指定批量大小
+./manual_operation_bash/update_search_index_after_items.sh --batch-size 200
+```
 
 ---
 

@@ -38,13 +38,61 @@
 ./stop_all.sh
 ```
 
-### 其他脚本
+### 数据处理脚本
 
 #### `run_crawl.sh` - 运行爬虫
 执行商品数据爬取任务。
 
 #### `run_item_extract.sh` - 运行商品提取
 执行商品信息提取和处理任务。
+
+### 搜索索引脚本
+
+#### `update_search_index_after_dictionary.sh` - 更新词典后更新ES索引
+在更新词典（`i18n/dictionaries/`）后，更新ES索引以反映新的别名。
+
+**使用方法：**
+```bash
+# 全量重建索引（更新所有商品）
+./update_search_index_after_dictionary.sh --rebuild-all
+
+# 增量更新（仅更新指定品牌的商品）
+./update_search_index_after_dictionary.sh --brands "Rolex Omega"
+
+# 增量更新（仅更新指定型号的商品）
+./update_search_index_after_dictionary.sh --models '{"Rolex": ["Submariner", "Datejust"]}'
+
+# 同时更新品牌和型号
+./update_search_index_after_dictionary.sh --brands "Rolex" --models '{"Rolex": ["Submariner"]}'
+
+# 查看帮助
+./update_search_index_after_dictionary.sh --help
+```
+
+**功能特性：**
+- ✅ 支持全量重建索引（更新所有商品）
+- ✅ 支持增量更新（仅更新受影响的商品）
+- ✅ 支持按品牌更新
+- ✅ 支持按型号更新
+
+#### `update_search_index_after_items.sh` - 更新商品后更新ES索引
+在商品数据更新后，同步更新ES索引。
+
+**使用方法：**
+```bash
+# 全量同步所有商品
+./update_search_index_after_items.sh
+
+# 指定批量大小
+./update_search_index_after_items.sh --batch-size 200
+
+# 查看帮助
+./update_search_index_after_items.sh --help
+```
+
+**功能特性：**
+- ✅ 全量同步所有商品到ES索引
+- ✅ 支持自定义批量大小
 
 ## 服务访问地址
 
