@@ -198,7 +198,7 @@ class ElasticsearchSearchEngine(SearchEngine):
             items = []
             for hit in hits:
                 source = hit["_source"]
-                items.append({
+                item = {
                     "id": source.get("id"),
                     "brand_name": source.get("brand_name"),
                     "model_name": source.get("model_name"),
@@ -212,7 +212,18 @@ class ElasticsearchSearchEngine(SearchEngine):
                     "image_thumb_300_key": source.get("image_thumb_300_key"),
                     "product_url": source.get("product_url"),
                     "created_at": source.get("created_at"),
-                })
+                }
+                # 添加 ES 相关性分数（用于排序和重排）
+                if "_score" in hit:
+                    item["_score"] = hit["_score"]
+                # 添加别名字段（用于精准匹配判断，可选）
+                brand_aliases = source.get("brand_aliases")
+                if brand_aliases:
+                    item["brand_aliases"] = brand_aliases
+                model_aliases = source.get("model_aliases")
+                if model_aliases:
+                    item["model_aliases"] = model_aliases
+                items.append(item)
             
             return SearchResult(
                 items=items,

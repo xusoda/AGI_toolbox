@@ -103,7 +103,7 @@ Audemars Piguet:
       model_no: []
     Historiques:
       aliases: ["ヒストリーク", "Historiques", "历史名作"]
-      model_no: []
+      model_no: ["222"]
     Malte:
       aliases: ["マルタ", "Malte", "马耳他"]
       model_no: []

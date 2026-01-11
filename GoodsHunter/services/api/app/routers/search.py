@@ -78,12 +78,14 @@ if project_root is None:
 try:
     from search.es_engine import ElasticsearchSearchEngine
     from search.service import SearchService
+    from search.rank import SearchRanker
     from search.engine import SearchFilters, SortOption
     SEARCH_AVAILABLE = True
 except ImportError as e:
     SEARCH_AVAILABLE = False
     # 定义占位类型，避免类型检查错误
     SearchService = None
+    SearchRanker = None
     ElasticsearchSearchEngine = None
     SearchFilters = None
     SortOption = None
@@ -95,10 +97,14 @@ router = APIRouter()
 
 # 缓存搜索服务实例（单例模式，避免每次请求都创建新实例）
 _search_service_cache = None
+_search_ranker_cache = None
 
 
 def get_search_service(db: Session = Depends(get_db)):
-    """获取搜索服务实例（依赖注入，使用单例模式）"""
+    """获取搜索服务实例（依赖注入，使用单例模式）
+    
+    注意：搜索功能现在使用 SearchRanker，但 SearchService 仍用于其他功能（如 suggest）
+    """
     global _search_service_cache
     
     if not SEARCH_AVAILABLE:
@@ -131,6 +137,44 @@ def get_search_service(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"搜索服务初始化失败: {e}")
 
 
+def get_search_ranker(db: Session = Depends(get_db)):
+    """获取搜索排序器实例（依赖注入，使用单例模式）
+    
+    用于执行搜索，实现召回+过滤+排序+重排的逻辑
+    """
+    global _search_ranker_cache
+    
+    if not SEARCH_AVAILABLE:
+        raise HTTPException(status_code=503, detail="搜索功能不可用")
+    
+    # 如果已有缓存实例，直接返回
+    if _search_ranker_cache is not None:
+        return _search_ranker_cache
+    
+    try:
+        # 确保导入（防止延迟导入问题）
+        from search.es_engine import ElasticsearchSearchEngine
+        from search.rank import SearchRanker
+        
+        # 创建 Elasticsearch 搜索引擎实例（只创建一次）
+        search_engine = ElasticsearchSearchEngine(
+            es_host=settings.ES_HOST,
+            es_port=settings.ES_PORT,
+            index_name=settings.ES_INDEX_NAME
+        )
+        # 创建搜索排序器（默认使用 watch 类别）
+        search_ranker = SearchRanker(search_engine, category="watch")
+        
+        # 缓存实例
+        _search_ranker_cache = search_ranker
+        logger.info("搜索排序器实例已创建并缓存")
+        
+        return search_ranker
+    except Exception as e:
+        logger.error(f"初始化搜索排序器失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"搜索排序器初始化失败: {e}")
+
+
 @router.get("/search", response_model=SearchResponse)
 async def search_products(
     q: str = Query(..., description="搜索关键词（支持中英日文）"),
@@ -147,15 +191,17 @@ async def search_products(
     currency: Optional[str] = Query(None, description=f"货币单位（{'/'.join(CurrencyCode.all_values())}）"),
     lang: Optional[str] = Query(LanguageCode.get_default(), description=f"语言代码（{'/'.join(LanguageCode.all_values())}），默认 {LanguageCode.get_default()}"),
     db: Session = Depends(get_db),
-    search_service = Depends(get_search_service)
+    search_ranker = Depends(get_search_ranker)
 ):
     """
     搜索商品
     
+    使用 SearchRanker 实现召回+过滤+排序+重排的搜索流程
+    
     - **q**: 搜索关键词（支持中英日文）
     - **page**: 页码（从1开始）
     - **page_size**: 每页数量（最大100）
-    - **sort_field**: 排序字段（price/last_seen_dt/created_at）
+    - **sort_field**: 排序字段（price/last_seen_dt/created_at），如果未指定则使用 ES 相关性分数排序
     - **sort_order**: 排序方向（asc/desc）
     - **filters**: 各种过滤条件
     - **lang**: 语言代码（en/zh/ja），用于翻译
@@ -188,14 +234,14 @@ async def search_products(
                 currency=currency
             )
         
-        # 构建排序选项
+        # 构建排序选项（如果用户未指定，SearchRanker 将使用 ES 相关性分数排序）
         sort = None
         if sort_field:
             from search.engine import SortOption
             sort = SortOption(field=sort_field, order=sort_order or SortOrder.get_default())
         
-        # 执行搜索
-        result = search_service.search_products(
+        # 执行搜索（使用 SearchRanker 实现召回+过滤+排序+重排）
+        result = search_ranker.search(
             query=q,
             filters=filters,
             sort=sort,
